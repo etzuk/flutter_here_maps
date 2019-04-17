@@ -1,0 +1,52 @@
+syntax = "proto3";
+package FlutterHereMaps;
+
+message Coordinate {
+    double lat = 1;
+    double lng = 2;
+}
+
+message MapCenter {
+    Coordinate Coordinate = 1;
+    FloatValue zoomLevel = 2;
+    FloatValue orientation = 3;
+    FloatValue tilt = 4;
+    enum Animation {
+        Bow = 0;
+        Linear = 1;
+        None = 2;
+        Rocket = 3;
+    }
+    Animation animation = 5;
+}
+
+message Configuration {
+    bool trafficVisible = 1;
+
+    message PositionIndicator {
+        BoolValue isVisible = 1;
+        BoolValue isAccuracyIndicatorVisible = 2;
+        FloatValue accuracyIndicatorColor = 3;
+        FloatValue hue = 4;
+        FloatValue orientationOffset = 5;
+        BoolValue tracksCourse = 6;
+    }
+    PositionIndicator positionIndicator = 2;
+}
+
+
+// Wrapper message for `float`.
+//
+// The JSON representation for `FloatValue` is JSON number.
+message FloatValue {
+    // The float value.
+    float value = 1;
+}
+
+// Wrapper message for `bool`.
+//
+// The JSON representation for `BoolValue` is JSON `true` and `false`.
+message BoolValue {
+    // The bool value.
+    bool value = 1;
+}
