@@ -269,3 +269,7 @@ build/
 # VS code
 
 .vscode/
+
+# Ignore
+
+ignore/
