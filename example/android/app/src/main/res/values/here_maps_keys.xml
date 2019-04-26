@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="appid">{APP_ID}</string>
+    <string name="apptoken">{APP_TOKEN}</string>
+    <string name="license">{LICENSE}</string>
+</resources>

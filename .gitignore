@@ -273,3 +273,5 @@ build/
 # Ignore
 
 ignore/
+Android/libs/*
+example/Android/app/libs/*
