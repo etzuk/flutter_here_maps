@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:latlong/latlong.dart';
@@ -21,9 +22,15 @@ class _MapViewState extends State<MapView> {
       'initialCameraPosition': widget.center.toString()
     };
 
-    return UiKitView(
-        viewType: 'MapView',
-        creationParams: creationParams,
-        creationParamsCodec: const StandardMessageCodec());
+    if (defaultTargetPlatform == TargetPlatform.android) {
+      return AndroidView(
+        viewType: 'flugins.etzuk.flutter_here_maps/MapView',
+      );
+    } else {
+      return UiKitView(
+          viewType: 'flugins.etzuk.flutter_here_maps/MapView',
+          creationParams: creationParams,
+          creationParamsCodec: const StandardMessageCodec());
+    }
   }
 }

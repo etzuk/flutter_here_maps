@@ -2,18 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>This is needed to determine your current location</string>
-    <key>NSCameraUsageDescription</key>
-    <string>This is needed for the LiveSight augmented reality feature</string>
-    <key>NSBluetoothPeripheralUsageDescription</key>
-    <string>This is needed for the Bluetooth-based indoor positioning feature</string>
-    <key>NSMotionUsageDescription</key>
-    <string>This is needed for the indoor positioning feature</string>
-    <key>NSLocationAlwaysUsageDescription</key>
-    <string>This is needed to determine your current location</string>
-	<key>io.flutter.embedded_views_preview</key>
-	<string>YES</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>
@@ -34,6 +22,16 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>This is needed for the Bluetooth-based indoor positioning feature</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This is needed for the LiveSight augmented reality feature</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This is needed to determine your current location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This is needed to determine your current location</string>
+	<key>NSMotionUsageDescription</key>
+	<string>This is needed for the indoor positioning feature</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -53,5 +51,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>here_maps_app_id</key>
+	<string>your_app_id</string>
+	<key>here_maps_app_license</key>
+	<string>your_app_license</string>
+	<key>here_maps_app_token</key>
+	<string>your_app_token</string>
+	<key>io.flutter.embedded_views_preview</key>
+	<string>YES</string>
 </dict>
 </plist>

@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.etzuk.flutter.flutterheremapsexample">
 
     <!-- The INTERNET permission is required for development. Specifically,
@@ -16,7 +17,9 @@
     <application
         android:name="io.flutter.app.FlutterApplication"
         android:label="flutter_here_maps_example"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        tools:ignore="GoogleAppIndexingWarning">
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
@@ -36,5 +39,20 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <meta-data android:name="com.here.android.maps.appid" android:value="@string/appid"/>
+        <meta-data android:name="com.here.android.maps.apptoken" android:value="@string/apptoken"/>
+        <meta-data android:name="com.here.android.maps.license.key" android:value="@string/license"/>
+
+        <service
+            android:name="com.here.android.mpa.service.MapService"
+            android:label="HereMapsService"
+            android:process="global.Here.Map.Service.v3"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.here.android.mpa.service.MapService.v3">
+                </action>
+            </intent-filter>
+        </service>
     </application>
 </manifest>
