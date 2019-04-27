@@ -5,7 +5,7 @@ import 'package:flutter_here_maps/gen/map_objects.pb.dart';
 
 class FlutterHereMaps {
   static const MethodChannel _mapChannel =
-      MethodChannel('flutter_here_maps_map');
+      MethodChannel('flugins.etzuk.flutter_here_maps/MapViewChannel');
 
   FlutterHereMaps() {
     _mapCenter = MapCenter()
