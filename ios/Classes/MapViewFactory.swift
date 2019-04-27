@@ -43,16 +43,18 @@ public class MapView : NSObject, FlutterPlatformView {
         } else {
             print(args.debugDescription)
         }
-//        NMAPositioningManager.sharedInstance().startPositioning()
         map = NMAMapView(frame: self.frame)
-//        NMANavigationManager.sharedInstance().map = map;
     }
 
-    public func view() -> UIView {
-        let chanel = FlutterMethodChannel(name: "flutter_here_maps_map", binaryMessenger: registerar.messenger())
+    func initMethodCallHanlder() {
+        let chanel = FlutterMethodChannel(name: "flugins.etzuk.flutter_here_maps/MapViewChannel", binaryMessenger: registerar.messenger())
         chanel.setMethodCallHandler { [weak self] (call, result) in
             self?.onMethodCallHanler(call, result: result)
         }
+    }
+
+    public func view() -> UIView {
+        initMethodCallHanlder()
         return map
     }
 
