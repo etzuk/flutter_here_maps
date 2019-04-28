@@ -28,4 +28,9 @@ class FlutterHereMaps {
     return await _mapChannel.invokeMethod(
         'setConfiguration', configuration.writeToBuffer());
   }
+
+  Future<void> setMapObject(MapObject mapObject) async {
+    return await _mapChannel.invokeMethod(
+        'setMapObject', mapObject.writeToBuffer());
+  }
 }

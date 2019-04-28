@@ -6,6 +6,26 @@ message Coordinate {
     double lng = 2;
 }
 
+message Size {
+    float width = 1;
+    float height = 2;
+}
+
+message MapMarker {
+     Coordinate coordinate = 1;
+     Size size = 2;
+}
+
+message MapObject {
+    string uniqueId = 1;
+    int32 zIndex = 2;
+    bool visible = 3;
+
+    oneof Object {
+        MapMarker marker = 4;
+    }
+}
+
 message MapCenter {
     Coordinate Coordinate = 1;
     FloatValue zoomLevel = 2;
@@ -33,7 +53,6 @@ message Configuration {
     }
     PositionIndicator positionIndicator = 2;
 }
-
 
 // Wrapper message for `float`.
 //
