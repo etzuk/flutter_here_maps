@@ -25,6 +25,8 @@ class _MapViewState extends State<MapView> {
     if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
         viewType: 'flugins.etzuk.flutter_here_maps/MapView',
+          creationParams: creationParams,
+          creationParamsCodec: const StandardMessageCodec()
       );
     } else {
       return UiKitView(

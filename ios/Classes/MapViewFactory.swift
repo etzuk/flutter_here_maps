@@ -69,8 +69,11 @@ public class MapView : NSObject, FlutterPlatformView {
             try? map.setCenter(center: FlutterHereMaps_MapCenter(serializedData: arg.data))
         case "setConfiguration":
             try? map.setConfiguration(configuration: FlutterHereMaps_Configuration(serializedData: arg.data))
+        case "setMapObject":
+            try? map.add(mapObject: FlutterHereMaps_MapObject(serializedData: arg.data))
         default: break;
         }
+        result(nil)
     }
 
 }
@@ -78,9 +81,27 @@ public class MapView : NSObject, FlutterPlatformView {
 protocol FlutterHereMapView : class {
     func setCenter(center: FlutterHereMaps_MapCenter);
     func setConfiguration(configuration: FlutterHereMaps_Configuration)
+    func add(mapObject: FlutterHereMaps_MapObject)
 }
 
 extension NMAMapView : FlutterHereMapView {
+
+// MARK -MapObjects
+
+    func add(mapObject: FlutterHereMaps_MapObject) {
+        switch mapObject.object {
+        case .marker(let marker)?: self.add(mapMarker: marker)
+        default: break
+        }
+    }
+
+    private func add(mapMarker: FlutterHereMaps_MapMarker) {
+        let hereMapMarker = NMAMapMarker(geoCoordinates: mapMarker.coordinate.toGeo())
+        if let image = UIImage(named: "AppIcon") {
+            hereMapMarker.icon = NMAImage(uiImage: image)
+        }
+        self.add(mapObject: hereMapMarker)
+    }
 
     func setConfiguration(configuration: FlutterHereMaps_Configuration) {
         self.isTrafficVisible = configuration.trafficVisible;
@@ -103,7 +124,7 @@ extension NMAMapView : FlutterHereMapView {
         }
 
         if center.hasCoordinate {
-            self.set(geoCenter: NMAGeoCoordinates(latitude: center.coordinate.lat, longitude: center.coordinate.lng), animation: .bow)
+            self.set(geoCenter: NMAGeoCoordinates(latitude: center.coordinate.lat, longitude: center.coordinate.lng), animation: .none)
         }
     }
 }

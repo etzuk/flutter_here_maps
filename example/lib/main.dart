@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_here_maps_example/pages/current_location_tracker.dart';
+import 'package:flutter_here_maps_example/pages/map_markers.dart';
 import 'package:flutter_here_maps_example/pages/show_map.dart';
 import 'package:flutter_here_maps_example/pages/map_center.dart';
 
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
       routes: <String, WidgetBuilder>{
         ShowMapPage.route: (context) => new ShowMapPage(),
         MapCenterPage.route: (context) => new MapCenterPage(),
-        CurrentLocationTrackerPage.route: (context) => new CurrentLocationTrackerPage()
+        CurrentLocationTrackerPage.route: (context) => new CurrentLocationTrackerPage(),
+        MapMarkersPage.route: (context) => new MapMarkersPage()
       },
     );
   }

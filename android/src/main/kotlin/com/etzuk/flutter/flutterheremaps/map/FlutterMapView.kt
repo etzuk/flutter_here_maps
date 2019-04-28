@@ -17,7 +17,6 @@ import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
 import kotlin.reflect.KFunction2
 
-
 class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?, id: Int, args: Any?) :
         PlatformView,
         OnEngineInitListener,
@@ -99,10 +98,14 @@ class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?,
                         MethodWrapper(MapView::setMapCenter, MapObjects.MapCenter::parseFrom).apply(mapView, it)
                     "setConfiguration" ->
                         MethodWrapper(MapView::setConfiguration, MapObjects.Configuration::parseFrom).apply(mapView, it)
+                    "setMapObject" ->
+                        MethodWrapper(MapView::setMapObject, MapObjects.MapObject::parseFrom).apply(mapView, it)
                     else -> print("method not found")
                 }
             }
         }
+
+        result?.success(null)
     }
 
     data class MethodWrapper<T>(
