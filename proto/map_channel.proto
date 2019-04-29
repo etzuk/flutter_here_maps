@@ -1,0 +1,22 @@
+syntax = "proto3";
+package FlutterHereMaps;
+
+import "map_objects.proto";
+
+message MapChannelRequest {
+    oneof object {
+        //Map actions
+        MapCenter setCenter = 1;
+        Configuration setConfiguration = 2;
+
+        //UIMap objects
+        MapObject setMapObject = 20;
+    }
+}
+
+message MapChannelReplay {
+    oneof object {
+        //Map actions
+        MapCenter getCenter = 1;
+    }
+}

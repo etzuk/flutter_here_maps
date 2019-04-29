@@ -1,11 +1,12 @@
 package com.etzuk.flutter.flutterheremaps.map
 
-import FlutterHereMaps.MapObjects
+import FlutterHereMaps.MapChannel
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.view.View
 import androidx.core.app.ActivityCompat
+import com.google.protobuf.MessageLite
 import com.here.android.mpa.common.ApplicationContext
 import com.here.android.mpa.common.MapEngine
 import com.here.android.mpa.common.OnEngineInitListener
@@ -15,7 +16,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
-import kotlin.reflect.KFunction2
 
 class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?, id: Int, args: Any?) :
         PlatformView,
@@ -88,31 +88,51 @@ class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?,
             methodCall: MethodCall?,
             result: MethodChannel.Result?) {
         if (map == null) {
+            result?.error(methodCall?.method, "Map is null", null)
             return
         }
 
         methodCall.let { call ->
             (call!!.arguments as ByteArray).let {
-                when(call.method) {
-                    "setCenter" ->
-                        MethodWrapper(MapView::setMapCenter, MapObjects.MapCenter::parseFrom).apply(mapView, it)
-                    "setConfiguration" ->
-                        MethodWrapper(MapView::setConfiguration, MapObjects.Configuration::parseFrom).apply(mapView, it)
-                    "setMapObject" ->
-                        MethodWrapper(MapView::setMapObject, MapObjects.MapObject::parseFrom).apply(mapView, it)
-                    else -> print("method not found")
+                var responseObject : MessageLite? = null
+                if (call.method == "request") {
+                    responseObject = invokeRequest(MapChannel.MapChannelRequest.parseFrom(it))
                 }
+                if (call.method == "replay") {
+                    responseObject = invokeReplay(MapChannel.MapChannelReplay.parseFrom(it))
+                }
+                result?.success(responseObject?.toByteArray())
+                return
             }
         }
-
-        result?.success(null)
+        result?.notImplemented()
     }
 
-    data class MethodWrapper<T>(
-            val method: KFunction2<MapView, T,
-                    Unit>, val coder: (parseFrom: ByteArray) -> T ) {
-        fun apply(mapView: MapView, data: ByteArray) {
-            method(mapView, coder(data))
+    private fun invokeReplay(replay: MapChannel.MapChannelReplay): MessageLite? {
+        var returnObj:Any?
+        replay.objectCase.let { objectCase ->
+            returnObj = when(objectCase) {
+                MapChannel.MapChannelReplay.ObjectCase.GETCENTER -> mapView.getMapCenter()
+                MapChannel.MapChannelReplay.ObjectCase.OBJECT_NOT_SET -> null
+            }
         }
+        return returnObj as? MessageLite
+    }
+
+    private fun invokeRequest(request: MapChannel.MapChannelRequest): MessageLite? {
+        var returnObj:Any?
+        request.objectCase.let { objectCase ->
+            returnObj = when(objectCase) {
+                MapChannel.MapChannelRequest.ObjectCase.SETCENTER ->
+                    mapView.setMapCenter(request.setCenter)
+                MapChannel.MapChannelRequest.ObjectCase.SETCONFIGURATION ->
+                    mapView.setConfiguration(request.setConfiguration)
+                MapChannel.MapChannelRequest.ObjectCase.SETMAPOBJECT ->
+                    mapView.setMapObject(request.setMapObject)
+                MapChannel.MapChannelRequest.ObjectCase.OBJECT_NOT_SET ->
+                    null
+            }
+        }
+        return returnObj as? MessageLite
     }
 }

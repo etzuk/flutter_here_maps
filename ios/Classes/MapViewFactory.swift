@@ -8,6 +8,7 @@
 
 import Foundation
 import NMAKit
+import SwiftProtobuf
 
 class MapViewFactory : NSObject, FlutterPlatformViewFactory {
 
@@ -64,31 +65,69 @@ public class MapView : NSObject, FlutterPlatformView {
         guard let arg = call.arguments as? FlutterStandardTypedData else { fatalError("Non standart type")}
         //TODO: Optimize this by sending in the function name the decoder and split into
         // two .proto file. one for objects and one for chanel method.
+
+
+        var responseObject: Any? = nil
         switch call.method {
-        case "setCenter":
-            try? map.setCenter(center: FlutterHereMaps_MapCenter(serializedData: arg.data))
-        case "setConfiguration":
-            try? map.setConfiguration(configuration: FlutterHereMaps_Configuration(serializedData: arg.data))
-        case "setMapObject":
-            try? map.add(mapObject: FlutterHereMaps_MapObject(serializedData: arg.data))
+        case "request":
+            if let request = try? FlutterHereMaps_MapChannelRequest(serializedData: arg.data) {
+                responseObject = invoke(request: request)
+            }
+        case "replay":
+            if let replay = try? FlutterHereMaps_MapChannelReplay(serializedData: arg.data) {
+                responseObject = invoke(replay: replay)
+            }
         default: break;
         }
-        result(nil)
+
+        if let replay = responseObject as? Message {
+            do {
+                result(try replay.serializedData())
+            } catch {
+                result("Error when try to serialized data")
+            }
+        } else {
+            result(nil)
+        }
+
     }
 
+    private func invoke(request: FlutterHereMaps_MapChannelRequest) -> Any?{
+        switch request.object {
+        case .setMapObject(let mapObject)?:
+            return map.add(mapObject: mapObject)
+        case .setConfiguration(let configuration)?:
+            return map.set(configuration: configuration)
+        case .setCenter(let center)?:
+            return map.set(center: center)
+        default:break
+        }
+        return nil
+    }
+
+    private func invoke(replay: FlutterHereMaps_MapChannelReplay) -> Any? {
+        switch replay.object {
+        case .getCenter(_)?:
+            return map.getCenter()
+        default:
+            break
+        }
+        return nil
+    }
 }
 
 protocol FlutterHereMapView : class {
-    func setCenter(center: FlutterHereMaps_MapCenter);
-    func setConfiguration(configuration: FlutterHereMaps_Configuration)
+    func set(center: FlutterHereMaps_MapCenter);
+    func set(configuration: FlutterHereMaps_Configuration)
     func add(mapObject: FlutterHereMaps_MapObject)
+    func getCenter() -> FlutterHereMaps_MapCenter
 }
 
 extension NMAMapView : FlutterHereMapView {
 
 // MARK -MapObjects
 
-    func add(mapObject: FlutterHereMaps_MapObject) {
+    internal func add(mapObject: FlutterHereMaps_MapObject) {
         switch mapObject.object {
         case .marker(let marker)?: self.add(mapMarker: marker)
         default: break
@@ -103,13 +142,13 @@ extension NMAMapView : FlutterHereMapView {
         self.add(mapObject: hereMapMarker)
     }
 
-    func setConfiguration(configuration: FlutterHereMaps_Configuration) {
+    internal func set(configuration: FlutterHereMaps_Configuration) {
         self.isTrafficVisible = configuration.trafficVisible;
         self.positionIndicator.isVisible = configuration.positionIndicator.isVisible.value;
         self.positionIndicator.isAccuracyIndicatorVisible = configuration.positionIndicator.isAccuracyIndicatorVisible.value;
     }
 
-    func setCenter(center: FlutterHereMaps_MapCenter) {
+    internal func set(center: FlutterHereMaps_MapCenter) {
 
         if center.hasZoomLevel {
             self.set(zoomLevel: center.zoomLevel.value, animation: .none);
@@ -126,5 +165,23 @@ extension NMAMapView : FlutterHereMapView {
         if center.hasCoordinate {
             self.set(geoCenter: NMAGeoCoordinates(latitude: center.coordinate.lat, longitude: center.coordinate.lng), animation: .none)
         }
+    }
+
+    internal func getCenter() -> FlutterHereMaps_MapCenter {
+        var center = FlutterHereMaps_MapCenter()
+        var coordinate = FlutterHereMaps_Coordinate()
+        coordinate.lat = self.geoCenter.latitude
+        coordinate.lng = self.geoCenter.longitude
+        center.coordinate = coordinate
+        var zoomLevel = FlutterHereMaps_FloatValue()
+        zoomLevel.value = self.zoomLevel
+        center.zoomLevel = zoomLevel
+        var orientation = FlutterHereMaps_FloatValue()
+        orientation.value = self.orientation
+        center.orientation = orientation
+        var tilt = FlutterHereMaps_FloatValue()
+        tilt.value = self.tilt
+        center.tilt = tilt
+        return center
     }
 }
