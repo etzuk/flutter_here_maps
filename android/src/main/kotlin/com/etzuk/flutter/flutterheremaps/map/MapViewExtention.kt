@@ -54,3 +54,12 @@ internal fun MapView.setMapCenter(center: MapObjects.MapCenter) {
         map.setCenter(center.coordinate.toGeo(), Map.Animation.NONE)
     }
 }
+
+internal fun MapView.getMapCenter() =
+    MapObjects.MapCenter.newBuilder()
+            .setZoomLevel(MapObjects.FloatValue.newBuilder().setValue(map.zoomLevel.toFloat()).build())
+            .setTilt(MapObjects.FloatValue.newBuilder().setValue(map.tilt).build())
+            .setOrientation(MapObjects.FloatValue.newBuilder().setValue(map.orientation).build())
+            .setCoordinate(MapObjects.Coordinate.newBuilder()
+                            .setLat(map.center.latitude)
+                            .setLng(map.center.longitude)).build()

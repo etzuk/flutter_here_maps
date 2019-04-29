@@ -1,7 +1,9 @@
 import 'dart:async';
+import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_here_maps/gen/map_objects.pb.dart';
+import 'package:flutter_here_maps/gen/map_channel.pb.dart';
 
 class FlutterHereMaps {
   static const MethodChannel _mapChannel =
@@ -15,22 +17,37 @@ class FlutterHereMaps {
   }
 
   MapCenter _mapCenter;
+
   MapCenter get center => _mapCenter;
 
   Future<void> setCenter(MapCenter mapCenter) async {
     _mapCenter.mergeFromMessage(mapCenter);
     print(_mapCenter.toDebugString());
-    return await _mapChannel.invokeMethod(
-        'setCenter', _mapCenter.writeToBuffer());
+    var request = MapChannelRequest()..setCenter = mapCenter;
+    return await _invokeRequest(request).then((value) {
+      getMapCenter().then((value) {
+        print(value.toDebugString());
+      });
+    });
   }
 
-  Future<void> setConfiguration(Configuration configuration) async {
-    return await _mapChannel.invokeMethod(
-        'setConfiguration', configuration.writeToBuffer());
+  Future<void> setConfiguration(Configuration configuration) async =>
+      await _invokeRequest(
+          MapChannelRequest()..setConfiguration = configuration);
+
+  Future<void> setMapObject(MapObject mapObject) async =>
+      await _invokeRequest(MapChannelRequest()..setMapObject = mapObject);
+
+  Future<MapCenter> getMapCenter() async {
+    return MapCenter.fromBuffer(
+        await _invokeReplay(MapChannelReplay()..getCenter = MapCenter()));
   }
 
-  Future<void> setMapObject(MapObject mapObject) async {
-    return await _mapChannel.invokeMethod(
-        'setMapObject', mapObject.writeToBuffer());
+  Future _invokeRequest(MapChannelRequest request) async {
+    return await _mapChannel.invokeMethod('request', request.writeToBuffer());
+  }
+
+  Future<Uint8List> _invokeReplay(MapChannelReplay replay) async {
+    return await _mapChannel.invokeMethod('replay', replay.writeToBuffer());
   }
 }
