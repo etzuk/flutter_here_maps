@@ -68,6 +68,7 @@ class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?,
     override fun onEngineInitializationCompleted(error: OnEngineInitListener.Error?) {
 
         if (error?.ordinal == OnEngineInitListener.Error.NONE.ordinal) {
+            mapView.onResume()
             map = Map()
             mapView.map = map
             mapView.positionIndicator.isVisible = true
