@@ -110,7 +110,7 @@ class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?,
     }
 
     private fun invokeReplay(replay: MapChannel.MapChannelReplay): MessageLite? {
-        var returnObj:Any?
+        var returnObj:Any? = null
         replay.objectCase.let { objectCase ->
             returnObj = when(objectCase) {
                 MapChannel.MapChannelReplay.ObjectCase.GETCENTER -> mapView.getMapCenter()
@@ -121,7 +121,7 @@ class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?,
     }
 
     private fun invokeRequest(request: MapChannel.MapChannelRequest): MessageLite? {
-        var returnObj:Any?
+        var returnObj:Any? = null
         request.objectCase.let { objectCase ->
             returnObj = when(objectCase) {
                 MapChannel.MapChannelRequest.ObjectCase.SETCENTER ->
