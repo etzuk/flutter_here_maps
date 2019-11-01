@@ -56,10 +56,12 @@ internal fun MapView.setMapCenter(center: MapObjects.MapCenter) {
 }
 
 internal fun MapView.getMapCenter() =
-    MapObjects.MapCenter.newBuilder()
-            .setZoomLevel(MapObjects.FloatValue.newBuilder().setValue(map.zoomLevel.toFloat()).build())
-            .setTilt(MapObjects.FloatValue.newBuilder().setValue(map.tilt).build())
-            .setOrientation(MapObjects.FloatValue.newBuilder().setValue(map.orientation).build())
-            .setCoordinate(MapObjects.Coordinate.newBuilder()
-                            .setLat(map.center.latitude)
-                            .setLng(map.center.longitude)).build()
+        MapObjects.MapCenter.newBuilder().let {
+            it.zoomLevel = MapObjects.FloatValue.newBuilder().setValue(map.zoomLevel.toFloat()).build()
+            it.tilt = MapObjects.FloatValue.newBuilder().setValue(map.tilt).build()
+            it.orientation = MapObjects.FloatValue.newBuilder().setValue(map.orientation).build()
+            it.coordinate = MapObjects.Coordinate.newBuilder()
+                    .setLat(map.center.latitude)
+                    .setLng(map.center.longitude).build()
+            it.build()
+        }

@@ -52,7 +52,7 @@ class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?,
     }
 
     override fun onRequestPermissionsResult(p0: Int, p1: Array<out String>?, p2: IntArray?): Boolean {
-        if (p0  == WRITE_STORAGE_PERMISSION_CODE) {
+        if (p0 == WRITE_STORAGE_PERMISSION_CODE) {
             if (p1?.first().equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                     && p2?.first() == PackageManager.PERMISSION_GRANTED) {
                 initMapEngine()
@@ -86,43 +86,40 @@ class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?,
     }
 
     override fun onMethodCall(
-            methodCall: MethodCall?,
-            result: MethodChannel.Result?) {
+            methodCall: MethodCall,
+            result: MethodChannel.Result) {
         if (map == null) {
-            result?.error(methodCall?.method, "Map is null", null)
+            result.error(methodCall.method, "Map is null", null)
             return
         }
 
         methodCall.let { call ->
-            (call!!.arguments as ByteArray).let {
-                var responseObject : MessageLite? = null
+            (call.arguments as ByteArray).let {
+                var responseObject: MessageLite? = null
                 if (call.method == "request") {
                     responseObject = invokeRequest(MapChannel.MapChannelRequest.parseFrom(it))
                 }
                 if (call.method == "replay") {
                     responseObject = invokeReplay(MapChannel.MapChannelReplay.parseFrom(it))
                 }
-                result?.success(responseObject?.toByteArray())
+                result.success(responseObject?.toByteArray())
                 return
             }
         }
-        result?.notImplemented()
     }
 
     private fun invokeReplay(replay: MapChannel.MapChannelReplay): MessageLite? {
-        var returnObj:Any? = null
-        replay.objectCase.let { objectCase ->
-            returnObj = when(objectCase) {
+        return replay.objectCase?.let { objectCase ->
+            when (objectCase) {
                 MapChannel.MapChannelReplay.ObjectCase.GETCENTER -> mapView.getMapCenter()
                 MapChannel.MapChannelReplay.ObjectCase.OBJECT_NOT_SET -> null
             }
         }
-        return returnObj as? MessageLite
     }
 
     private fun invokeRequest(request: MapChannel.MapChannelRequest): MessageLite? {
         var returnObj:Any? = null
-        request.objectCase.let { objectCase ->
+        request.objectCase?.let { objectCase ->
             returnObj = when(objectCase) {
                 MapChannel.MapChannelRequest.ObjectCase.SETCENTER ->
                     mapView.setMapCenter(request.setCenter)
