@@ -5,19 +5,16 @@ import 'package:flutter_here_maps/map/map_view.dart';
 import 'package:flutter_here_maps/gen/map_objects.pb.dart';
 import 'package:flutter_here_maps_example/drawer.dart';
 
-enum DialogResult {YES, NO}
+enum DialogResult { YES, NO }
 
 class MapCenterPage extends StatefulWidget {
-
   static const String route = 'map_center';
 
   @override
   State<StatefulWidget> createState() => _MapCenterPageState();
-
 }
 
 class _MapCenterPageState extends State<MapCenterPage> {
-
   FlutterHereMaps map = FlutterHereMaps();
 
   // Platform messages are asynchronous, so we initialize in an async method.
@@ -32,7 +29,7 @@ class _MapCenterPageState extends State<MapCenterPage> {
   final lngController = TextEditingController();
 
   Future<Coordinate> _showLocationsDialog() async {
-    switch(await showDialog<DialogResult>(
+    switch (await showDialog<DialogResult>(
         context: context,
         builder: (BuildContext context) {
           return Padding(
@@ -42,16 +39,12 @@ class _MapCenterPageState extends State<MapCenterPage> {
               children: <Widget>[
                 TextField(
                   autofocus: true,
-                  decoration: InputDecoration(
-                    hintText: "lat"
-                  ),
+                  decoration: InputDecoration(hintText: "lat"),
                   controller: latController,
                 ),
                 TextField(
                   autofocus: true,
-                  decoration: InputDecoration(
-                      hintText: "lng"
-                  ),
+                  decoration: InputDecoration(hintText: "lng"),
                   controller: lngController,
                 ),
                 SimpleDialogOption(
@@ -65,16 +58,16 @@ class _MapCenterPageState extends State<MapCenterPage> {
               ],
             ),
           );
-        }
-    )) {
+        })) {
       case DialogResult.YES:
         return Coordinate()
-        ..lat = double.parse(latController.text)
-        ..lng = double.parse(lngController.text);
+          ..lat = double.parse(latController.text)
+          ..lng = double.parse(lngController.text);
 
-      case DialogResult.NO: return null;
+      case DialogResult.NO:
+        return null;
     }
-
+    return null;
   }
 
   @override
@@ -87,12 +80,11 @@ class _MapCenterPageState extends State<MapCenterPage> {
         ),
         body: MapView(),
         floatingActionButton: FloatingActionButton(
-            onPressed: () => _showLocationsDialog()
-                .then( (coordinate) => setMapCenter(coordinate)),
-                child: Icon(Icons.add_location),
+          onPressed: () => _showLocationsDialog()
+              .then((coordinate) => setMapCenter(coordinate)),
+          child: Icon(Icons.add_location),
         ),
       ),
     );
   }
-
 }
