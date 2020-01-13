@@ -7,9 +7,7 @@ import android.content.pm.PackageManager
 import android.view.View
 import androidx.core.app.ActivityCompat
 import com.google.protobuf.MessageLite
-import com.here.android.mpa.common.ApplicationContext
-import com.here.android.mpa.common.MapEngine
-import com.here.android.mpa.common.OnEngineInitListener
+import com.here.android.mpa.common.*
 import com.here.android.mpa.mapping.Map
 import com.here.android.mpa.mapping.MapView
 import io.flutter.plugin.common.MethodCall
@@ -27,9 +25,6 @@ class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?,
 
     companion object Static {
         const val WRITE_STORAGE_PERMISSION_CODE = 11232
-        fun <T> ByteArray.toProto(coder: (parseFrom: ByteArray) -> T): T {
-            return coder(this)
-        }
     }
 
     init {
@@ -40,7 +35,7 @@ class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?,
             registrar.addRequestPermissionsResultListener(this)
             ActivityCompat.requestPermissions(
                     registrar.activity(),
-                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION),
                     WRITE_STORAGE_PERMISSION_CODE)
         } else {
             initMapEngine()
@@ -118,15 +113,16 @@ class FlutterMapView(registrar: PluginRegistry.Registrar, val context: Context?,
     }
 
     private fun invokeRequest(request: MapChannel.MapChannelRequest): MessageLite? {
-        var returnObj:Any? = null
+        var returnObj: Any? = null
         request.objectCase?.let { objectCase ->
-            returnObj = when(objectCase) {
+            returnObj = when (objectCase) {
                 MapChannel.MapChannelRequest.ObjectCase.SETCENTER ->
                     mapView.setMapCenter(request.setCenter)
                 MapChannel.MapChannelRequest.ObjectCase.SETCONFIGURATION ->
                     mapView.setConfiguration(request.setConfiguration)
-                MapChannel.MapChannelRequest.ObjectCase.SETMAPOBJECT ->
+                MapChannel.MapChannelRequest.ObjectCase.SETMAPOBJECT -> {
                     mapView.setMapObject(request.setMapObject)
+                }
                 MapChannel.MapChannelRequest.ObjectCase.OBJECT_NOT_SET ->
                     null
             }

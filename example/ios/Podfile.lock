@@ -15,7 +15,7 @@ DEPENDENCIES:
   - location (from `.symlinks/plugins/location/ios`)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  trunk:
     - HEREMaps
     - SwiftProtobuf
 
@@ -28,12 +28,12 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/location/ios"
 
 SPEC CHECKSUMS:
-  Flutter: 9d0fac939486c9aba2809b7982dfdbb47a7b0296
-  flutter_here_maps: 32f37cd53223652c6f963741eafb139cca1218b5
+  Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
+  flutter_here_maps: bd4b2ee180b999da80d7d9989b4036de8f9c4218
   HEREMaps: 2242f865f55aa8f3d2d00b8b2ef47555f4d105d0
-  location: 26c90953ad5916331d0d1d913898779910416487
+  location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
   SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
 
 PODFILE CHECKSUM: 5ac758ca3cd712e1771314ad1bd5796a98f478bf
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4
