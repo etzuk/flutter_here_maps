@@ -4,13 +4,13 @@ PODS:
     - Flutter
     - HEREMaps
     - SwiftProtobuf (~> 1.0)
-  - HEREMaps (3.11.0)
+  - HEREMaps (3.11.2)
   - location (0.0.1):
     - Flutter
-  - SwiftProtobuf (1.5.0)
+  - SwiftProtobuf (1.7.0)
 
 DEPENDENCIES:
-  - Flutter (from `.symlinks/flutter/ios`)
+  - Flutter (from `Flutter`)
   - flutter_here_maps (from `.symlinks/plugins/flutter_here_maps/ios`)
   - location (from `.symlinks/plugins/location/ios`)
 
@@ -21,7 +21,7 @@ SPEC REPOS:
 
 EXTERNAL SOURCES:
   Flutter:
-    :path: ".symlinks/flutter/ios"
+    :path: Flutter
   flutter_here_maps:
     :path: ".symlinks/plugins/flutter_here_maps/ios"
   location:
@@ -30,10 +30,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   Flutter: 0e3d915762c693b495b44d77113d4970485de6ec
   flutter_here_maps: bd4b2ee180b999da80d7d9989b4036de8f9c4218
-  HEREMaps: 2242f865f55aa8f3d2d00b8b2ef47555f4d105d0
+  HEREMaps: 842884a0feb0b352fe291aafab60eb289dfa1804
   location: 3a2eed4dd2fab25e7b7baf2a9efefe82b512d740
-  SwiftProtobuf: 241400280f912735c1e1b9fe675fdd2c6c4d42e2
+  SwiftProtobuf: 4fd9645e69b72cbae6ec8da5be0cdd20ca6565dd
 
-PODFILE CHECKSUM: 5ac758ca3cd712e1771314ad1bd5796a98f478bf
+PODFILE CHECKSUM: 1b66dae606f75376c5f2135a8290850eeb09ae83
 
 COCOAPODS: 1.8.4

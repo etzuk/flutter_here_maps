@@ -14,6 +14,7 @@ message Size {
 message MapMarker {
      Coordinate coordinate = 1;
      Size size = 2;
+     string image = 3;
 }
 
 message MapObject {

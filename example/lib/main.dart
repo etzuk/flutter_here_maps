@@ -4,23 +4,26 @@ import 'package:flutter_here_maps_example/pages/map_markers.dart';
 import 'package:flutter_here_maps_example/pages/show_map.dart';
 import 'package:flutter_here_maps_example/pages/map_center.dart';
 
+import 'pages/location_trakcer_page.dart';
 
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
+    return MaterialApp(
       title: 'HereMaps Example',
-      theme: new ThemeData(
+      theme: ThemeData(
         primarySwatch: mapBoxBlue,
       ),
-      home: new ShowMapPage(),
+      home: ShowMapPage(),
       routes: <String, WidgetBuilder>{
-        ShowMapPage.route: (context) => new ShowMapPage(),
-        MapCenterPage.route: (context) => new MapCenterPage(),
-        CurrentLocationTrackerPage.route: (context) => new CurrentLocationTrackerPage(),
-        MapMarkersPage.route: (context) => new MapMarkersPage()
+        ShowMapPage.route: (context) => ShowMapPage(),
+        MapCenterPage.route: (context) => MapCenterPage(),
+        CurrentLocationTrackerPage.route: (context) =>
+            CurrentLocationTrackerPage(),
+        MapMarkersPage.route: (context) => MapMarkersPage(),
+        LocationTrackerPage.route: (context) => LocationTrackerPage()
       },
     );
   }
