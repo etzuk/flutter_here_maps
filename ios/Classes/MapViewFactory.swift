@@ -1,11 +1,3 @@
-//
-//  NativeViewFactory.swift
-//  Runner
-//
-//  Created by Rohit Nisal on 12/24/18.
-//  Copyright © 2018 The Chromium Authors. All rights reserved.
-//
-
 import Foundation
 import NMAKit
 import SwiftProtobuf
@@ -31,8 +23,9 @@ public class MapView : NSObject, FlutterPlatformView {
     let frame : CGRect
     let viewId : Int64
     let registerar: FlutterPluginRegistrar
+    
 
-    var map: NMAMapView!
+    var map: Map!
 
     init(_ frame:CGRect, viewId:Int64, args: Any?, registerar: FlutterPluginRegistrar){
         self.frame = frame
@@ -44,7 +37,8 @@ public class MapView : NSObject, FlutterPlatformView {
         } else {
             print(args.debugDescription)
         }
-        map = NMAMapView(frame: self.frame)
+        map = Map(mapView: NMAMapView(frame: frame))
+        map.mapView.mapScheme = map.mapView.availableMapSchemes[12]
     }
 
     func initMethodCallHanlder() {
@@ -56,7 +50,7 @@ public class MapView : NSObject, FlutterPlatformView {
 
     public func view() -> UIView {
         initMethodCallHanlder()
-        return map
+        return map.mapView
     }
 
 
@@ -95,7 +89,7 @@ public class MapView : NSObject, FlutterPlatformView {
     private func invoke(request: FlutterHereMaps_MapChannelRequest) -> Any?{
         switch request.object {
         case .setMapObject(let mapObject)?:
-            return map.add(mapObject: mapObject)
+            return map.add(mapObject: mapObject, registerar: registerar)
         case .setConfiguration(let configuration)?:
             return map.set(configuration: configuration)
         case .setCenter(let center)?:
@@ -119,68 +113,86 @@ public class MapView : NSObject, FlutterPlatformView {
 protocol FlutterHereMapView : class {
     func set(center: FlutterHereMaps_MapCenter);
     func set(configuration: FlutterHereMaps_Configuration)
-    func add(mapObject: FlutterHereMaps_MapObject)
+    func add(mapObject: FlutterHereMaps_MapObject, registerar: FlutterPluginRegistrar)
     func getCenter() -> FlutterHereMaps_MapCenter
 }
 
-extension NMAMapView : FlutterHereMapView {
+class Map {
+    var mapView: NMAMapView!
+    var markers: Dictionary<String,NMAMapMarker> = [:]
+    
+    init(mapView: NMAMapView) {
+        self.mapView = mapView
+    }
+}
 
-// MARK -MapObjects
+extension Map : FlutterHereMapView {
+    
+    // MARK -MapObjects
 
-    internal func add(mapObject: FlutterHereMaps_MapObject) {
+    internal func add(mapObject: FlutterHereMaps_MapObject, registerar: FlutterPluginRegistrar) {
         switch mapObject.object {
-        case .marker(let marker)?: self.add(mapMarker: marker)
+        case .marker(_)?: self.add(mapMarker: mapObject, registerar: registerar)
         default: break
         }
     }
 
-    private func add(mapMarker: FlutterHereMaps_MapMarker) {
-        let hereMapMarker = NMAMapMarker(geoCoordinates: mapMarker.coordinate.toGeo())
-        if let image = UIImage(named: "AppIcon") {
-            hereMapMarker.icon = NMAImage(uiImage: image)
+    private func add(mapMarker: FlutterHereMaps_MapObject, registerar: FlutterPluginRegistrar) {
+        
+        if let marker = markers[mapMarker.uniqueID] {
+            marker.coordinates = mapMarker.marker.coordinate.toGeo()
+        } else {
+            let hereMapMarker = NMAMapMarker(geoCoordinates: mapMarker.marker.coordinate.toGeo())
+            let key = registerar.lookupKey(forAsset: mapMarker.marker.image)
+            if let path = Bundle.main.path(forResource: key, ofType: nil) {
+                if let image = UIImage(named: path){
+                    hereMapMarker.icon = NMAImage(uiImage: image)
+                }
+            }
+            markers[mapMarker.uniqueID]  = hereMapMarker
+            mapView.add(mapObject: hereMapMarker)
         }
-        self.add(mapObject: hereMapMarker)
     }
 
     internal func set(configuration: FlutterHereMaps_Configuration) {
-        self.isTrafficVisible = configuration.trafficVisible;
-        self.positionIndicator.isVisible = configuration.positionIndicator.isVisible.value;
-        self.positionIndicator.isAccuracyIndicatorVisible = configuration.positionIndicator.isAccuracyIndicatorVisible.value;
+        self.mapView.isTrafficVisible = configuration.trafficVisible;
+        self.mapView.positionIndicator.isVisible = configuration.positionIndicator.isVisible.value;
+        self.mapView.positionIndicator.isAccuracyIndicatorVisible = configuration.positionIndicator.isAccuracyIndicatorVisible.value;
     }
 
     internal func set(center: FlutterHereMaps_MapCenter) {
-
+        
         if center.hasZoomLevel {
-            self.set(zoomLevel: center.zoomLevel.value, animation: .none);
+            self.mapView.set(zoomLevel: center.zoomLevel.value, animation: .none);
         }
 
         if center.hasTilt {
-            self.set(tilt: center.tilt.value, animation: .none);
+            self.mapView.set(tilt: center.tilt.value, animation: .none);
         }
 
         if center.hasOrientation {
-            self.set(orientation: center.orientation.value, animation: .none);
+            self.mapView.set(orientation: center.orientation.value, animation: .none);
         }
 
         if center.hasCoordinate {
-            self.set(geoCenter: NMAGeoCoordinates(latitude: center.coordinate.lat, longitude: center.coordinate.lng), animation: .none)
+            self.mapView.set(geoCenter: NMAGeoCoordinates(latitude: center.coordinate.lat, longitude: center.coordinate.lng), animation: .none)
         }
     }
 
     internal func getCenter() -> FlutterHereMaps_MapCenter {
         var center = FlutterHereMaps_MapCenter()
         var coordinate = FlutterHereMaps_Coordinate()
-        coordinate.lat = self.geoCenter.latitude
-        coordinate.lng = self.geoCenter.longitude
+        coordinate.lat = self.mapView.geoCenter.latitude
+        coordinate.lng = self.mapView.geoCenter.longitude
         center.coordinate = coordinate
         var zoomLevel = FlutterHereMaps_FloatValue()
-        zoomLevel.value = self.zoomLevel
+        zoomLevel.value = self.mapView.zoomLevel
         center.zoomLevel = zoomLevel
         var orientation = FlutterHereMaps_FloatValue()
-        orientation.value = self.orientation
+        orientation.value = self.mapView.orientation
         center.orientation = orientation
         var tilt = FlutterHereMaps_FloatValue()
-        tilt.value = self.tilt
+        tilt.value = self.mapView.tilt
         center.tilt = tilt
         return center
     }
