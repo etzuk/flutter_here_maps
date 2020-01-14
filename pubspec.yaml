@@ -10,9 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  latlong: ^0.6.1
-  protobuf: 0.14.4
-  location: ^2.3.5
+
+  protobuf: ^1.0.1
 
 dev_dependencies:
   flutter_test:

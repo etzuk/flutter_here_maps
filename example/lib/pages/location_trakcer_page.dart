@@ -18,7 +18,7 @@ class LocationTrackerPage extends StatefulWidget {
 
 class _LocationTrackerPageState extends State<LocationTrackerPage> {
   FlutterHereMaps map = FlutterHereMaps();
-
+  StreamSubscription trackerSubscription;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -40,12 +40,19 @@ class _LocationTrackerPageState extends State<LocationTrackerPage> {
 
   _start() {
     _initConfiguration();
-    Stream.periodic(Duration(seconds: 1), (int i) => points[i % points.length])
+    trackerSubscription = Stream.periodic(
+            Duration(seconds: 1), (int i) => points[i % points.length])
         .listen((event) {
       final lng = event["lng"];
       final lat = event["lat"];
       _updateMapLocation(double.parse(lng), double.parse(lat));
     });
+  }
+
+  @override
+  void dispose() {
+    trackerSubscription?.cancel();
+    super.dispose();
   }
 
   void _initConfiguration() {
@@ -64,7 +71,7 @@ class _LocationTrackerPageState extends State<LocationTrackerPage> {
 
     map
         .setMapObject(MapObject()
-          ..uniqueId = "$lat"
+          ..uniqueId = "MarkerTracker"
           ..marker = (MapMarker()
             ..coordinate = coordinate
             ..image = "assets/group_2.png"))

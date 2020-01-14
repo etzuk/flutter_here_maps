@@ -9,6 +9,8 @@ dependencies:
   flutter:
     sdk: flutter
   rxdart: ^0.23.1
+  location: ^2.3.5
+  latlong: ^0.6.1
 
 dev_dependencies:
   flutter_test:
