@@ -42,7 +42,7 @@ public class MapView : NSObject, FlutterPlatformView {
     }
 
     func initMethodCallHanlder() {
-        let chanel = FlutterMethodChannel(name: "flugins.etzuk.flutter_here_maps/MapViewChannel", binaryMessenger: registerar.messenger())
+        let chanel = FlutterMethodChannel(name: "flugins.etzuk.flutter_here_maps/MapViewChannel_\(viewId)", binaryMessenger: registerar.messenger())
         chanel.setMethodCallHandler { [weak self] (call, result) in
             self?.onMethodCallHanler(call, result: result)
         }
@@ -56,6 +56,11 @@ public class MapView : NSObject, FlutterPlatformView {
 
     public func onMethodCallHanler(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
 
+        if(call.method == "initMap") {
+            result(nil)
+            return
+        }
+        
         guard let arg = call.arguments as? FlutterStandardTypedData else { fatalError("Non standart type")}
         //TODO: Optimize this by sending in the function name the decoder and split into
         // two .proto file. one for objects and one for chanel method.

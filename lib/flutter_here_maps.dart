@@ -5,17 +5,24 @@ import 'package:flutter/services.dart';
 import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
 import 'package:flutter_here_maps/proto_gen/map_channel.pb.dart';
 
-class FlutterHereMaps {
-  static const MethodChannel _mapChannel =
-      MethodChannel('flugins.etzuk.flutter_here_maps/MapViewChannel');
-
-  FlutterHereMaps() {
+class HereMapsController {
+  HereMapsController._(
+    this._mapChannel,
+  ) : assert(_mapChannel != null) {
     _mapCenter = MapCenter()
       ..zoomLevel = (FloatValue()..value = 17.0)
       ..orientation = (FloatValue()..value = 0.0)
       ..tilt = (FloatValue()..value = 0.0);
   }
+  static Future<HereMapsController> init({int id}) async {
+    assert(id != null);
+    final channel =
+        MethodChannel('flugins.etzuk.flutter_here_maps/MapViewChannel_$id');
+    await channel.invokeMethod("initMap");
+    return HereMapsController._(channel);
+  }
 
+  final MethodChannel _mapChannel;
   MapCenter _mapCenter;
 
   MapCenter get center => _mapCenter;

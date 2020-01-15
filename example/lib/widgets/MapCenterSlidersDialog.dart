@@ -6,7 +6,9 @@ enum DialogResult { YES, NO }
 class MapCenterSlidersDialog extends StatefulWidget {
   final MapCenter mapCenter;
 
-  const MapCenterSlidersDialog({Key key, this.mapCenter}) : super(key: key);
+  const MapCenterSlidersDialog({Key key, this.mapCenter})
+      : assert(mapCenter != null),
+        super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MapCenterSlidersState();

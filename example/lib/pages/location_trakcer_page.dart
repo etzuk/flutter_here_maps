@@ -17,7 +17,8 @@ class LocationTrackerPage extends StatefulWidget {
 }
 
 class _LocationTrackerPageState extends State<LocationTrackerPage> {
-  FlutterHereMaps map = FlutterHereMaps();
+  Completer<HereMapsController> _controller = Completer();
+
   StreamSubscription trackerSubscription;
 
   @override
@@ -28,7 +29,11 @@ class _LocationTrackerPageState extends State<LocationTrackerPage> {
         appBar: AppBar(
           title: const Text('Map tracker'),
         ),
-        body: MapView(),
+        body: MapView(
+          onMapCreated: (controller) {
+            _controller.complete(controller);
+          },
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             _start();
@@ -56,16 +61,18 @@ class _LocationTrackerPageState extends State<LocationTrackerPage> {
     super.dispose();
   }
 
-  void _initConfiguration() {
+  Future<void> _initConfiguration() async {
     final configuration = Configuration()
       ..trafficVisible = false
       ..positionIndicator = (Configuration_PositionIndicator()
         ..isAccuracyIndicatorVisible = (BoolValue()..value = true)
         ..isVisible = (BoolValue()..value = true));
+    final map = await _controller.future;
     map.setConfiguration(configuration);
   }
 
-  _updateMapLocation(double lat, double lng) {
+  _updateMapLocation(double lat, double lng) async {
+    final map = await _controller.future;
     final coordinate = Coordinate()
       ..lat = lng
       ..lng = lat;
