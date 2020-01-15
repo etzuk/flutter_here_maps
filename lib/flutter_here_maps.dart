@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_here_maps/gen/map_objects.pb.dart';
-import 'package:flutter_here_maps/gen/map_channel.pb.dart';
+import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
+import 'package:flutter_here_maps/proto_gen/map_channel.pb.dart';
 
 class FlutterHereMaps {
   static const MethodChannel _mapChannel =

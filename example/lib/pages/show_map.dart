@@ -7,7 +7,6 @@ import 'package:flutter_here_maps_example/drawer.dart';
 import 'package:flutter_here_maps_example/widgets/MapCenterSlidersDialog.dart';
 
 class ShowMapPage extends StatelessWidget {
-
   static const String route = 'show_map';
 
   final FlutterHereMaps map = FlutterHereMaps();
@@ -18,9 +17,8 @@ class ShowMapPage extends StatelessWidget {
     var result = await showDialog<DialogResult>(
         context: context,
         builder: (BuildContext context) {
-          return MapCenterSlidersDialog(mapCenter: mapCenter,);
-        }
-    );
+          return MapCenterSlidersDialog();
+        });
     if (result == DialogResult.YES) {
       print(mapCenter.writeToJson());
       map.setCenter(mapCenter);
@@ -43,5 +41,4 @@ class ShowMapPage extends StatelessWidget {
       ),
     );
   }
-
 }
