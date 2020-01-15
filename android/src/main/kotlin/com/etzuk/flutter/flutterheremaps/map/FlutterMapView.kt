@@ -2,15 +2,20 @@ package com.etzuk.flutter.flutterheremaps.map
 
 import FlutterHereMaps.MapChannel
 import android.Manifest
+import android.app.Activity
+import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
 import com.google.protobuf.MessageLite
-import com.here.android.mpa.common.*
+import com.here.android.mpa.common.ApplicationContext
+import com.here.android.mpa.common.MapEngine
+import com.here.android.mpa.common.MapSettings
+import com.here.android.mpa.common.OnEngineInitListener
 import com.here.android.mpa.mapping.Map
 import com.here.android.mpa.mapping.MapMarker
-import com.here.android.mpa.mapping.MapObject
 import com.here.android.mpa.mapping.MapView
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -18,17 +23,22 @@ import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
 import java.io.File
 
-class Map(val mapView:MapView) {
+
+class Map(val mapView: MapView) {
     var markers = mutableMapOf<String, MapMarker>()
 }
 
 class FlutterMapView(private val registrar: PluginRegistry.Registrar, private val context: Context?, id: Int, args: Any?) :
         PlatformView,
         OnEngineInitListener,
-        PluginRegistry.RequestPermissionsResultListener, MethodChannel.MethodCallHandler {
+        PluginRegistry.RequestPermissionsResultListener, MethodChannel.MethodCallHandler, Application.ActivityLifecycleCallbacks {
 
     private val map = Map(MapView(registrar.activeContext()))
     private var hereMap: Map? = null
+    private var mapReadyResult: MethodChannel.Result? = null
+    private val channel: MethodChannel
+    private var registrarActivityHashCode: Int
+    private var disposed = false
 
     companion object Static {
         const val WRITE_STORAGE_PERMISSION_CODE = 11232
@@ -47,9 +57,11 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
         } else {
             initMapEngine()
         }
-        val channel = MethodChannel(
+        channel = MethodChannel(
                 registrar.messenger(),
-                "flugins.etzuk.flutter_here_maps/MapViewChannel")
+                "flugins.etzuk.flutter_here_maps/MapViewChannel_$id")
+        registrar.activity().application.registerActivityLifecycleCallbacks(this)
+        this.registrarActivityHashCode = registrar.activity().hashCode()
         channel.setMethodCallHandler(this)
     }
 
@@ -67,7 +79,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     private fun initMapEngine() {
         val success = MapSettings.setIsolatedDiskCacheRootPath("${context!!.getExternalFilesDir(null)}${File.separator}.here-maps",
                 context.packageName)
-        if(success) {
+        if (success) {
             MapEngine.getInstance().init(ApplicationContext(context), this)
         } else {
             //TODO: Add error
@@ -80,6 +92,10 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
         if (error?.ordinal == OnEngineInitListener.Error.NONE.ordinal) {
             map.mapView.onResume()
             hereMap = Map()
+            mapReadyResult?.let {
+                it.success(null)
+            }
+            mapReadyResult = null
             map.mapView.map = hereMap
             map.mapView.map.mapScheme = map.mapView.map.mapSchemes[12]
             map.mapView.positionIndicator.isVisible = true
@@ -92,14 +108,20 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
         return map.mapView
     }
 
-    override fun dispose() {
-        map.mapView.onPause()
-        map.clean()
-    }
-
     override fun onMethodCall(
             methodCall: MethodCall,
             result: MethodChannel.Result) {
+
+        if (methodCall.method == "initMap") {
+            if (hereMap != null) {
+                result.success(null)
+            } else {
+                mapReadyResult = result
+                return
+            }
+        }
+
+
         if (hereMap == null) {
             result.error(methodCall.method, "Map is null", null)
             return
@@ -145,6 +167,51 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             }
         }
         return returnObj as? MessageLite
+    }
+
+    override fun dispose() {
+        if (disposed) {
+            return
+        }
+        disposed = true
+        map.mapView.onPause()
+        map.clean()
+        channel.setMethodCallHandler(null)
+        registrar.activity().application.unregisterActivityLifecycleCallbacks(this)
+    }
+
+    override fun onActivityPaused(activity: Activity?) {
+        if (disposed || activity.hashCode() != registrarActivityHashCode) {
+            return
+        }
+        map.mapView.onPause()
+    }
+
+    override fun onActivityResumed(activity: Activity?) {
+        if (disposed || activity.hashCode() != registrarActivityHashCode) {
+            return
+        }
+        map.mapView.onResume()
+    }
+
+    override fun onActivityStarted(activity: Activity?) {
+
+    }
+
+    override fun onActivityDestroyed(activity: Activity?) {
+
+    }
+
+    override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
+
+    }
+
+    override fun onActivityStopped(activity: Activity?) {
+
+    }
+
+    override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
+
     }
 }
 

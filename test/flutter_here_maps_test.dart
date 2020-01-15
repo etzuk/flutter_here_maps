@@ -11,15 +11,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_here_maps/flutter_here_maps.dart';
 
 void main() {
-  test("Init map correctly", () {
-    var map = FlutterHereMaps();
+  test("Init map correctly", () async {
+    var map = await HereMapsController.init(id: 1);
     expect(map.center.zoomLevel.value, 17.0);
     expect(map.center.orientation.value, 0.0);
     expect(map.center.tilt.value, 0.0);
   });
 
-  test("set center merge correctly", () {
-    var map = FlutterHereMaps();
+  test("set center merge correctly", () async {
+    var map = await HereMapsController.init(id: 1);
     MapCenter mapCenter = MapCenter()
       ..coordinate = (Coordinate()
         ..lat = 2.2

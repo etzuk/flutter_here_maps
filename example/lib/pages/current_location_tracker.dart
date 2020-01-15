@@ -20,8 +20,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
   static const String route = 'current_location_tracker';
   var configuration;
   LocationData _currentLocation;
-
-  FlutterHereMaps map = FlutterHereMaps();
+  Completer<HereMapsController> _controller = Completer();
 
   StreamSubscription<LocationData> _locationSubscription;
 
@@ -100,6 +99,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
   }
 
   void _setConfiguration(Configuration configuration) async {
+    final map = await _controller.future;
     await map.setConfiguration(configuration);
   }
 
@@ -114,7 +114,11 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
         body: Stack(
           alignment: AlignmentDirectional.topCenter,
           children: <Widget>[
-            MapView(),
+            MapView(
+              onMapCreated: (controller) {
+                _controller.complete(controller);
+              },
+            ),
             Text(
               "Lat: ${_currentLocation?.latitude}, Lng: ${_currentLocation?.longitude}",
               style: TextStyle(color: Colors.red),
@@ -160,6 +164,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
               .onLocationChanged()
               .listen((LocationData result) async {
             if (_currentLocation == null) {
+              final map = await _controller.future;
               map.setCenter(MapCenter()
                 ..coordinate = (Coordinate()
                   ..lat = result.latitude

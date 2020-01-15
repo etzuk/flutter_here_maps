@@ -15,10 +15,11 @@ class MapCenterPage extends StatefulWidget {
 }
 
 class _MapCenterPageState extends State<MapCenterPage> {
-  FlutterHereMaps map = FlutterHereMaps();
+  Completer<HereMapsController> _controller = Completer();
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> setMapCenter(Coordinate coordinate) async {
+    final map = await _controller.future;
     var mapCenter = MapCenter();
     mapCenter.animation = MapCenter_Animation.Bow;
     mapCenter.coordinate = coordinate;
@@ -78,7 +79,11 @@ class _MapCenterPageState extends State<MapCenterPage> {
         appBar: AppBar(
           title: const Text('Map center'),
         ),
-        body: MapView(),
+        body: MapView(
+          onMapCreated: (controller) {
+            _controller.complete(controller);
+          },
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => _showLocationsDialog()
               .then((coordinate) => setMapCenter(coordinate)),

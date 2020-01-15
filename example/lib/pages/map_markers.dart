@@ -15,10 +15,11 @@ class MapMarkersPage extends StatefulWidget {
 }
 
 class _MapMarkersPageState extends State<MapMarkersPage> {
-  FlutterHereMaps map = FlutterHereMaps();
+  Completer<HereMapsController> _controller = Completer();
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> setMapMarker(Coordinate coordinate) async {
+    final map = await _controller.future;
     await map
         .setMapObject(
             MapObject()..marker = (MapMarker()..coordinate = coordinate))
@@ -80,7 +81,11 @@ class _MapMarkersPageState extends State<MapMarkersPage> {
         appBar: AppBar(
           title: const Text('Map Markers'),
         ),
-        body: MapView(),
+        body: MapView(
+          onMapCreated: (controller) {
+            _controller.complete(controller);
+          },
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => _showLocationsDialog()
               .then((coordinate) => setMapMarker(coordinate)),
