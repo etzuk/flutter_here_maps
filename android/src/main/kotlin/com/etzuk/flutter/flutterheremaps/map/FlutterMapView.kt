@@ -16,14 +16,13 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
+import java.io.File
 
 class Map(val mapView:MapView) {
-
-//    var mapObjects = mutableListOf<MapObject>()
     var markers = mutableMapOf<String, MapMarker>()
 }
 
-class FlutterMapView(private val registrar: PluginRegistry.Registrar, val context: Context?, id: Int, args: Any?) :
+class FlutterMapView(private val registrar: PluginRegistry.Registrar, private val context: Context?, id: Int, args: Any?) :
         PlatformView,
         OnEngineInitListener,
         PluginRegistry.RequestPermissionsResultListener, MethodChannel.MethodCallHandler {
@@ -66,7 +65,14 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, val contex
     }
 
     private fun initMapEngine() {
-        MapEngine.getInstance().init(ApplicationContext(context), this)
+        val success = MapSettings.setIsolatedDiskCacheRootPath("${context!!.getExternalFilesDir(null)}${File.separator}.here-maps",
+                context.packageName)
+        if(success) {
+            MapEngine.getInstance().init(ApplicationContext(context), this)
+        } else {
+            //TODO: Add error
+        }
+
     }
 
     override fun onEngineInitializationCompleted(error: OnEngineInitListener.Error?) {

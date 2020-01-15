@@ -32,7 +32,9 @@ internal fun Map.setMapObject(mapObject: MapObjects.MapObject, registrar: Plugin
 }
 
 internal fun Map.clean() {
-    mapView.map.removeMapObjects(markers.values.toList())
+    if(markers.values.isNotEmpty()) {
+        mapView.map.removeMapObjects(markers.values.toList())
+    }
 }
 internal fun Map.setMapMarker(mapObject: MapObjects.MapObject, registrar: PluginRegistry.Registrar) {
 
