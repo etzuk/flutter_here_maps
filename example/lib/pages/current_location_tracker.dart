@@ -3,23 +3,20 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_here_maps/flutter_here_maps.dart';
 import 'package:flutter_here_maps/map/map_view.dart';
-import 'package:flutter_here_maps/gen/map_objects.pb.dart';
+import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
 import 'package:flutter_here_maps_example/drawer.dart';
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_here_maps_example/widgets/MapCenterSlidersDialog.dart';
 
 class CurrentLocationTrackerPage extends StatefulWidget {
-
   static const String route = 'current_location_tracker';
 
   @override
   State<StatefulWidget> createState() => _CurrentLocationTrackerState();
-
 }
 
 class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
-
   static const String route = 'current_location_tracker';
   var configuration;
   LocationData _currentLocation;
@@ -28,7 +25,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
 
   StreamSubscription<LocationData> _locationSubscription;
 
-  Location _locationService  = new Location();
+  Location _locationService = new Location();
   bool _permission = false;
   String error;
 
@@ -58,16 +55,19 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
                   value: configuration.positionIndicator.isVisible.value,
                   onChanged: (change) {
                     setState(() {
-                      configuration.positionIndicator.isVisible = boolValue(change);
+                      configuration.positionIndicator.isVisible =
+                          boolValue(change);
                     });
                   },
                   title: new Text('PositionIndicator Visible'),
                 ),
                 new SwitchListTile(
-                  value: configuration.positionIndicator.isAccuracyIndicatorVisible.value,
+                  value: configuration
+                      .positionIndicator.isAccuracyIndicatorVisible.value,
                   onChanged: (change) {
                     setState(() {
-                      configuration.positionIndicator.isAccuracyIndicatorVisible = boolValue(change);
+                      configuration.positionIndicator
+                          .isAccuracyIndicatorVisible = boolValue(change);
                     });
                   },
                   title: new Text('Accuracy Visible'),
@@ -92,8 +92,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
               ],
             ),
           );
-        }
-    );
+        });
     if (result == DialogResult.NO) {
       _initConfiguration();
     }
@@ -101,7 +100,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
   }
 
   void _setConfiguration(Configuration configuration) async {
-      await map.setConfiguration(configuration);
+    await map.setConfiguration(configuration);
   }
 
   @override
@@ -116,14 +115,16 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
           alignment: AlignmentDirectional.topCenter,
           children: <Widget>[
             MapView(),
-            Text("Lat: ${_currentLocation?.latitude}, Lng: ${_currentLocation?.longitude}",
-              style: TextStyle(color: Colors.red), textAlign: TextAlign.center,)
-            ,
+            Text(
+              "Lat: ${_currentLocation?.latitude}, Lng: ${_currentLocation?.longitude}",
+              style: TextStyle(color: Colors.red),
+              textAlign: TextAlign.center,
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () => _showConfigurationsDialog()
-              .then( (configuration) => _setConfiguration(configuration)),
+              .then((configuration) => _setConfiguration(configuration)),
           child: Icon(Icons.settings),
         ),
       ),
@@ -140,13 +141,13 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
   }
 
   BoolValue boolValue(bool value) {
-    return BoolValue()
-        ..value = value;
+    return BoolValue()..value = value;
   }
 
   // Platform messages are asynchronous, so we initialize in an async method.
   _initPlatformState() async {
-    await _locationService.changeSettings(accuracy: LocationAccuracy.HIGH, interval: 1000);
+    await _locationService.changeSettings(
+        accuracy: LocationAccuracy.HIGH, interval: 1000);
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       bool serviceStatus = await _locationService.serviceEnabled();
@@ -155,19 +156,17 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
         _permission = await _locationService.requestPermission();
         print("Permission: $_permission");
         if (_permission) {
-          _locationSubscription = _locationService.onLocationChanged().listen((LocationData result) async {
+          _locationSubscription = _locationService
+              .onLocationChanged()
+              .listen((LocationData result) async {
             if (_currentLocation == null) {
-              map.setCenter(
-                  MapCenter()
-                    ..coordinate = (
-                        Coordinate()
-                          ..lat = result.latitude
-                          ..lng = result.longitude
-                    )
-                    ..zoomLevel = (FloatValue()..value = 16)
-              );
+              map.setCenter(MapCenter()
+                ..coordinate = (Coordinate()
+                  ..lat = result.latitude
+                  ..lng = result.longitude)
+                ..zoomLevel = (FloatValue()..value = 16));
             }
-            if(mounted){
+            if (mounted) {
               setState(() {
                 _currentLocation = result;
               });
@@ -177,7 +176,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
       } else {
         bool serviceStatusResult = await _locationService.requestService();
         print("Service status activated after request: $serviceStatusResult");
-        if(serviceStatusResult){
+        if (serviceStatusResult) {
           _initPlatformState();
         }
       }
@@ -190,5 +189,4 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
       }
     }
   }
-
 }

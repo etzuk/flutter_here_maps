@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_here_maps/map/map_view.dart';
-import 'package:flutter_here_maps/gen/map_objects.pb.dart';
+import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
 
 import '../drawer.dart';
 import 'map_center.dart';
@@ -19,6 +19,7 @@ class LocationTrackerPage extends StatefulWidget {
 class _LocationTrackerPageState extends State<LocationTrackerPage> {
   FlutterHereMaps map = FlutterHereMaps();
   StreamSubscription trackerSubscription;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
