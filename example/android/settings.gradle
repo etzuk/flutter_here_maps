@@ -1,4 +1,4 @@
-include ':app'
+include ':app', ':HERE-sdk'
 
 def flutterProjectRoot = rootProject.projectDir.parentFile.toPath()
 

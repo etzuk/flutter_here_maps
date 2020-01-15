@@ -68,7 +68,7 @@ protobuf {
 }
 
 dependencies {
-    implementation(name:'HERE-sdk', ext:'aar')
+    api project(':HERE-sdk')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.protobuf:protobuf-lite:3.0.1'
 
