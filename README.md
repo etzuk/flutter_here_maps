@@ -17,6 +17,6 @@ Set your keys at example/ios/Runner/AppDelegate.swift by replecing appId, appCod
 
 #### Android gradle.
 
-1. Place HERE-sdk.aar at your_app/android/app/libs and at android/libs
+1. Import HERE-sdk.aar as aar module. (AndroidStudio) File -> New -> New Module -> Import .jar/.aar module.
 2. Add your keys to manifest and service as described at [HereMaps guide](https://developer.here.com/documentation/android-premium/dev_guide/topics/app-create-simple.html)
 3. Change the intent-filter in HereMaps Service to app package name.
