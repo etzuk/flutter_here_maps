@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_here_maps/gen/map_objects.pb.dart';
+import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
 
-enum DialogResult {YES, NO}
+enum DialogResult { YES, NO }
 
 class MapCenterSlidersDialog extends StatefulWidget {
-
   final MapCenter mapCenter;
 
   const MapCenterSlidersDialog({Key key, this.mapCenter}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _MapCenterSlidersState();
-
 }
 
 class _MapCenterSlidersState extends State<MapCenterSlidersDialog> {
-
   @override
   Widget build(BuildContext context) {
     return Padding(
