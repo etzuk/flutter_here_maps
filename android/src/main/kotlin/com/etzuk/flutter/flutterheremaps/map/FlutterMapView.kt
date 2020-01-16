@@ -13,7 +13,6 @@ import androidx.core.app.ActivityCompat
 import com.google.protobuf.MessageLite
 import com.here.android.mpa.common.ApplicationContext
 import com.here.android.mpa.common.MapEngine
-import com.here.android.mpa.common.MapSettings
 import com.here.android.mpa.common.OnEngineInitListener
 import com.here.android.mpa.mapping.Map
 import com.here.android.mpa.mapping.MapMarker
@@ -22,7 +21,6 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
-import java.io.File
 import java.nio.ByteBuffer
 
 
@@ -79,14 +77,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     private fun initMapEngine() {
-        val success = MapSettings.setIsolatedDiskCacheRootPath("${context!!.getExternalFilesDir(null)}${File.separator}.here-maps",
-                context.packageName)
-        if (success) {
-            MapEngine.getInstance().init(ApplicationContext(context), this)
-        } else {
-            //TODO: Add error
-        }
-
+        MapEngine.getInstance().init(ApplicationContext(context), this)
     }
 
     override fun onEngineInitializationCompleted(error: OnEngineInitListener.Error?) {
