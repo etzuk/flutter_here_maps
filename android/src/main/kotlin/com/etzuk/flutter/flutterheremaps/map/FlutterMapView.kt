@@ -1,6 +1,7 @@
 package com.etzuk.flutter.flutterheremaps.map
 
 import FlutterHereMaps.MapChannel
+import FlutterHereMaps.MapObjects
 import android.Manifest
 import android.app.Activity
 import android.app.Application
@@ -22,13 +23,14 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
 import java.io.File
+import java.nio.ByteBuffer
 
 
 class Map(val mapView: MapView) {
     var markers = mutableMapOf<String, MapMarker>()
 }
 
-class FlutterMapView(private val registrar: PluginRegistry.Registrar, private val context: Context?, id: Int, args: Any?) :
+class FlutterMapView(private val registrar: PluginRegistry.Registrar, private val context: Context?, id: Int, private val args: Any?) :
         PlatformView,
         OnEngineInitListener,
         PluginRegistry.RequestPermissionsResultListener, MethodChannel.MethodCallHandler, Application.ActivityLifecycleCallbacks {
@@ -99,6 +101,12 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             map.mapView.map = hereMap
             map.mapView.map.mapScheme = map.mapView.map.mapSchemes[12]
             map.mapView.positionIndicator.isVisible = true
+            args?.let { args ->
+                (args as? ByteBuffer)?.let {
+                    val mapCenter = MapObjects.MapCenter.parseFrom(it.array())
+                    map.setMapCenter(mapCenter)
+                }
+            }
         } else {
             //TODO: Add error when error mechanism will be developed
         }
@@ -120,7 +128,6 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
                 return
             }
         }
-
 
         if (hereMap == null) {
             result.error(methodCall.method, "Map is null", null)

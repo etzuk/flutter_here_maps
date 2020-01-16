@@ -6,7 +6,10 @@ class MapViewFactory : NSObject, FlutterPlatformViewFactory {
 
     var registerar: FlutterPluginRegistrar!
 
-
+    public func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {
+          return FlutterBinaryCodec.sharedInstance()
+    }
+    
     init(with registerar: FlutterPluginRegistrar) {
         self.registerar = registerar
     }
@@ -20,25 +23,22 @@ class MapViewFactory : NSObject, FlutterPlatformViewFactory {
 }
 
 public class MapView : NSObject, FlutterPlatformView {
-    let frame : CGRect
-    let viewId : Int64
-    let registerar: FlutterPluginRegistrar
-    
-
-    var map: Map!
+    private let frame : CGRect
+    private let viewId : Int64
+    private  let registerar: FlutterPluginRegistrar
+    private  var map: Map!
 
     init(_ frame:CGRect, viewId:Int64, args: Any?, registerar: FlutterPluginRegistrar){
         self.frame = frame
         self.viewId = viewId
         self.registerar = registerar
-        if let argsDict = args as? Dictionary<String, AnyObject> {
-            let cameraPosition = argsDict["initialCameraPosition"]
-            print(cameraPosition ?? "No camera position")
-        } else {
-            print(args.debugDescription)
-        }
         map = Map(mapView: NMAMapView(frame: frame))
         map.mapView.mapScheme = map.mapView.availableMapSchemes[12]
+        if let argsDict = args as? Data {
+            if let mapCenter = try? FlutterHereMaps_MapCenter(serializedData: argsDict) {
+                map.set(center: mapCenter)
+            }
+        }
     }
 
     func initMethodCallHanlder() {

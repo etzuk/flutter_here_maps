@@ -1,10 +1,10 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_here_maps/flutter_here_maps.dart';
 import 'package:flutter_here_maps/map/map_view.dart';
 import 'package:flutter_here_maps_example/drawer.dart';
 import 'package:flutter_here_maps_example/widgets/MapCenterSlidersDialog.dart';
+import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
 
 class ShowMapPage extends StatelessWidget {
   static const String route = 'show_map';
@@ -36,6 +36,13 @@ class ShowMapPage extends StatelessWidget {
           title: const Text('Here maps'),
         ),
         body: MapView(
+          initialMapCenter: MapCenter()
+            ..coordinate = (Coordinate()
+              ..lat = 32.06356430053711
+              ..lng = 34.773963928222656)
+            ..zoomLevel = (FloatValue()..value = 17.0)
+            ..orientation = (FloatValue()..value = 0.0)
+            ..tilt = (FloatValue()..value = 0.0),
           onMapCreated: (contrller) {
             _controller.complete(contrller);
           },
