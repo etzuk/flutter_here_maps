@@ -14,8 +14,14 @@ class MapView extends StatefulWidget {
     this.onMapCreated,
     this.initialMapCenter,
   }) : super(key: key);
+
   final MapCreatedCallback onMapCreated;
   final MapCenter initialMapCenter;
+  MapCenter get _initialMapCenter => initialMapCenter ?? MapCenter()
+    ..zoomLevel = (FloatValue()..value = 17.0)
+    ..orientation = (FloatValue()..value = 0.0)
+    ..tilt = (FloatValue()..value = 0.0);
+
   @override
   State<StatefulWidget> createState() {
     return _MapViewState();
@@ -27,16 +33,12 @@ class _MapViewState extends State<MapView> {
       Completer<HereMapsController>();
   @override
   Widget build(BuildContext context) {
-    final Map<String, String> creationParams = <String, String>{
-      'initialMapCenter': widget.initialMapCenter.writeToJson(),
-    };
-    print(creationParams);
     if (defaultTargetPlatform == TargetPlatform.android) {
       return AndroidView(
         viewType: 'flugins.etzuk.flutter_here_maps/MapView',
         onPlatformViewCreated: onPlatformViewCreated,
         creationParams:
-            ByteData.view(widget.initialMapCenter.writeToBuffer().buffer),
+            ByteData.view(widget._initialMapCenter.writeToBuffer().buffer),
         creationParamsCodec: const BinaryCodec(),
       );
     } else {
@@ -44,7 +46,7 @@ class _MapViewState extends State<MapView> {
           viewType: 'flugins.etzuk.flutter_here_maps/MapView',
           onPlatformViewCreated: onPlatformViewCreated,
           creationParams:
-              ByteData.view(widget.initialMapCenter.writeToBuffer().buffer),
+              ByteData.view(widget._initialMapCenter.writeToBuffer().buffer),
           creationParamsCodec: const BinaryCodec());
     }
   }
