@@ -106,7 +106,7 @@ public class MapView : NSObject, FlutterPlatformView {
 
     private func invoke(replay: FlutterHereMaps_MapChannelReplay) -> Any? {
         switch replay.object {
-        case .getCenter(_)?:
+        case .getCenter?:
             return map.getCenter()
         default:
             break
@@ -137,7 +137,7 @@ extension Map : FlutterHereMapView {
 
     internal func add(mapObject: FlutterHereMaps_MapObject, registerar: FlutterPluginRegistrar) {
         switch mapObject.object {
-        case .marker(_)?: self.add(mapMarker: mapObject, registerar: registerar)
+        case .marker?: self.add(mapMarker: mapObject, registerar: registerar)
         default: break
         }
     }
