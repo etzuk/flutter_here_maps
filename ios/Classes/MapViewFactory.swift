@@ -57,7 +57,10 @@ public class MapView : NSObject, FlutterPlatformView {
     public func onMethodCallHanler(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
 
         if(call.method == "initMap") {
-            result(nil)
+            //Wait for map ready. (Support Set Bounding box)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                result(nil)
+            }
             return
         }
         
@@ -99,6 +102,8 @@ public class MapView : NSObject, FlutterPlatformView {
             return map.set(configuration: configuration)
         case .setCenter(let center)?:
             return map.set(center: center)
+        case .zoomTo(let zoomTo)?:
+            return map.set(zoomTo: zoomTo)
         default:break
         }
         return nil
@@ -118,6 +123,7 @@ public class MapView : NSObject, FlutterPlatformView {
 protocol FlutterHereMapView : class {
     func set(center: FlutterHereMaps_MapCenter);
     func set(configuration: FlutterHereMaps_Configuration)
+    func set(zoomTo: FlutterHereMaps_ZoomTo)
     func add(mapObject: FlutterHereMaps_MapObject, registerar: FlutterPluginRegistrar)
     func getCenter() -> FlutterHereMaps_MapCenter
 }
@@ -131,9 +137,25 @@ class Map {
     }
 }
 
+
+
 extension Map : FlutterHereMapView {
     
-    // MARK -MapObjects
+    //MARK -ZoomTo
+
+    func set(zoomTo: FlutterHereMaps_ZoomTo) {
+        if let bb:NMAGeoBoundingBox = NMAGeoBoundingBox.init(coordinates: zoomTo.coordinates.map({ (coordinate) -> NMAGeoCoordinates in
+            coordinate.toGeo()
+        })) {
+            if zoomTo.hasViewRect {
+                self.mapView.set(boundingBox: bb, inside: zoomTo.viewRect.toRect(), animation: .none)
+            } else {
+                self.mapView.set(boundingBox: bb, animation: .none)
+            }
+        }
+    }
+    
+    //MARK -MapObjects
 
     internal func add(mapObject: FlutterHereMaps_MapObject, registerar: FlutterPluginRegistrar) {
         switch mapObject.object {

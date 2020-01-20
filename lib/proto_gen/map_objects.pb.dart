@@ -95,6 +95,67 @@ class Size extends $pb.GeneratedMessage {
   void clearHeight() => clearField(2);
 }
 
+class ViewRect extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ViewRect', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..a<$core.int>(1, 'x', $pb.PbFieldType.O3)
+    ..a<$core.int>(2, 'y', $pb.PbFieldType.O3)
+    ..a<$core.int>(3, 'width', $pb.PbFieldType.O3)
+    ..a<$core.int>(4, 'height', $pb.PbFieldType.O3)
+    ..hasRequiredFields = false
+  ;
+
+  ViewRect._() : super();
+  factory ViewRect() => create();
+  factory ViewRect.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ViewRect.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  ViewRect clone() => ViewRect()..mergeFromMessage(this);
+  ViewRect copyWith(void Function(ViewRect) updates) => super.copyWith((message) => updates(message as ViewRect));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ViewRect create() => ViewRect._();
+  ViewRect createEmptyInstance() => create();
+  static $pb.PbList<ViewRect> createRepeated() => $pb.PbList<ViewRect>();
+  @$core.pragma('dart2js:noInline')
+  static ViewRect getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ViewRect>(create);
+  static ViewRect _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.int get x => $_getIZ(0);
+  @$pb.TagNumber(1)
+  set x($core.int v) { $_setSignedInt32(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasX() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearX() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.int get y => $_getIZ(1);
+  @$pb.TagNumber(2)
+  set y($core.int v) { $_setSignedInt32(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasY() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearY() => clearField(2);
+
+  @$pb.TagNumber(3)
+  $core.int get width => $_getIZ(2);
+  @$pb.TagNumber(3)
+  set width($core.int v) { $_setSignedInt32(2, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasWidth() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearWidth() => clearField(3);
+
+  @$pb.TagNumber(4)
+  $core.int get height => $_getIZ(3);
+  @$pb.TagNumber(4)
+  set height($core.int v) { $_setSignedInt32(3, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasHeight() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearHeight() => clearField(4);
+}
+
 class MapMarker extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('MapMarker', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
     ..aOM<Coordinate>(1, 'coordinate', subBuilder: Coordinate.create)
@@ -232,7 +293,7 @@ class MapCenter extends $pb.GeneratedMessage {
     ..aOM<FloatValue>(2, 'zoomLevel', protoName: 'zoomLevel', subBuilder: FloatValue.create)
     ..aOM<FloatValue>(3, 'orientation', subBuilder: FloatValue.create)
     ..aOM<FloatValue>(4, 'tilt', subBuilder: FloatValue.create)
-    ..e<MapCenter_Animation>(5, 'animation', $pb.PbFieldType.OE, defaultOrMaker: MapCenter_Animation.Bow, valueOf: MapCenter_Animation.valueOf, enumValues: MapCenter_Animation.values)
+    ..e<Animation>(5, 'animation', $pb.PbFieldType.OE, defaultOrMaker: Animation.Bow, valueOf: Animation.valueOf, enumValues: Animation.values)
     ..hasRequiredFields = false
   ;
 
@@ -296,9 +357,9 @@ class MapCenter extends $pb.GeneratedMessage {
   FloatValue ensureTilt() => $_ensure(3);
 
   @$pb.TagNumber(5)
-  MapCenter_Animation get animation => $_getN(4);
+  Animation get animation => $_getN(4);
   @$pb.TagNumber(5)
-  set animation(MapCenter_Animation v) { setField(5, v); }
+  set animation(Animation v) { setField(5, v); }
   @$pb.TagNumber(5)
   $core.bool hasAnimation() => $_has(4);
   @$pb.TagNumber(5)
@@ -439,6 +500,77 @@ class Configuration extends $pb.GeneratedMessage {
   void clearPositionIndicator() => clearField(2);
   @$pb.TagNumber(2)
   Configuration_PositionIndicator ensurePositionIndicator() => $_ensure(1);
+}
+
+class ZoomTo extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('ZoomTo', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..pc<Coordinate>(1, 'coordinates', $pb.PbFieldType.PM, subBuilder: Coordinate.create)
+    ..e<Animation>(2, 'animation', $pb.PbFieldType.OE, defaultOrMaker: Animation.Bow, valueOf: Animation.valueOf, enumValues: Animation.values)
+    ..aOM<FloatValue>(3, 'orientation', subBuilder: FloatValue.create)
+    ..aOM<FloatValue>(4, 'perspective', subBuilder: FloatValue.create)
+    ..aOM<ViewRect>(5, 'viewRect', protoName: 'viewRect', subBuilder: ViewRect.create)
+    ..hasRequiredFields = false
+  ;
+
+  ZoomTo._() : super();
+  factory ZoomTo() => create();
+  factory ZoomTo.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory ZoomTo.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  ZoomTo clone() => ZoomTo()..mergeFromMessage(this);
+  ZoomTo copyWith(void Function(ZoomTo) updates) => super.copyWith((message) => updates(message as ZoomTo));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static ZoomTo create() => ZoomTo._();
+  ZoomTo createEmptyInstance() => create();
+  static $pb.PbList<ZoomTo> createRepeated() => $pb.PbList<ZoomTo>();
+  @$core.pragma('dart2js:noInline')
+  static ZoomTo getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<ZoomTo>(create);
+  static ZoomTo _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.List<Coordinate> get coordinates => $_getList(0);
+
+  @$pb.TagNumber(2)
+  Animation get animation => $_getN(1);
+  @$pb.TagNumber(2)
+  set animation(Animation v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasAnimation() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearAnimation() => clearField(2);
+
+  @$pb.TagNumber(3)
+  FloatValue get orientation => $_getN(2);
+  @$pb.TagNumber(3)
+  set orientation(FloatValue v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasOrientation() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearOrientation() => clearField(3);
+  @$pb.TagNumber(3)
+  FloatValue ensureOrientation() => $_ensure(2);
+
+  @$pb.TagNumber(4)
+  FloatValue get perspective => $_getN(3);
+  @$pb.TagNumber(4)
+  set perspective(FloatValue v) { setField(4, v); }
+  @$pb.TagNumber(4)
+  $core.bool hasPerspective() => $_has(3);
+  @$pb.TagNumber(4)
+  void clearPerspective() => clearField(4);
+  @$pb.TagNumber(4)
+  FloatValue ensurePerspective() => $_ensure(3);
+
+  @$pb.TagNumber(5)
+  ViewRect get viewRect => $_getN(4);
+  @$pb.TagNumber(5)
+  set viewRect(ViewRect v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasViewRect() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearViewRect() => clearField(5);
+  @$pb.TagNumber(5)
+  ViewRect ensureViewRect() => $_ensure(4);
 }
 
 class FloatValue extends $pb.GeneratedMessage {

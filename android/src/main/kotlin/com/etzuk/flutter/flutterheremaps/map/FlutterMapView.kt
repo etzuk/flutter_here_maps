@@ -160,6 +160,9 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
                 MapChannel.MapChannelRequest.ObjectCase.SETMAPOBJECT -> {
                     map.setMapObject(request.setMapObject, registrar)
                 }
+                MapChannel.MapChannelRequest.ObjectCase.ZOOMTO -> {
+                    map.zoomTo(request.zoomTo)
+                }
                 MapChannel.MapChannelRequest.ObjectCase.OBJECT_NOT_SET ->
                     null
             }

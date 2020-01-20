@@ -46,6 +46,14 @@ struct FlutterHereMaps_MapChannelRequest {
     set {_uniqueStorage()._object = .setConfiguration(newValue)}
   }
 
+  var zoomTo: FlutterHereMaps_ZoomTo {
+    get {
+      if case .zoomTo(let v)? = _storage._object {return v}
+      return FlutterHereMaps_ZoomTo()
+    }
+    set {_uniqueStorage()._object = .zoomTo(newValue)}
+  }
+
   ///UIMap objects
   var setMapObject: FlutterHereMaps_MapObject {
     get {
@@ -61,6 +69,7 @@ struct FlutterHereMaps_MapChannelRequest {
     ///Map actions
     case setCenter(FlutterHereMaps_MapCenter)
     case setConfiguration(FlutterHereMaps_Configuration)
+    case zoomTo(FlutterHereMaps_ZoomTo)
     ///UIMap objects
     case setMapObject(FlutterHereMaps_MapObject)
 
@@ -69,6 +78,7 @@ struct FlutterHereMaps_MapChannelRequest {
       switch (lhs, rhs) {
       case (.setCenter(let l), .setCenter(let r)): return l == r
       case (.setConfiguration(let l), .setConfiguration(let r)): return l == r
+      case (.zoomTo(let l), .zoomTo(let r)): return l == r
       case (.setMapObject(let l), .setMapObject(let r)): return l == r
       default: return false
       }
@@ -129,6 +139,7 @@ extension FlutterHereMaps_MapChannelRequest: SwiftProtobuf.Message, SwiftProtobu
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "setCenter"),
     2: .same(proto: "setConfiguration"),
+    3: .same(proto: "zoomTo"),
     20: .same(proto: "setMapObject"),
   ]
 
@@ -172,6 +183,14 @@ extension FlutterHereMaps_MapChannelRequest: SwiftProtobuf.Message, SwiftProtobu
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._object = .setConfiguration(v)}
+        case 3:
+          var v: FlutterHereMaps_ZoomTo?
+          if let current = _storage._object {
+            try decoder.handleConflictingOneOf()
+            if case .zoomTo(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._object = .zoomTo(v)}
         case 20:
           var v: FlutterHereMaps_MapObject?
           if let current = _storage._object {
@@ -193,6 +212,8 @@ extension FlutterHereMaps_MapChannelRequest: SwiftProtobuf.Message, SwiftProtobu
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       case .setConfiguration(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case .zoomTo(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
       case .setMapObject(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 20)
       case nil: break

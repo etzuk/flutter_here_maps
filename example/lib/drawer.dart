@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_here_maps_example/pages/current_location_tracker.dart';
 import 'package:flutter_here_maps_example/pages/location_trakcer_page.dart';
 import 'package:flutter_here_maps_example/pages/map_markers.dart';
+import 'package:flutter_here_maps_example/pages/show_bb.dart';
 import 'pages/show_map.dart';
 import 'pages/map_center.dart';
 
@@ -32,7 +33,8 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
           title: const Text('Curretn Location Trakcer'),
           selected: currentRoute == CurrentLocationTrackerPage.route,
           onTap: () {
-            Navigator.pushReplacementNamed(context, CurrentLocationTrackerPage.route);
+            Navigator.pushReplacementNamed(
+                context, CurrentLocationTrackerPage.route);
           },
         ),
         new ListTile(
@@ -47,6 +49,13 @@ Drawer buildDrawer(BuildContext context, String currentRoute) {
           selected: currentRoute == MapMarkersPage.route,
           onTap: () {
             Navigator.pushReplacementNamed(context, LocationTrackerPage.route);
+          },
+        ),
+        new ListTile(
+          title: const Text('Show BB'),
+          selected: currentRoute == ShowBB.route,
+          onTap: () {
+            Navigator.pushReplacementNamed(context, ShowBB.route);
           },
         ),
       ],

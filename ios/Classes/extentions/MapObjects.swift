@@ -11,3 +11,9 @@ extension FlutterHereMaps_Coordinate {
         return NMAGeoCoordinates(latitude: self.lat, longitude: self.lng)
     }
 }
+
+extension FlutterHereMaps_ViewRect {
+    func toRect() -> CGRect {
+        return CGRect(x: CGFloat(x), y: CGFloat(y), width: CGFloat(width), height: CGFloat(height))
+    }
+}

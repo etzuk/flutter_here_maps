@@ -5,6 +5,16 @@
 // @dart = 2.3
 // ignore_for_file: camel_case_types,non_constant_identifier_names,library_prefixes,unused_import,unused_shown_name,return_of_invalid_type
 
+const Animation$json = const {
+  '1': 'Animation',
+  '2': const [
+    const {'1': 'Bow', '2': 0},
+    const {'1': 'Linear', '2': 1},
+    const {'1': 'None', '2': 2},
+    const {'1': 'Rocket', '2': 3},
+  ],
+};
+
 const Coordinate$json = const {
   '1': 'Coordinate',
   '2': const [
@@ -18,6 +28,16 @@ const Size$json = const {
   '2': const [
     const {'1': 'width', '3': 1, '4': 1, '5': 2, '10': 'width'},
     const {'1': 'height', '3': 2, '4': 1, '5': 2, '10': 'height'},
+  ],
+};
+
+const ViewRect$json = const {
+  '1': 'ViewRect',
+  '2': const [
+    const {'1': 'x', '3': 1, '4': 1, '5': 5, '10': 'x'},
+    const {'1': 'y', '3': 2, '4': 1, '5': 5, '10': 'y'},
+    const {'1': 'width', '3': 3, '4': 1, '5': 5, '10': 'width'},
+    const {'1': 'height', '3': 4, '4': 1, '5': 5, '10': 'height'},
   ],
 };
 
@@ -50,18 +70,7 @@ const MapCenter$json = const {
     const {'1': 'zoomLevel', '3': 2, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'zoomLevel'},
     const {'1': 'orientation', '3': 3, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'orientation'},
     const {'1': 'tilt', '3': 4, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'tilt'},
-    const {'1': 'animation', '3': 5, '4': 1, '5': 14, '6': '.FlutterHereMaps.MapCenter.Animation', '10': 'animation'},
-  ],
-  '4': const [MapCenter_Animation$json],
-};
-
-const MapCenter_Animation$json = const {
-  '1': 'Animation',
-  '2': const [
-    const {'1': 'Bow', '2': 0},
-    const {'1': 'Linear', '2': 1},
-    const {'1': 'None', '2': 2},
-    const {'1': 'Rocket', '2': 3},
+    const {'1': 'animation', '3': 5, '4': 1, '5': 14, '6': '.FlutterHereMaps.Animation', '10': 'animation'},
   ],
 };
 
@@ -83,6 +92,17 @@ const Configuration_PositionIndicator$json = const {
     const {'1': 'hue', '3': 4, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'hue'},
     const {'1': 'orientationOffset', '3': 5, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'orientationOffset'},
     const {'1': 'tracksCourse', '3': 6, '4': 1, '5': 11, '6': '.FlutterHereMaps.BoolValue', '10': 'tracksCourse'},
+  ],
+};
+
+const ZoomTo$json = const {
+  '1': 'ZoomTo',
+  '2': const [
+    const {'1': 'coordinates', '3': 1, '4': 3, '5': 11, '6': '.FlutterHereMaps.Coordinate', '10': 'coordinates'},
+    const {'1': 'animation', '3': 2, '4': 1, '5': 14, '6': '.FlutterHereMaps.Animation', '10': 'animation'},
+    const {'1': 'orientation', '3': 3, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'orientation'},
+    const {'1': 'perspective', '3': 4, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'perspective'},
+    const {'1': 'viewRect', '3': 5, '4': 1, '5': 11, '6': '.FlutterHereMaps.ViewRect', '10': 'viewRect'},
   ],
 };
 

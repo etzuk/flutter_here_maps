@@ -11,6 +11,13 @@ message Size {
     float height = 2;
 }
 
+message ViewRect {
+    int32 x = 1;
+    int32 y = 2;
+    int32 width = 3;
+    int32 height = 4;
+}
+
 message MapMarker {
      Coordinate coordinate = 1;
      Size size = 2;
@@ -27,17 +34,18 @@ message MapObject {
     }
 }
 
+enum Animation {
+    Bow = 0;
+    Linear = 1;
+    None = 2;
+    Rocket = 3;
+}
+
 message MapCenter {
     Coordinate Coordinate = 1;
     FloatValue zoomLevel = 2;
     FloatValue orientation = 3;
     FloatValue tilt = 4;
-    enum Animation {
-        Bow = 0;
-        Linear = 1;
-        None = 2;
-        Rocket = 3;
-    }
     Animation animation = 5;
 }
 
@@ -53,6 +61,18 @@ message Configuration {
         BoolValue tracksCourse = 6;
     }
     PositionIndicator positionIndicator = 2;
+}
+
+message ZoomTo {
+    repeated Coordinate coordinates = 1;
+    // Optional
+    Animation animation = 2;
+    // Optional
+    FloatValue orientation = 3;
+    // Optional
+    FloatValue perspective = 4;
+    // Optional
+    ViewRect viewRect = 5;
 }
 
 // Wrapper message for `float`.
