@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
-import 'package:flutter_here_maps/flutter_here_maps.dart';
-import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
-import 'package:flutter_here_maps/proto_gen/map_channel.pb.dart';
+import '../../flutter_here_maps.dart';
+import '../proto_gen/map_objects.pb.dart';
+import '../proto_gen/map_channel.pb.dart';
 
 class HereMapsController {
   HereMapsController._(

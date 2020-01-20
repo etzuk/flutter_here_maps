@@ -2,9 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_here_maps/map/map_view.dart';
-import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
-
 import '../drawer.dart';
 import 'map_center.dart';
 import 'package:flutter_here_maps/flutter_here_maps.dart';
