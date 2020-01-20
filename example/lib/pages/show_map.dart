@@ -1,10 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_here_maps/flutter_here_maps.dart';
-import 'package:flutter_here_maps/map/map_view.dart';
 import 'package:flutter_here_maps_example/drawer.dart';
 import 'package:flutter_here_maps_example/widgets/MapCenterSlidersDialog.dart';
-import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
 
 class ShowMapPage extends StatelessWidget {
   static const String route = 'show_map';
