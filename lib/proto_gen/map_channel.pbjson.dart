@@ -10,6 +10,7 @@ const MapChannelRequest$json = const {
   '2': const [
     const {'1': 'setCenter', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapCenter', '9': 0, '10': 'setCenter'},
     const {'1': 'setConfiguration', '3': 2, '4': 1, '5': 11, '6': '.FlutterHereMaps.Configuration', '9': 0, '10': 'setConfiguration'},
+    const {'1': 'zoomTo', '3': 3, '4': 1, '5': 11, '6': '.FlutterHereMaps.ZoomTo', '9': 0, '10': 'zoomTo'},
     const {'1': 'setMapObject', '3': 20, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapObject', '9': 0, '10': 'setMapObject'},
   ],
   '8': const [

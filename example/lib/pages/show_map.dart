@@ -9,7 +9,7 @@ import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
 class ShowMapPage extends StatelessWidget {
   static const String route = 'show_map';
 
-  Completer<HereMapsController> _controller = Completer();
+  final Completer<HereMapsController> _controller = Completer();
 
   Future<void> _showMapCenterDialog(BuildContext context) async {
     final map = await _controller.future;

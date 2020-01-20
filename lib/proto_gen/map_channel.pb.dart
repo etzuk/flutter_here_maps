@@ -14,6 +14,7 @@ import 'map_objects.pb.dart' as $0;
 enum MapChannelRequest_Object {
   setCenter, 
   setConfiguration, 
+  zoomTo, 
   setMapObject, 
   notSet
 }
@@ -22,13 +23,15 @@ class MapChannelRequest extends $pb.GeneratedMessage {
   static const $core.Map<$core.int, MapChannelRequest_Object> _MapChannelRequest_ObjectByTag = {
     1 : MapChannelRequest_Object.setCenter,
     2 : MapChannelRequest_Object.setConfiguration,
+    3 : MapChannelRequest_Object.zoomTo,
     20 : MapChannelRequest_Object.setMapObject,
     0 : MapChannelRequest_Object.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('MapChannelRequest', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
-    ..oo(0, [1, 2, 20])
+    ..oo(0, [1, 2, 3, 20])
     ..aOM<$0.MapCenter>(1, 'setCenter', protoName: 'setCenter', subBuilder: $0.MapCenter.create)
     ..aOM<$0.Configuration>(2, 'setConfiguration', protoName: 'setConfiguration', subBuilder: $0.Configuration.create)
+    ..aOM<$0.ZoomTo>(3, 'zoomTo', protoName: 'zoomTo', subBuilder: $0.ZoomTo.create)
     ..aOM<$0.MapObject>(20, 'setMapObject', protoName: 'setMapObject', subBuilder: $0.MapObject.create)
     ..hasRequiredFields = false
   ;
@@ -73,16 +76,27 @@ class MapChannelRequest extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   $0.Configuration ensureSetConfiguration() => $_ensure(1);
 
+  @$pb.TagNumber(3)
+  $0.ZoomTo get zoomTo => $_getN(2);
+  @$pb.TagNumber(3)
+  set zoomTo($0.ZoomTo v) { setField(3, v); }
+  @$pb.TagNumber(3)
+  $core.bool hasZoomTo() => $_has(2);
+  @$pb.TagNumber(3)
+  void clearZoomTo() => clearField(3);
+  @$pb.TagNumber(3)
+  $0.ZoomTo ensureZoomTo() => $_ensure(2);
+
   @$pb.TagNumber(20)
-  $0.MapObject get setMapObject => $_getN(2);
+  $0.MapObject get setMapObject => $_getN(3);
   @$pb.TagNumber(20)
   set setMapObject($0.MapObject v) { setField(20, v); }
   @$pb.TagNumber(20)
-  $core.bool hasSetMapObject() => $_has(2);
+  $core.bool hasSetMapObject() => $_has(3);
   @$pb.TagNumber(20)
   void clearSetMapObject() => clearField(20);
   @$pb.TagNumber(20)
-  $0.MapObject ensureSetMapObject() => $_ensure(2);
+  $0.MapObject ensureSetMapObject() => $_ensure(3);
 }
 
 enum MapChannelReplay_Object {

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_here_maps/flutter_here_maps.dart';
 import 'package:flutter_here_maps/map/map_view.dart';
 import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
+import 'package:flutter_here_maps/proto_gen/map_objects.pbenum.dart' as pref;
 import 'package:flutter_here_maps_example/drawer.dart';
 
 enum DialogResult { YES, NO }
@@ -21,7 +22,7 @@ class _MapCenterPageState extends State<MapCenterPage> {
   Future<void> setMapCenter(Coordinate coordinate) async {
     final map = await _controller.future;
     var mapCenter = MapCenter();
-    mapCenter.animation = MapCenter_Animation.Bow;
+    mapCenter.animation = pref.Animation.Bow;
     mapCenter.coordinate = coordinate;
     await map.setCenter(mapCenter);
   }

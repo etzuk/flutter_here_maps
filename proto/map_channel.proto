@@ -8,6 +8,7 @@ message MapChannelRequest {
         //Map actions
         MapCenter setCenter = 1;
         Configuration setConfiguration = 2;
+        ZoomTo zoomTo = 3;
 
         //UIMap objects
         MapObject setMapObject = 20;

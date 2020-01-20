@@ -3,7 +3,9 @@ package com.etzuk.flutter.flutterheremaps.map
 import FlutterHereMaps.MapObjects
 import android.content.res.AssetManager
 import android.graphics.BitmapFactory
+import com.here.android.mpa.common.GeoBoundingBox
 import com.here.android.mpa.common.Image
+import com.here.android.mpa.common.ViewRect
 
 import com.here.android.mpa.mapping.MapMarker
 import io.flutter.plugin.common.PluginRegistry
@@ -36,6 +38,7 @@ internal fun Map.clean() {
         mapView.map.removeMapObjects(markers.values.toList())
     }
 }
+
 internal fun Map.setMapMarker(mapObject: MapObjects.MapObject, registrar: PluginRegistry.Registrar) {
 
     markers[mapObject.uniqueId]?.let {
@@ -74,6 +77,24 @@ internal fun Map.setMapCenter(center: MapObjects.MapCenter) {
     if (center.hasCoordinate()) {
         map.setCenter(center.coordinate.toGeo(), com.here.android.mpa.mapping.Map.Animation.NONE)
     }
+}
+
+internal fun Map.zoomTo(zoomTo: MapObjects.ZoomTo) {
+    val map : com.here.android.mpa.mapping.Map = mapView.map
+    val bb = GeoBoundingBox.getBoundingBoxContainingGeoCoordinates(zoomTo.coordinatesList.map { it.toGeo() })
+    val orientation = if(zoomTo.hasOrientation()) zoomTo.orientation.value else com.here.android.mpa.mapping.Map.MOVE_PRESERVE_ORIENTATION
+    val perspective = if(zoomTo.hasPerspective()) zoomTo.perspective.value else com.here.android.mpa.mapping.Map.MOVE_PRESERVE_TILT
+
+    if(zoomTo.hasViewRect()) {
+        map.zoomTo(bb, zoomTo.viewRect.toViewRect(),com.here.android.mpa.mapping.Map.Animation.NONE, orientation)
+    } else {
+        map.zoomTo(bb, com.here.android.mpa.mapping.Map.Animation.NONE, orientation, perspective)
+    }
+
+}
+
+private fun MapObjects.ViewRect.toViewRect(): ViewRect {
+    return ViewRect(x, y, width, height)
 }
 
 internal fun Map.getMapCenter() =

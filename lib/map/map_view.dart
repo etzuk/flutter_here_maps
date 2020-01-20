@@ -3,8 +3,9 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_here_maps/flutter_here_maps.dart';
 import 'package:flutter_here_maps/proto_gen/map_objects.pb.dart';
+
+import 'here_map_contorller.dart';
 
 typedef void MapCreatedCallback(HereMapsController controller);
 

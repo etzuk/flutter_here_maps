@@ -19,6 +19,54 @@ fileprivate struct _GeneratedWithProtocGenSwiftVersion: SwiftProtobuf.ProtobufAP
   typealias Version = _2
 }
 
+enum FlutterHereMaps_Animation: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case bow // = 0
+  case linear // = 1
+  case none // = 2
+  case rocket // = 3
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .bow
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .bow
+    case 1: self = .linear
+    case 2: self = .none
+    case 3: self = .rocket
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .bow: return 0
+    case .linear: return 1
+    case .none: return 2
+    case .rocket: return 3
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension FlutterHereMaps_Animation: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [FlutterHereMaps_Animation] = [
+    .bow,
+    .linear,
+    .none,
+    .rocket,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct FlutterHereMaps_Coordinate {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -41,6 +89,24 @@ struct FlutterHereMaps_Size {
   var width: Float = 0
 
   var height: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct FlutterHereMaps_ViewRect {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var x: Int32 = 0
+
+  var y: Int32 = 0
+
+  var width: Int32 = 0
+
+  var height: Int32 = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -175,65 +241,17 @@ struct FlutterHereMaps_MapCenter {
   /// Clears the value of `tilt`. Subsequent reads from it will return its default value.
   mutating func clearTilt() {_uniqueStorage()._tilt = nil}
 
-  var animation: FlutterHereMaps_MapCenter.Animation {
+  var animation: FlutterHereMaps_Animation {
     get {return _storage._animation}
     set {_uniqueStorage()._animation = newValue}
   }
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
-  enum Animation: SwiftProtobuf.Enum {
-    typealias RawValue = Int
-    case bow // = 0
-    case linear // = 1
-    case none // = 2
-    case rocket // = 3
-    case UNRECOGNIZED(Int)
-
-    init() {
-      self = .bow
-    }
-
-    init?(rawValue: Int) {
-      switch rawValue {
-      case 0: self = .bow
-      case 1: self = .linear
-      case 2: self = .none
-      case 3: self = .rocket
-      default: self = .UNRECOGNIZED(rawValue)
-      }
-    }
-
-    var rawValue: Int {
-      switch self {
-      case .bow: return 0
-      case .linear: return 1
-      case .none: return 2
-      case .rocket: return 3
-      case .UNRECOGNIZED(let i): return i
-      }
-    }
-
-  }
-
   init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
 }
-
-#if swift(>=4.2)
-
-extension FlutterHereMaps_MapCenter.Animation: CaseIterable {
-  // The compiler won't synthesize support with the UNRECOGNIZED case.
-  static var allCases: [FlutterHereMaps_MapCenter.Animation] = [
-    .bow,
-    .linear,
-    .none,
-    .rocket,
-  ]
-}
-
-#endif  // swift(>=4.2)
 
 struct FlutterHereMaps_Configuration {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -327,6 +345,59 @@ struct FlutterHereMaps_Configuration {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct FlutterHereMaps_ZoomTo {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var coordinates: [FlutterHereMaps_Coordinate] {
+    get {return _storage._coordinates}
+    set {_uniqueStorage()._coordinates = newValue}
+  }
+
+  /// Optional
+  var animation: FlutterHereMaps_Animation {
+    get {return _storage._animation}
+    set {_uniqueStorage()._animation = newValue}
+  }
+
+  /// Optional
+  var orientation: FlutterHereMaps_FloatValue {
+    get {return _storage._orientation ?? FlutterHereMaps_FloatValue()}
+    set {_uniqueStorage()._orientation = newValue}
+  }
+  /// Returns true if `orientation` has been explicitly set.
+  var hasOrientation: Bool {return _storage._orientation != nil}
+  /// Clears the value of `orientation`. Subsequent reads from it will return its default value.
+  mutating func clearOrientation() {_uniqueStorage()._orientation = nil}
+
+  /// Optional
+  var perspective: FlutterHereMaps_FloatValue {
+    get {return _storage._perspective ?? FlutterHereMaps_FloatValue()}
+    set {_uniqueStorage()._perspective = newValue}
+  }
+  /// Returns true if `perspective` has been explicitly set.
+  var hasPerspective: Bool {return _storage._perspective != nil}
+  /// Clears the value of `perspective`. Subsequent reads from it will return its default value.
+  mutating func clearPerspective() {_uniqueStorage()._perspective = nil}
+
+  /// Optional
+  var viewRect: FlutterHereMaps_ViewRect {
+    get {return _storage._viewRect ?? FlutterHereMaps_ViewRect()}
+    set {_uniqueStorage()._viewRect = newValue}
+  }
+  /// Returns true if `viewRect` has been explicitly set.
+  var hasViewRect: Bool {return _storage._viewRect != nil}
+  /// Clears the value of `viewRect`. Subsequent reads from it will return its default value.
+  mutating func clearViewRect() {_uniqueStorage()._viewRect = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 /// Wrapper message for `float`.
 ///
 /// The JSON representation for `FloatValue` is JSON number.
@@ -362,6 +433,15 @@ struct FlutterHereMaps_BoolValue {
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "FlutterHereMaps"
+
+extension FlutterHereMaps_Animation: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Bow"),
+    1: .same(proto: "Linear"),
+    2: .same(proto: "None"),
+    3: .same(proto: "Rocket"),
+  ]
+}
 
 extension FlutterHereMaps_Coordinate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".Coordinate"
@@ -426,6 +506,53 @@ extension FlutterHereMaps_Size: SwiftProtobuf.Message, SwiftProtobuf._MessageImp
   }
 
   static func ==(lhs: FlutterHereMaps_Size, rhs: FlutterHereMaps_Size) -> Bool {
+    if lhs.width != rhs.width {return false}
+    if lhs.height != rhs.height {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_ViewRect: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ViewRect"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "x"),
+    2: .same(proto: "y"),
+    3: .same(proto: "width"),
+    4: .same(proto: "height"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularInt32Field(value: &self.x)
+      case 2: try decoder.decodeSingularInt32Field(value: &self.y)
+      case 3: try decoder.decodeSingularInt32Field(value: &self.width)
+      case 4: try decoder.decodeSingularInt32Field(value: &self.height)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.x != 0 {
+      try visitor.visitSingularInt32Field(value: self.x, fieldNumber: 1)
+    }
+    if self.y != 0 {
+      try visitor.visitSingularInt32Field(value: self.y, fieldNumber: 2)
+    }
+    if self.width != 0 {
+      try visitor.visitSingularInt32Field(value: self.width, fieldNumber: 3)
+    }
+    if self.height != 0 {
+      try visitor.visitSingularInt32Field(value: self.height, fieldNumber: 4)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_ViewRect, rhs: FlutterHereMaps_ViewRect) -> Bool {
+    if lhs.x != rhs.x {return false}
+    if lhs.y != rhs.y {return false}
     if lhs.width != rhs.width {return false}
     if lhs.height != rhs.height {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -617,7 +744,7 @@ extension FlutterHereMaps_MapCenter: SwiftProtobuf.Message, SwiftProtobuf._Messa
     var _zoomLevel: FlutterHereMaps_FloatValue? = nil
     var _orientation: FlutterHereMaps_FloatValue? = nil
     var _tilt: FlutterHereMaps_FloatValue? = nil
-    var _animation: FlutterHereMaps_MapCenter.Animation = .bow
+    var _animation: FlutterHereMaps_Animation = .bow
 
     static let defaultInstance = _StorageClass()
 
@@ -693,15 +820,6 @@ extension FlutterHereMaps_MapCenter: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
-}
-
-extension FlutterHereMaps_MapCenter.Animation: SwiftProtobuf._ProtoNameProviding {
-  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Bow"),
-    1: .same(proto: "Linear"),
-    2: .same(proto: "None"),
-    3: .same(proto: "Rocket"),
-  ]
 }
 
 extension FlutterHereMaps_Configuration: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -865,6 +983,99 @@ extension FlutterHereMaps_Configuration.PositionIndicator: SwiftProtobuf.Message
         if _storage._hue != rhs_storage._hue {return false}
         if _storage._orientationOffset != rhs_storage._orientationOffset {return false}
         if _storage._tracksCourse != rhs_storage._tracksCourse {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_ZoomTo: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".ZoomTo"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "coordinates"),
+    2: .same(proto: "animation"),
+    3: .same(proto: "orientation"),
+    4: .same(proto: "perspective"),
+    5: .same(proto: "viewRect"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _coordinates: [FlutterHereMaps_Coordinate] = []
+    var _animation: FlutterHereMaps_Animation = .bow
+    var _orientation: FlutterHereMaps_FloatValue? = nil
+    var _perspective: FlutterHereMaps_FloatValue? = nil
+    var _viewRect: FlutterHereMaps_ViewRect? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _coordinates = source._coordinates
+      _animation = source._animation
+      _orientation = source._orientation
+      _perspective = source._perspective
+      _viewRect = source._viewRect
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeRepeatedMessageField(value: &_storage._coordinates)
+        case 2: try decoder.decodeSingularEnumField(value: &_storage._animation)
+        case 3: try decoder.decodeSingularMessageField(value: &_storage._orientation)
+        case 4: try decoder.decodeSingularMessageField(value: &_storage._perspective)
+        case 5: try decoder.decodeSingularMessageField(value: &_storage._viewRect)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if !_storage._coordinates.isEmpty {
+        try visitor.visitRepeatedMessageField(value: _storage._coordinates, fieldNumber: 1)
+      }
+      if _storage._animation != .bow {
+        try visitor.visitSingularEnumField(value: _storage._animation, fieldNumber: 2)
+      }
+      if let v = _storage._orientation {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      }
+      if let v = _storage._perspective {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      }
+      if let v = _storage._viewRect {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_ZoomTo, rhs: FlutterHereMaps_ZoomTo) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._coordinates != rhs_storage._coordinates {return false}
+        if _storage._animation != rhs_storage._animation {return false}
+        if _storage._orientation != rhs_storage._orientation {return false}
+        if _storage._perspective != rhs_storage._perspective {return false}
+        if _storage._viewRect != rhs_storage._viewRect {return false}
         return true
       }
       if !storagesAreEqual {return false}
