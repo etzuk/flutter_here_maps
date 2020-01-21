@@ -103,6 +103,7 @@ const ZoomTo$json = const {
     const {'1': 'orientation', '3': 3, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'orientation'},
     const {'1': 'perspective', '3': 4, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'perspective'},
     const {'1': 'viewRect', '3': 5, '4': 1, '5': 11, '6': '.FlutterHereMaps.ViewRect', '10': 'viewRect'},
+    const {'1': 'paddingFactor', '3': 6, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'paddingFactor'},
   ],
 };
 

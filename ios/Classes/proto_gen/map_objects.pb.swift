@@ -391,6 +391,16 @@ struct FlutterHereMaps_ZoomTo {
   /// Clears the value of `viewRect`. Subsequent reads from it will return its default value.
   mutating func clearViewRect() {_uniqueStorage()._viewRect = nil}
 
+  /// Optional
+  var paddingFactor: FlutterHereMaps_FloatValue {
+    get {return _storage._paddingFactor ?? FlutterHereMaps_FloatValue()}
+    set {_uniqueStorage()._paddingFactor = newValue}
+  }
+  /// Returns true if `paddingFactor` has been explicitly set.
+  var hasPaddingFactor: Bool {return _storage._paddingFactor != nil}
+  /// Clears the value of `paddingFactor`. Subsequent reads from it will return its default value.
+  mutating func clearPaddingFactor() {_uniqueStorage()._paddingFactor = nil}
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
@@ -1000,6 +1010,7 @@ extension FlutterHereMaps_ZoomTo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     3: .same(proto: "orientation"),
     4: .same(proto: "perspective"),
     5: .same(proto: "viewRect"),
+    6: .same(proto: "paddingFactor"),
   ]
 
   fileprivate class _StorageClass {
@@ -1008,6 +1019,7 @@ extension FlutterHereMaps_ZoomTo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     var _orientation: FlutterHereMaps_FloatValue? = nil
     var _perspective: FlutterHereMaps_FloatValue? = nil
     var _viewRect: FlutterHereMaps_ViewRect? = nil
+    var _paddingFactor: FlutterHereMaps_FloatValue? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1019,6 +1031,7 @@ extension FlutterHereMaps_ZoomTo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       _orientation = source._orientation
       _perspective = source._perspective
       _viewRect = source._viewRect
+      _paddingFactor = source._paddingFactor
     }
   }
 
@@ -1039,6 +1052,7 @@ extension FlutterHereMaps_ZoomTo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         case 3: try decoder.decodeSingularMessageField(value: &_storage._orientation)
         case 4: try decoder.decodeSingularMessageField(value: &_storage._perspective)
         case 5: try decoder.decodeSingularMessageField(value: &_storage._viewRect)
+        case 6: try decoder.decodeSingularMessageField(value: &_storage._paddingFactor)
         default: break
         }
       }
@@ -1062,6 +1076,9 @@ extension FlutterHereMaps_ZoomTo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       if let v = _storage._viewRect {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
       }
+      if let v = _storage._paddingFactor {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -1076,6 +1093,7 @@ extension FlutterHereMaps_ZoomTo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         if _storage._orientation != rhs_storage._orientation {return false}
         if _storage._perspective != rhs_storage._perspective {return false}
         if _storage._viewRect != rhs_storage._viewRect {return false}
+        if _storage._paddingFactor != rhs_storage._paddingFactor {return false}
         return true
       }
       if !storagesAreEqual {return false}

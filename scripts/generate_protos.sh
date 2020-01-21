@@ -3,6 +3,6 @@
 #swift-protobuf from https://github.com/apple/swift-protobuf
 #dart_out from https://developers.google.com/protocol-buffers/docs/darttutorial
 protoc -I=../proto/ --swift_out=../ios/Classes/proto_gen/ ../proto/*.proto
-protoc -I=../proto/ --dart_out=../lib/proto_gen ../proto/*.proto
+protoc -I=../proto/ --dart_out=../lib/src/proto_gen ../proto/*.proto
 
 

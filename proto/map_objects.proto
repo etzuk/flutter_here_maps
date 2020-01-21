@@ -73,6 +73,8 @@ message ZoomTo {
     FloatValue perspective = 4;
     // Optional
     ViewRect viewRect = 5;
+    // Optional
+    FloatValue paddingFactor = 6;
 }
 
 // Wrapper message for `float`.

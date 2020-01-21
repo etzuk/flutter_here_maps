@@ -147,7 +147,16 @@ extension Map : FlutterHereMapView {
         if let bb:NMAGeoBoundingBox = NMAGeoBoundingBox.init(coordinates: zoomTo.coordinates.map({ (coordinate) -> NMAGeoCoordinates in
             coordinate.toGeo()
         })) {
-            if zoomTo.hasViewRect {
+            if zoomTo.hasPaddingFactor {
+                let mapWidth = self.mapView.frame.width
+                let mapHeight = self.mapView.frame.height
+                let horizontalFactor = mapWidth * CGFloat(zoomTo.paddingFactor.value)
+                let verticalFactor = mapHeight * CGFloat(zoomTo.paddingFactor.value)
+                self.mapView.set(boundingBox: bb,
+                                 inside: CGRect(x: horizontalFactor, y: verticalFactor, width: mapWidth - (2 * horizontalFactor), height: mapHeight - (2 * verticalFactor)),
+                                 animation: .none)
+            }
+            else if zoomTo.hasViewRect {
                 self.mapView.set(boundingBox: bb, inside: zoomTo.viewRect.toRect(), animation: .none)
             } else {
                 self.mapView.set(boundingBox: bb, animation: .none)
