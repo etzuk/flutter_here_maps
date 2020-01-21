@@ -7,6 +7,40 @@ import 'package:flutter_here_maps/flutter_here_maps.dart';
 
 import '../drawer.dart';
 
+class _ShowBBPaddingFactorDialog extends StatefulWidget {
+  @override
+  _ShowBBPaddingFactorDialogState createState() =>
+      _ShowBBPaddingFactorDialogState();
+}
+
+class _ShowBBPaddingFactorDialogState
+    extends State<_ShowBBPaddingFactorDialog> {
+  double paddingFactor = 10;
+  @override
+  Widget build(BuildContext context) {
+    return SimpleDialog(
+      title: Text("Please set padding factor"),
+      children: <Widget>[
+        Text("$paddingFactor"),
+        Slider(
+          value: paddingFactor,
+          onChanged: (change) {
+            setState(() {
+              paddingFactor = change;
+            });
+          },
+          min: 10,
+          max: 50,
+        ),
+        SimpleDialogOption(
+          child: Text("Yes"),
+          onPressed: () => Navigator.pop(context, paddingFactor),
+        ),
+      ],
+    );
+  }
+}
+
 class ShowBB extends StatefulWidget {
   static const route = "/showBB";
   @override
@@ -25,6 +59,15 @@ class _ShowBBState extends State<ShowBB> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(onPressed: () async {
+        var result = await showDialog(
+            context: context,
+            builder: (context) {
+              return _ShowBBPaddingFactorDialog();
+            });
+
+        _showBBWithFactor(_Data.points, result / 100);
+      }),
       appBar: AppBar(title: Text("Show Bounding box")),
       drawer: buildDrawer(context, ShowBB.route),
       body: MapView(
@@ -33,6 +76,21 @@ class _ShowBBState extends State<ShowBB> {
         },
       ),
     );
+  }
+
+  _showBBWithFactor(List<Coordinate> coordinates, double paddintFactor) async {
+    final mapController = await completer.future;
+    await mapController.zoomTo(ZoomTo()
+      ..coordinates.addAll(coordinates)
+      ..paddingFactor = (FloatValue()..value = paddintFactor));
+
+    coordinates.forEach((coordinate) {
+      mapController.setMapObject(MapObject()
+        ..uniqueId = "${coordinate.lat}"
+        ..marker = (MapMarker()
+          ..coordinate = coordinate
+          ..image = "assets/group_2.png"));
+    });
   }
 
   _showBB(List<Coordinate> coordinates) async {

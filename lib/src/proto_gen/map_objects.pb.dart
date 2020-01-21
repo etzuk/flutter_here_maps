@@ -509,6 +509,7 @@ class ZoomTo extends $pb.GeneratedMessage {
     ..aOM<FloatValue>(3, 'orientation', subBuilder: FloatValue.create)
     ..aOM<FloatValue>(4, 'perspective', subBuilder: FloatValue.create)
     ..aOM<ViewRect>(5, 'viewRect', protoName: 'viewRect', subBuilder: ViewRect.create)
+    ..aOM<FloatValue>(6, 'paddingFactor', protoName: 'paddingFactor', subBuilder: FloatValue.create)
     ..hasRequiredFields = false
   ;
 
@@ -571,6 +572,17 @@ class ZoomTo extends $pb.GeneratedMessage {
   void clearViewRect() => clearField(5);
   @$pb.TagNumber(5)
   ViewRect ensureViewRect() => $_ensure(4);
+
+  @$pb.TagNumber(6)
+  FloatValue get paddingFactor => $_getN(5);
+  @$pb.TagNumber(6)
+  set paddingFactor(FloatValue v) { setField(6, v); }
+  @$pb.TagNumber(6)
+  $core.bool hasPaddingFactor() => $_has(5);
+  @$pb.TagNumber(6)
+  void clearPaddingFactor() => clearField(6);
+  @$pb.TagNumber(6)
+  FloatValue ensurePaddingFactor() => $_ensure(5);
 }
 
 class FloatValue extends $pb.GeneratedMessage {

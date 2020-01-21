@@ -85,12 +85,19 @@ internal fun Map.zoomTo(zoomTo: MapObjects.ZoomTo) {
     val orientation = if(zoomTo.hasOrientation()) zoomTo.orientation.value else com.here.android.mpa.mapping.Map.MOVE_PRESERVE_ORIENTATION
     val perspective = if(zoomTo.hasPerspective()) zoomTo.perspective.value else com.here.android.mpa.mapping.Map.MOVE_PRESERVE_TILT
 
-    if(zoomTo.hasViewRect()) {
-        map.zoomTo(bb, zoomTo.viewRect.toViewRect(),com.here.android.mpa.mapping.Map.Animation.NONE, orientation)
-    } else {
-        map.zoomTo(bb, com.here.android.mpa.mapping.Map.Animation.NONE, orientation, perspective)
+    when {
+        zoomTo.hasPaddingFactor() -> {
+            val paddingVertical = (mapView.measuredHeight * zoomTo.paddingFactor.value).toInt()
+            val paddingHorizontal = (mapView.measuredWidth * zoomTo.paddingFactor.value).toInt()
+            map.zoomTo(bb, ViewRect(paddingHorizontal,paddingVertical,mapView.measuredWidth - (2 * paddingHorizontal), mapView.measuredHeight - (2 * paddingVertical) ),com.here.android.mpa.mapping.Map.Animation.NONE, orientation)
+        }
+        zoomTo.hasViewRect() -> {
+            map.zoomTo(bb, zoomTo.viewRect.toViewRect(),com.here.android.mpa.mapping.Map.Animation.NONE, orientation)
+        }
+        else -> {
+            map.zoomTo(bb, com.here.android.mpa.mapping.Map.Animation.NONE, orientation, perspective)
+        }
     }
-
 }
 
 private fun MapObjects.ViewRect.toViewRect(): ViewRect {
