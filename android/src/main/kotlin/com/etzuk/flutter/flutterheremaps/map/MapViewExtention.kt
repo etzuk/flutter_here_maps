@@ -89,7 +89,11 @@ internal fun Map.zoomTo(zoomTo: MapObjects.ZoomTo) {
         zoomTo.hasPaddingFactor() -> {
             val paddingVertical = (mapView.measuredHeight * zoomTo.paddingFactor.value).toInt()
             val paddingHorizontal = (mapView.measuredWidth * zoomTo.paddingFactor.value).toInt()
-            map.zoomTo(bb, ViewRect(paddingHorizontal,paddingVertical,mapView.measuredWidth - (2 * paddingHorizontal), mapView.measuredHeight - (2 * paddingVertical) ),com.here.android.mpa.mapping.Map.Animation.NONE, orientation)
+            map.zoomTo(bb,
+                    ViewRect(paddingHorizontal,paddingVertical,mapView.measuredWidth - (2 * paddingHorizontal),
+                    mapView.measuredHeight - (2 * paddingVertical) ),
+                    com.here.android.mpa.mapping.Map.Animation.NONE,
+                    orientation)
         }
         zoomTo.hasViewRect() -> {
             map.zoomTo(bb, zoomTo.viewRect.toViewRect(),com.here.android.mpa.mapping.Map.Animation.NONE, orientation)

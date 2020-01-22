@@ -77,6 +77,20 @@ message ZoomTo {
     FloatValue paddingFactor = 6;
 }
 
+enum MapGestureEvents {
+    OnLongPressRelease = 0;
+    OnMultiFingerManipulationStart = 1;
+    OnPinchLocked = 2;
+    OnPanStart = 3;
+    OnMultiFingerManipulationEnd = 4;
+    OnPanEnd = 5;
+    OnRotateLocked = 6;
+}
+
+message MapGesture {
+    MapGestureEvents event = 1;
+}
+
 // Wrapper message for `float`.
 //
 // The JSON representation for `FloatValue` is JSON number.

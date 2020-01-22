@@ -28,3 +28,28 @@ class Animation extends $pb.ProtobufEnum {
   const Animation._($core.int v, $core.String n) : super(v, n);
 }
 
+class MapGestureEvents extends $pb.ProtobufEnum {
+  static const MapGestureEvents OnLongPressRelease = MapGestureEvents._(0, 'OnLongPressRelease');
+  static const MapGestureEvents OnMultiFingerManipulationStart = MapGestureEvents._(1, 'OnMultiFingerManipulationStart');
+  static const MapGestureEvents OnPinchLocked = MapGestureEvents._(2, 'OnPinchLocked');
+  static const MapGestureEvents OnPanStart = MapGestureEvents._(3, 'OnPanStart');
+  static const MapGestureEvents OnMultiFingerManipulationEnd = MapGestureEvents._(4, 'OnMultiFingerManipulationEnd');
+  static const MapGestureEvents OnPanEnd = MapGestureEvents._(5, 'OnPanEnd');
+  static const MapGestureEvents OnRotateLocked = MapGestureEvents._(6, 'OnRotateLocked');
+
+  static const $core.List<MapGestureEvents> values = <MapGestureEvents> [
+    OnLongPressRelease,
+    OnMultiFingerManipulationStart,
+    OnPinchLocked,
+    OnPanStart,
+    OnMultiFingerManipulationEnd,
+    OnPanEnd,
+    OnRotateLocked,
+  ];
+
+  static final $core.Map<$core.int, MapGestureEvents> _byValue = $pb.ProtobufEnum.initByValue(values);
+  static MapGestureEvents valueOf($core.int value) => _byValue[value];
+
+  const MapGestureEvents._($core.int v, $core.String n) : super(v, n);
+}
+

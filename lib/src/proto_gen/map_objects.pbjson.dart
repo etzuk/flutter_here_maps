@@ -15,6 +15,19 @@ const Animation$json = const {
   ],
 };
 
+const MapGestureEvents$json = const {
+  '1': 'MapGestureEvents',
+  '2': const [
+    const {'1': 'OnLongPressRelease', '2': 0},
+    const {'1': 'OnMultiFingerManipulationStart', '2': 1},
+    const {'1': 'OnPinchLocked', '2': 2},
+    const {'1': 'OnPanStart', '2': 3},
+    const {'1': 'OnMultiFingerManipulationEnd', '2': 4},
+    const {'1': 'OnPanEnd', '2': 5},
+    const {'1': 'OnRotateLocked', '2': 6},
+  ],
+};
+
 const Coordinate$json = const {
   '1': 'Coordinate',
   '2': const [
@@ -104,6 +117,13 @@ const ZoomTo$json = const {
     const {'1': 'perspective', '3': 4, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'perspective'},
     const {'1': 'viewRect', '3': 5, '4': 1, '5': 11, '6': '.FlutterHereMaps.ViewRect', '10': 'viewRect'},
     const {'1': 'paddingFactor', '3': 6, '4': 1, '5': 11, '6': '.FlutterHereMaps.FloatValue', '10': 'paddingFactor'},
+  ],
+};
+
+const MapGesture$json = const {
+  '1': 'MapGesture',
+  '2': const [
+    const {'1': 'event', '3': 1, '4': 1, '5': 14, '6': '.FlutterHereMaps.MapGestureEvents', '10': 'event'},
   ],
 };
 

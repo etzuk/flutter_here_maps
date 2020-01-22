@@ -25,8 +25,9 @@ class MapViewFactory : NSObject, FlutterPlatformViewFactory {
 public class MapView : NSObject, FlutterPlatformView {
     private let frame : CGRect
     private let viewId : Int64
-    private  let registerar: FlutterPluginRegistrar
-    private  var map: Map!
+    private let registerar: FlutterPluginRegistrar
+    private var map: Map!
+    private var channel: FlutterMethodChannel!
 
     init(_ frame:CGRect, viewId:Int64, args: Any?, registerar: FlutterPluginRegistrar){
         self.frame = frame
@@ -39,17 +40,18 @@ public class MapView : NSObject, FlutterPlatformView {
                 map.set(center: mapCenter)
             }
         }
+        channel = FlutterMethodChannel(name: "flugins.etzuk.flutter_here_maps/MapViewChannel_\(viewId)", binaryMessenger: registerar.messenger())
     }
 
     func initMethodCallHanlder() {
-        let chanel = FlutterMethodChannel(name: "flugins.etzuk.flutter_here_maps/MapViewChannel_\(viewId)", binaryMessenger: registerar.messenger())
-        chanel.setMethodCallHandler { [weak self] (call, result) in
+        channel.setMethodCallHandler { [weak self] (call, result) in
             self?.onMethodCallHanler(call, result: result)
         }
     }
 
     public func view() -> UIView {
         initMethodCallHanlder()
+        map.mapView.gestureDelegate = self
         return map.mapView
     }
 
@@ -120,6 +122,42 @@ public class MapView : NSObject, FlutterPlatformView {
     }
 }
 
+extension MapView : NMAMapGestureDelegate {
+    
+    private func invokeSimpleGesture(event: FlutterHereMaps_MapGestureEvents) {
+        var replay = FlutterHereMaps_MapChannelReplay()
+        var mapGesture = FlutterHereMaps_MapGesture()
+        mapGesture.event = event
+        replay.mapGesture = mapGesture
+        try? channel.invokeMethod("replay", arguments: replay.serializedData())
+    }
+    
+    public func mapView(_ mapView: NMAMapView, didReceiveTapAt location: CGPoint) {
+        
+    }
+    public func mapView(_ mapView: NMAMapView, didReceiveLongPressAt location: CGPoint) {
+        invokeSimpleGesture(event: .onLongPressRelease)
+    }
+    public func mapView(_ mapView: NMAMapView, didReceivePinch pinch: Float, at location: CGPoint) {
+        
+    }
+    public func mapView(_ mapView: NMAMapView, didReceiveTwoFingerTapAt location: CGPoint) {
+        
+    }
+    public func mapView(_ mapView: NMAMapView, didReceiveDoubleTapAt location: CGPoint) {
+        
+    }
+    public func mapView(_ mapView: NMAMapView, didReceivePan translation: CGPoint, at location: CGPoint) {
+        invokeSimpleGesture(event: .onPanEnd)
+    }
+    public func mapView(_ mapView: NMAMapView, didReceiveRotation rotation: Float, at location: CGPoint) {
+        invokeSimpleGesture(event: .onRotateLocked)
+    }
+    public func mapView(_ mapView: NMAMapView, didReceiveTwoFingerPan translation: CGPoint, at location: CGPoint) {
+        invokeSimpleGesture(event: .onMultiFingerManipulationEnd)
+    }
+}
+
 protocol FlutterHereMapView : class {
     func set(center: FlutterHereMaps_MapCenter);
     func set(configuration: FlutterHereMaps_Configuration)
@@ -136,8 +174,6 @@ class Map {
         self.mapView = mapView
     }
 }
-
-
 
 extension Map : FlutterHereMapView {
     
