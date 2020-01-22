@@ -221,11 +221,19 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     private fun invokeSimpleGesture(event: MapObjects.MapGestureEvents) {
-        val response =  MapChannel.MapChannelReplay.newBuilder().let {
-            it.mapGesture = MapObjects.MapGesture.newBuilder().let {mapGesture ->
+        val response = MapChannel.MapChannelReplay.newBuilder().let {
+            it.mapGesture = MapObjects.MapGesture.newBuilder().let { mapGesture ->
                 mapGesture.event = event
                 mapGesture.build()
             }
+            it.build()
+        }.toByteArray()
+        channel.invokeMethod("replay", response)
+    }
+
+    private fun invokeDataEvent(event: MapObjects.MapGesture) {
+        val response = MapChannel.MapChannelReplay.newBuilder().let {
+            it.mapGesture = event
             it.build()
         }.toByteArray()
         channel.invokeMethod("replay", response)
@@ -236,6 +244,14 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     override fun onRotateEvent(p0: Float): Boolean {
+        invokeDataEvent(MapObjects.MapGesture.newBuilder().let {
+            it.event = MapObjects.MapGestureEvents.OnEventData
+            it.rotate = MapObjects.Rotate.newBuilder().let { rotate ->
+                rotate.rotate = p0
+                rotate.build()
+            }
+            it.build()
+        })
         return false
     }
 
@@ -248,10 +264,32 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     override fun onPinchZoomEvent(p0: Float, p1: PointF?): Boolean {
+        p1?.let { point ->
+            invokeDataEvent(MapObjects.MapGesture.newBuilder().let {
+                it.event = MapObjects.MapGestureEvents.OnEventData
+                it.pinchZoom = MapObjects.PinchZoom.newBuilder().let { zoom ->
+                    zoom.zoom = p0
+                    zoom.point = point.toPoint()
+                    zoom.build()
+                }
+                it.build()
+            })
+        }
+
         return false
     }
 
     override fun onTapEvent(p0: PointF?): Boolean {
+        p0?.let { point ->
+            invokeDataEvent(MapObjects.MapGesture.newBuilder().let {
+                it.event = MapObjects.MapGestureEvents.OnEventData
+                it.tapEvent = MapObjects.TapEvent.newBuilder().let { zoom ->
+                    zoom.point = point.toPoint()
+                    zoom.build()
+                }
+                it.build()
+            })
+        }
         return false
     }
 
@@ -264,6 +302,16 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     override fun onDoubleTapEvent(p0: PointF?): Boolean {
+        p0?.let { point ->
+            invokeDataEvent(MapObjects.MapGesture.newBuilder().let {
+                it.event = MapObjects.MapGestureEvents.OnEventData
+                it.doubleTap = MapObjects.DoubleTap.newBuilder().let { zoom ->
+                    zoom.point = point.toPoint()
+                    zoom.build()
+                }
+                it.build()
+            })
+        }
         return false
     }
 
@@ -272,6 +320,16 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     override fun onTiltEvent(p0: Float): Boolean {
+
+        invokeDataEvent(MapObjects.MapGesture.newBuilder().let {
+            it.event = MapObjects.MapGestureEvents.OnEventData
+            it.tiltEvent = MapObjects.TiltEvent.newBuilder().let { zoom ->
+                zoom.tilt = p0
+                zoom.build()
+            }
+            it.build()
+        })
+
         return false
     }
 
@@ -284,11 +342,39 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     override fun onLongPressEvent(p0: PointF?): Boolean {
+        p0?.let { point ->
+            invokeDataEvent(MapObjects.MapGesture.newBuilder().let{
+                it.event = MapObjects.MapGestureEvents.OnEventData
+                it.longPressEvent = MapObjects.LongPressEvent.newBuilder().let { zoom ->
+                    zoom.point = point.toPoint()
+                    zoom.build()
+                }
+                it.build()
+            })
+        }
         return false
     }
 
     override fun onTwoFingerTapEvent(p0: PointF?): Boolean {
+        p0?.let { point ->
+            invokeDataEvent(MapObjects.MapGesture.newBuilder().let{
+                it.event = MapObjects.MapGestureEvents.OnEventData
+                it.twoFingerTap = MapObjects.TwoFingerTap.newBuilder().let { zoom ->
+                    zoom.point = point.toPoint()
+                    zoom.build()
+                }
+                it.build()
+            })
+        }
         return false
+    }
+}
+
+private fun PointF.toPoint(): MapObjects.PointF? {
+    return MapObjects.PointF.newBuilder().let {
+        it.x = this.x
+        it.y = this.y
+        it.build()
     }
 }
 

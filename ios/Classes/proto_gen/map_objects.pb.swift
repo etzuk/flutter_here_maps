@@ -76,6 +76,7 @@ enum FlutterHereMaps_MapGestureEvents: SwiftProtobuf.Enum {
   case onMultiFingerManipulationEnd // = 4
   case onPanEnd // = 5
   case onRotateLocked // = 6
+  case onEventData // = 7
   case UNRECOGNIZED(Int)
 
   init() {
@@ -91,6 +92,7 @@ enum FlutterHereMaps_MapGestureEvents: SwiftProtobuf.Enum {
     case 4: self = .onMultiFingerManipulationEnd
     case 5: self = .onPanEnd
     case 6: self = .onRotateLocked
+    case 7: self = .onEventData
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
@@ -104,6 +106,7 @@ enum FlutterHereMaps_MapGestureEvents: SwiftProtobuf.Enum {
     case .onMultiFingerManipulationEnd: return 4
     case .onPanEnd: return 5
     case .onRotateLocked: return 6
+    case .onEventData: return 7
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -122,6 +125,7 @@ extension FlutterHereMaps_MapGestureEvents: CaseIterable {
     .onMultiFingerManipulationEnd,
     .onPanEnd,
     .onRotateLocked,
+    .onEventData,
   ]
 }
 
@@ -473,7 +477,246 @@ struct FlutterHereMaps_MapGesture {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var event: FlutterHereMaps_MapGestureEvents = .onLongPressRelease
+  var event: FlutterHereMaps_MapGestureEvents {
+    get {return _storage._event}
+    set {_uniqueStorage()._event = newValue}
+  }
+
+  var eventData: OneOf_EventData? {
+    get {return _storage._eventData}
+    set {_uniqueStorage()._eventData = newValue}
+  }
+
+  var longPressEvent: FlutterHereMaps_LongPressEvent {
+    get {
+      if case .longPressEvent(let v)? = _storage._eventData {return v}
+      return FlutterHereMaps_LongPressEvent()
+    }
+    set {_uniqueStorage()._eventData = .longPressEvent(newValue)}
+  }
+
+  var twoFingerTap: FlutterHereMaps_TwoFingerTap {
+    get {
+      if case .twoFingerTap(let v)? = _storage._eventData {return v}
+      return FlutterHereMaps_TwoFingerTap()
+    }
+    set {_uniqueStorage()._eventData = .twoFingerTap(newValue)}
+  }
+
+  var tiltEvent: FlutterHereMaps_TiltEvent {
+    get {
+      if case .tiltEvent(let v)? = _storage._eventData {return v}
+      return FlutterHereMaps_TiltEvent()
+    }
+    set {_uniqueStorage()._eventData = .tiltEvent(newValue)}
+  }
+
+  var doubleTap: FlutterHereMaps_DoubleTap {
+    get {
+      if case .doubleTap(let v)? = _storage._eventData {return v}
+      return FlutterHereMaps_DoubleTap()
+    }
+    set {_uniqueStorage()._eventData = .doubleTap(newValue)}
+  }
+
+  var tapEvent: FlutterHereMaps_TapEvent {
+    get {
+      if case .tapEvent(let v)? = _storage._eventData {return v}
+      return FlutterHereMaps_TapEvent()
+    }
+    set {_uniqueStorage()._eventData = .tapEvent(newValue)}
+  }
+
+  var pinchZoom: FlutterHereMaps_PinchZoom {
+    get {
+      if case .pinchZoom(let v)? = _storage._eventData {return v}
+      return FlutterHereMaps_PinchZoom()
+    }
+    set {_uniqueStorage()._eventData = .pinchZoom(newValue)}
+  }
+
+  var rotate: FlutterHereMaps_Rotate {
+    get {
+      if case .rotate(let v)? = _storage._eventData {return v}
+      return FlutterHereMaps_Rotate()
+    }
+    set {_uniqueStorage()._eventData = .rotate(newValue)}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  enum OneOf_EventData: Equatable {
+    case longPressEvent(FlutterHereMaps_LongPressEvent)
+    case twoFingerTap(FlutterHereMaps_TwoFingerTap)
+    case tiltEvent(FlutterHereMaps_TiltEvent)
+    case doubleTap(FlutterHereMaps_DoubleTap)
+    case tapEvent(FlutterHereMaps_TapEvent)
+    case pinchZoom(FlutterHereMaps_PinchZoom)
+    case rotate(FlutterHereMaps_Rotate)
+
+  #if !swift(>=4.1)
+    static func ==(lhs: FlutterHereMaps_MapGesture.OneOf_EventData, rhs: FlutterHereMaps_MapGesture.OneOf_EventData) -> Bool {
+      switch (lhs, rhs) {
+      case (.longPressEvent(let l), .longPressEvent(let r)): return l == r
+      case (.twoFingerTap(let l), .twoFingerTap(let r)): return l == r
+      case (.tiltEvent(let l), .tiltEvent(let r)): return l == r
+      case (.doubleTap(let l), .doubleTap(let r)): return l == r
+      case (.tapEvent(let l), .tapEvent(let r)): return l == r
+      case (.pinchZoom(let l), .pinchZoom(let r)): return l == r
+      case (.rotate(let l), .rotate(let r)): return l == r
+      default: return false
+      }
+    }
+  #endif
+  }
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct FlutterHereMaps_LongPressEvent {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var point: FlutterHereMaps_PointF {
+    get {return _storage._point ?? FlutterHereMaps_PointF()}
+    set {_uniqueStorage()._point = newValue}
+  }
+  /// Returns true if `point` has been explicitly set.
+  var hasPoint: Bool {return _storage._point != nil}
+  /// Clears the value of `point`. Subsequent reads from it will return its default value.
+  mutating func clearPoint() {_uniqueStorage()._point = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct FlutterHereMaps_TwoFingerTap {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var point: FlutterHereMaps_PointF {
+    get {return _storage._point ?? FlutterHereMaps_PointF()}
+    set {_uniqueStorage()._point = newValue}
+  }
+  /// Returns true if `point` has been explicitly set.
+  var hasPoint: Bool {return _storage._point != nil}
+  /// Clears the value of `point`. Subsequent reads from it will return its default value.
+  mutating func clearPoint() {_uniqueStorage()._point = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct FlutterHereMaps_DoubleTap {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var point: FlutterHereMaps_PointF {
+    get {return _storage._point ?? FlutterHereMaps_PointF()}
+    set {_uniqueStorage()._point = newValue}
+  }
+  /// Returns true if `point` has been explicitly set.
+  var hasPoint: Bool {return _storage._point != nil}
+  /// Clears the value of `point`. Subsequent reads from it will return its default value.
+  mutating func clearPoint() {_uniqueStorage()._point = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct FlutterHereMaps_TiltEvent {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var tilt: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct FlutterHereMaps_TapEvent {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var point: FlutterHereMaps_PointF {
+    get {return _storage._point ?? FlutterHereMaps_PointF()}
+    set {_uniqueStorage()._point = newValue}
+  }
+  /// Returns true if `point` has been explicitly set.
+  var hasPoint: Bool {return _storage._point != nil}
+  /// Clears the value of `point`. Subsequent reads from it will return its default value.
+  mutating func clearPoint() {_uniqueStorage()._point = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct FlutterHereMaps_PinchZoom {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var zoom: Float {
+    get {return _storage._zoom}
+    set {_uniqueStorage()._zoom = newValue}
+  }
+
+  var point: FlutterHereMaps_PointF {
+    get {return _storage._point ?? FlutterHereMaps_PointF()}
+    set {_uniqueStorage()._point = newValue}
+  }
+  /// Returns true if `point` has been explicitly set.
+  var hasPoint: Bool {return _storage._point != nil}
+  /// Clears the value of `point`. Subsequent reads from it will return its default value.
+  mutating func clearPoint() {_uniqueStorage()._point = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
+struct FlutterHereMaps_Rotate {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var rotate: Float = 0
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct FlutterHereMaps_PointF {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var x: Float = 0
+
+  var y: Float = 0
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -534,6 +777,7 @@ extension FlutterHereMaps_MapGestureEvents: SwiftProtobuf._ProtoNameProviding {
     4: .same(proto: "OnMultiFingerManipulationEnd"),
     5: .same(proto: "OnPanEnd"),
     6: .same(proto: "OnRotateLocked"),
+    7: .same(proto: "OnEventData"),
   ]
 }
 
@@ -1191,26 +1435,547 @@ extension FlutterHereMaps_MapGesture: SwiftProtobuf.Message, SwiftProtobuf._Mess
   static let protoMessageName: String = _protobuf_package + ".MapGesture"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "event"),
+    100: .same(proto: "longPressEvent"),
+    101: .same(proto: "twoFingerTap"),
+    102: .same(proto: "tiltEvent"),
+    103: .same(proto: "doubleTap"),
+    104: .same(proto: "tapEvent"),
+    105: .same(proto: "pinchZoom"),
+    106: .same(proto: "rotate"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _event: FlutterHereMaps_MapGestureEvents = .onLongPressRelease
+    var _eventData: FlutterHereMaps_MapGesture.OneOf_EventData?
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _event = source._event
+      _eventData = source._eventData
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularEnumField(value: &_storage._event)
+        case 100:
+          var v: FlutterHereMaps_LongPressEvent?
+          if let current = _storage._eventData {
+            try decoder.handleConflictingOneOf()
+            if case .longPressEvent(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._eventData = .longPressEvent(v)}
+        case 101:
+          var v: FlutterHereMaps_TwoFingerTap?
+          if let current = _storage._eventData {
+            try decoder.handleConflictingOneOf()
+            if case .twoFingerTap(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._eventData = .twoFingerTap(v)}
+        case 102:
+          var v: FlutterHereMaps_TiltEvent?
+          if let current = _storage._eventData {
+            try decoder.handleConflictingOneOf()
+            if case .tiltEvent(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._eventData = .tiltEvent(v)}
+        case 103:
+          var v: FlutterHereMaps_DoubleTap?
+          if let current = _storage._eventData {
+            try decoder.handleConflictingOneOf()
+            if case .doubleTap(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._eventData = .doubleTap(v)}
+        case 104:
+          var v: FlutterHereMaps_TapEvent?
+          if let current = _storage._eventData {
+            try decoder.handleConflictingOneOf()
+            if case .tapEvent(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._eventData = .tapEvent(v)}
+        case 105:
+          var v: FlutterHereMaps_PinchZoom?
+          if let current = _storage._eventData {
+            try decoder.handleConflictingOneOf()
+            if case .pinchZoom(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._eventData = .pinchZoom(v)}
+        case 106:
+          var v: FlutterHereMaps_Rotate?
+          if let current = _storage._eventData {
+            try decoder.handleConflictingOneOf()
+            if case .rotate(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._eventData = .rotate(v)}
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._event != .onLongPressRelease {
+        try visitor.visitSingularEnumField(value: _storage._event, fieldNumber: 1)
+      }
+      switch _storage._eventData {
+      case .longPressEvent(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
+      case .twoFingerTap(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 101)
+      case .tiltEvent(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
+      case .doubleTap(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
+      case .tapEvent(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 104)
+      case .pinchZoom(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 105)
+      case .rotate(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 106)
+      case nil: break
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_MapGesture, rhs: FlutterHereMaps_MapGesture) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._event != rhs_storage._event {return false}
+        if _storage._eventData != rhs_storage._eventData {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_LongPressEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".LongPressEvent"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "point"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _point: FlutterHereMaps_PointF? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _point = source._point
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._point)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._point {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_LongPressEvent, rhs: FlutterHereMaps_LongPressEvent) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._point != rhs_storage._point {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_TwoFingerTap: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TwoFingerTap"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "point"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _point: FlutterHereMaps_PointF? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _point = source._point
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._point)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._point {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_TwoFingerTap, rhs: FlutterHereMaps_TwoFingerTap) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._point != rhs_storage._point {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_DoubleTap: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DoubleTap"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "point"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _point: FlutterHereMaps_PointF? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _point = source._point
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._point)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._point {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_DoubleTap, rhs: FlutterHereMaps_DoubleTap) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._point != rhs_storage._point {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_TiltEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TiltEvent"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "tilt"),
   ]
 
   mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
       switch fieldNumber {
-      case 1: try decoder.decodeSingularEnumField(value: &self.event)
+      case 1: try decoder.decodeSingularFloatField(value: &self.tilt)
       default: break
       }
     }
   }
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.event != .onLongPressRelease {
-      try visitor.visitSingularEnumField(value: self.event, fieldNumber: 1)
+    if self.tilt != 0 {
+      try visitor.visitSingularFloatField(value: self.tilt, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  static func ==(lhs: FlutterHereMaps_MapGesture, rhs: FlutterHereMaps_MapGesture) -> Bool {
-    if lhs.event != rhs.event {return false}
+  static func ==(lhs: FlutterHereMaps_TiltEvent, rhs: FlutterHereMaps_TiltEvent) -> Bool {
+    if lhs.tilt != rhs.tilt {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_TapEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".TapEvent"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "point"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _point: FlutterHereMaps_PointF? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _point = source._point
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._point)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._point {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_TapEvent, rhs: FlutterHereMaps_TapEvent) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._point != rhs_storage._point {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_PinchZoom: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PinchZoom"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "zoom"),
+    2: .same(proto: "point"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _zoom: Float = 0
+    var _point: FlutterHereMaps_PointF? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _zoom = source._zoom
+      _point = source._point
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularFloatField(value: &_storage._zoom)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._point)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if _storage._zoom != 0 {
+        try visitor.visitSingularFloatField(value: _storage._zoom, fieldNumber: 1)
+      }
+      if let v = _storage._point {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_PinchZoom, rhs: FlutterHereMaps_PinchZoom) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._zoom != rhs_storage._zoom {return false}
+        if _storage._point != rhs_storage._point {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_Rotate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Rotate"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "rotate"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.rotate)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.rotate != 0 {
+      try visitor.visitSingularFloatField(value: self.rotate, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_Rotate, rhs: FlutterHereMaps_Rotate) -> Bool {
+    if lhs.rotate != rhs.rotate {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_PointF: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".PointF"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "x"),
+    2: .same(proto: "y"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.x)
+      case 2: try decoder.decodeSingularFloatField(value: &self.y)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.x != 0 {
+      try visitor.visitSingularFloatField(value: self.x, fieldNumber: 1)
+    }
+    if self.y != 0 {
+      try visitor.visitSingularFloatField(value: self.y, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_PointF, rhs: FlutterHereMaps_PointF) -> Bool {
+    if lhs.x != rhs.x {return false}
+    if lhs.y != rhs.y {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

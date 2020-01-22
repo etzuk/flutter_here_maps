@@ -25,6 +25,7 @@ const MapGestureEvents$json = const {
     const {'1': 'OnMultiFingerManipulationEnd', '2': 4},
     const {'1': 'OnPanEnd', '2': 5},
     const {'1': 'OnRotateLocked', '2': 6},
+    const {'1': 'OnEventData', '2': 7},
   ],
 };
 
@@ -124,6 +125,74 @@ const MapGesture$json = const {
   '1': 'MapGesture',
   '2': const [
     const {'1': 'event', '3': 1, '4': 1, '5': 14, '6': '.FlutterHereMaps.MapGestureEvents', '10': 'event'},
+    const {'1': 'longPressEvent', '3': 100, '4': 1, '5': 11, '6': '.FlutterHereMaps.LongPressEvent', '9': 0, '10': 'longPressEvent'},
+    const {'1': 'twoFingerTap', '3': 101, '4': 1, '5': 11, '6': '.FlutterHereMaps.TwoFingerTap', '9': 0, '10': 'twoFingerTap'},
+    const {'1': 'tiltEvent', '3': 102, '4': 1, '5': 11, '6': '.FlutterHereMaps.TiltEvent', '9': 0, '10': 'tiltEvent'},
+    const {'1': 'doubleTap', '3': 103, '4': 1, '5': 11, '6': '.FlutterHereMaps.DoubleTap', '9': 0, '10': 'doubleTap'},
+    const {'1': 'tapEvent', '3': 104, '4': 1, '5': 11, '6': '.FlutterHereMaps.TapEvent', '9': 0, '10': 'tapEvent'},
+    const {'1': 'pinchZoom', '3': 105, '4': 1, '5': 11, '6': '.FlutterHereMaps.PinchZoom', '9': 0, '10': 'pinchZoom'},
+    const {'1': 'rotate', '3': 106, '4': 1, '5': 11, '6': '.FlutterHereMaps.Rotate', '9': 0, '10': 'rotate'},
+  ],
+  '8': const [
+    const {'1': 'eventData'},
+  ],
+};
+
+const LongPressEvent$json = const {
+  '1': 'LongPressEvent',
+  '2': const [
+    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+  ],
+};
+
+const TwoFingerTap$json = const {
+  '1': 'TwoFingerTap',
+  '2': const [
+    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+  ],
+};
+
+const DoubleTap$json = const {
+  '1': 'DoubleTap',
+  '2': const [
+    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+  ],
+};
+
+const TiltEvent$json = const {
+  '1': 'TiltEvent',
+  '2': const [
+    const {'1': 'tilt', '3': 1, '4': 1, '5': 2, '10': 'tilt'},
+  ],
+};
+
+const TapEvent$json = const {
+  '1': 'TapEvent',
+  '2': const [
+    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+  ],
+};
+
+const PinchZoom$json = const {
+  '1': 'PinchZoom',
+  '2': const [
+    const {'1': 'zoom', '3': 1, '4': 1, '5': 2, '10': 'zoom'},
+    const {'1': 'point', '3': 2, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+  ],
+};
+
+const Rotate$json = const {
+  '1': 'Rotate',
+  '2': const [
+    const {'1': 'rotate', '3': 1, '4': 1, '5': 2, '10': 'rotate'},
+  ],
+};
+
+const PointF$json = const {
+  '1': 'PointF',
+  '2': const [
+    const {'1': 'x', '3': 1, '4': 1, '5': 2, '10': 'x'},
+    const {'1': 'y', '3': 2, '4': 1, '5': 2, '10': 'y'},
   ],
 };
 

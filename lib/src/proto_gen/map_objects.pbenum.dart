@@ -36,6 +36,7 @@ class MapGestureEvents extends $pb.ProtobufEnum {
   static const MapGestureEvents OnMultiFingerManipulationEnd = MapGestureEvents._(4, 'OnMultiFingerManipulationEnd');
   static const MapGestureEvents OnPanEnd = MapGestureEvents._(5, 'OnPanEnd');
   static const MapGestureEvents OnRotateLocked = MapGestureEvents._(6, 'OnRotateLocked');
+  static const MapGestureEvents OnEventData = MapGestureEvents._(7, 'OnEventData');
 
   static const $core.List<MapGestureEvents> values = <MapGestureEvents> [
     OnLongPressRelease,
@@ -45,6 +46,7 @@ class MapGestureEvents extends $pb.ProtobufEnum {
     OnMultiFingerManipulationEnd,
     OnPanEnd,
     OnRotateLocked,
+    OnEventData,
   ];
 
   static final $core.Map<$core.int, MapGestureEvents> _byValue = $pb.ProtobufEnum.initByValue(values);
