@@ -85,10 +85,48 @@ enum MapGestureEvents {
     OnMultiFingerManipulationEnd = 4;
     OnPanEnd = 5;
     OnRotateLocked = 6;
+    OnEventData = 7;
 }
 
 message MapGesture {
     MapGestureEvents event = 1;
+    oneof eventData {
+        LongPressEvent longPressEvent = 100;
+        TwoFingerTap twoFingerTap = 101;
+        TiltEvent tiltEvent = 102;
+        DoubleTap doubleTap = 103;
+        TapEvent tapEvent = 104;
+        PinchZoom pinchZoom = 105;
+        Rotate rotate = 106;
+    }
+}
+
+message LongPressEvent {
+    PointF point = 1;
+}
+message TwoFingerTap {
+    PointF point = 1;
+}
+message DoubleTap {
+    PointF point = 1;
+}
+message TiltEvent{
+    float tilt =1;
+}
+message TapEvent{
+    PointF point = 1;
+}
+message PinchZoom{
+    float zoom =1;
+    PointF point = 2    ;
+}
+message Rotate {
+    float rotate =1;
+}
+
+message PointF{
+    float x = 1;
+    float y = 2;
 }
 
 // Wrapper message for `float`.

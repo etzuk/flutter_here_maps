@@ -132,20 +132,47 @@ extension MapView : NMAMapGestureDelegate {
         try? channel.invokeMethod("replay", arguments: replay.serializedData())
     }
     
+    private func invokeDataGestureEvent(event: FlutterHereMaps_MapGesture) {
+        var replay = FlutterHereMaps_MapChannelReplay()
+        replay.mapGesture = event
+        try? channel.invokeMethod("replay", arguments: replay.serializedData())
+    }
+    
     public func mapView(_ mapView: NMAMapView, didReceiveTapAt location: CGPoint) {
-        
+        var mapGesture = FlutterHereMaps_MapGesture()
+        mapGesture.event = .onEventData
+        var tapEvent = FlutterHereMaps_TapEvent()
+        tapEvent.point = location.toPoint()
+        mapGesture.tapEvent = tapEvent
+        invokeDataGestureEvent(event:mapGesture)
     }
     public func mapView(_ mapView: NMAMapView, didReceiveLongPressAt location: CGPoint) {
         invokeSimpleGesture(event: .onLongPressRelease)
     }
     public func mapView(_ mapView: NMAMapView, didReceivePinch pinch: Float, at location: CGPoint) {
-        
+        var mapGesture = FlutterHereMaps_MapGesture()
+        mapGesture.event = .onEventData
+        var pinchZoom = FlutterHereMaps_PinchZoom()
+        pinchZoom.point = location.toPoint()
+        pinchZoom.zoom = pinch
+        mapGesture.pinchZoom = pinchZoom
+        invokeDataGestureEvent(event:mapGesture)
     }
     public func mapView(_ mapView: NMAMapView, didReceiveTwoFingerTapAt location: CGPoint) {
-        
+        var mapGesture = FlutterHereMaps_MapGesture()
+        mapGesture.event = .onEventData
+        var twoFingerTap = FlutterHereMaps_TwoFingerTap()
+        twoFingerTap.point = location.toPoint()
+        mapGesture.twoFingerTap = twoFingerTap
+        invokeDataGestureEvent(event:mapGesture)
     }
     public func mapView(_ mapView: NMAMapView, didReceiveDoubleTapAt location: CGPoint) {
-        
+        var mapGesture = FlutterHereMaps_MapGesture()
+        mapGesture.event = .onEventData
+        var doubleTap = FlutterHereMaps_DoubleTap()
+        doubleTap.point = location.toPoint()
+        mapGesture.doubleTap = doubleTap
+        invokeDataGestureEvent(event:mapGesture)
     }
     public func mapView(_ mapView: NMAMapView, didReceivePan translation: CGPoint, at location: CGPoint) {
         invokeSimpleGesture(event: .onPanEnd)

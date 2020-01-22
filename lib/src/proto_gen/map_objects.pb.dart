@@ -585,9 +585,38 @@ class ZoomTo extends $pb.GeneratedMessage {
   FloatValue ensurePaddingFactor() => $_ensure(5);
 }
 
+enum MapGesture_EventData {
+  longPressEvent, 
+  twoFingerTap, 
+  tiltEvent, 
+  doubleTap, 
+  tapEvent, 
+  pinchZoom, 
+  rotate, 
+  notSet
+}
+
 class MapGesture extends $pb.GeneratedMessage {
+  static const $core.Map<$core.int, MapGesture_EventData> _MapGesture_EventDataByTag = {
+    100 : MapGesture_EventData.longPressEvent,
+    101 : MapGesture_EventData.twoFingerTap,
+    102 : MapGesture_EventData.tiltEvent,
+    103 : MapGesture_EventData.doubleTap,
+    104 : MapGesture_EventData.tapEvent,
+    105 : MapGesture_EventData.pinchZoom,
+    106 : MapGesture_EventData.rotate,
+    0 : MapGesture_EventData.notSet
+  };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('MapGesture', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..oo(0, [100, 101, 102, 103, 104, 105, 106])
     ..e<MapGestureEvents>(1, 'event', $pb.PbFieldType.OE, defaultOrMaker: MapGestureEvents.OnLongPressRelease, valueOf: MapGestureEvents.valueOf, enumValues: MapGestureEvents.values)
+    ..aOM<LongPressEvent>(100, 'longPressEvent', protoName: 'longPressEvent', subBuilder: LongPressEvent.create)
+    ..aOM<TwoFingerTap>(101, 'twoFingerTap', protoName: 'twoFingerTap', subBuilder: TwoFingerTap.create)
+    ..aOM<TiltEvent>(102, 'tiltEvent', protoName: 'tiltEvent', subBuilder: TiltEvent.create)
+    ..aOM<DoubleTap>(103, 'doubleTap', protoName: 'doubleTap', subBuilder: DoubleTap.create)
+    ..aOM<TapEvent>(104, 'tapEvent', protoName: 'tapEvent', subBuilder: TapEvent.create)
+    ..aOM<PinchZoom>(105, 'pinchZoom', protoName: 'pinchZoom', subBuilder: PinchZoom.create)
+    ..aOM<Rotate>(106, 'rotate', subBuilder: Rotate.create)
     ..hasRequiredFields = false
   ;
 
@@ -606,6 +635,9 @@ class MapGesture extends $pb.GeneratedMessage {
   static MapGesture getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MapGesture>(create);
   static MapGesture _defaultInstance;
 
+  MapGesture_EventData whichEventData() => _MapGesture_EventDataByTag[$_whichOneof(0)];
+  void clearEventData() => clearField($_whichOneof(0));
+
   @$pb.TagNumber(1)
   MapGestureEvents get event => $_getN(0);
   @$pb.TagNumber(1)
@@ -614,6 +646,361 @@ class MapGesture extends $pb.GeneratedMessage {
   $core.bool hasEvent() => $_has(0);
   @$pb.TagNumber(1)
   void clearEvent() => clearField(1);
+
+  @$pb.TagNumber(100)
+  LongPressEvent get longPressEvent => $_getN(1);
+  @$pb.TagNumber(100)
+  set longPressEvent(LongPressEvent v) { setField(100, v); }
+  @$pb.TagNumber(100)
+  $core.bool hasLongPressEvent() => $_has(1);
+  @$pb.TagNumber(100)
+  void clearLongPressEvent() => clearField(100);
+  @$pb.TagNumber(100)
+  LongPressEvent ensureLongPressEvent() => $_ensure(1);
+
+  @$pb.TagNumber(101)
+  TwoFingerTap get twoFingerTap => $_getN(2);
+  @$pb.TagNumber(101)
+  set twoFingerTap(TwoFingerTap v) { setField(101, v); }
+  @$pb.TagNumber(101)
+  $core.bool hasTwoFingerTap() => $_has(2);
+  @$pb.TagNumber(101)
+  void clearTwoFingerTap() => clearField(101);
+  @$pb.TagNumber(101)
+  TwoFingerTap ensureTwoFingerTap() => $_ensure(2);
+
+  @$pb.TagNumber(102)
+  TiltEvent get tiltEvent => $_getN(3);
+  @$pb.TagNumber(102)
+  set tiltEvent(TiltEvent v) { setField(102, v); }
+  @$pb.TagNumber(102)
+  $core.bool hasTiltEvent() => $_has(3);
+  @$pb.TagNumber(102)
+  void clearTiltEvent() => clearField(102);
+  @$pb.TagNumber(102)
+  TiltEvent ensureTiltEvent() => $_ensure(3);
+
+  @$pb.TagNumber(103)
+  DoubleTap get doubleTap => $_getN(4);
+  @$pb.TagNumber(103)
+  set doubleTap(DoubleTap v) { setField(103, v); }
+  @$pb.TagNumber(103)
+  $core.bool hasDoubleTap() => $_has(4);
+  @$pb.TagNumber(103)
+  void clearDoubleTap() => clearField(103);
+  @$pb.TagNumber(103)
+  DoubleTap ensureDoubleTap() => $_ensure(4);
+
+  @$pb.TagNumber(104)
+  TapEvent get tapEvent => $_getN(5);
+  @$pb.TagNumber(104)
+  set tapEvent(TapEvent v) { setField(104, v); }
+  @$pb.TagNumber(104)
+  $core.bool hasTapEvent() => $_has(5);
+  @$pb.TagNumber(104)
+  void clearTapEvent() => clearField(104);
+  @$pb.TagNumber(104)
+  TapEvent ensureTapEvent() => $_ensure(5);
+
+  @$pb.TagNumber(105)
+  PinchZoom get pinchZoom => $_getN(6);
+  @$pb.TagNumber(105)
+  set pinchZoom(PinchZoom v) { setField(105, v); }
+  @$pb.TagNumber(105)
+  $core.bool hasPinchZoom() => $_has(6);
+  @$pb.TagNumber(105)
+  void clearPinchZoom() => clearField(105);
+  @$pb.TagNumber(105)
+  PinchZoom ensurePinchZoom() => $_ensure(6);
+
+  @$pb.TagNumber(106)
+  Rotate get rotate => $_getN(7);
+  @$pb.TagNumber(106)
+  set rotate(Rotate v) { setField(106, v); }
+  @$pb.TagNumber(106)
+  $core.bool hasRotate() => $_has(7);
+  @$pb.TagNumber(106)
+  void clearRotate() => clearField(106);
+  @$pb.TagNumber(106)
+  Rotate ensureRotate() => $_ensure(7);
+}
+
+class LongPressEvent extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('LongPressEvent', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..aOM<PointF>(1, 'point', subBuilder: PointF.create)
+    ..hasRequiredFields = false
+  ;
+
+  LongPressEvent._() : super();
+  factory LongPressEvent() => create();
+  factory LongPressEvent.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory LongPressEvent.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  LongPressEvent clone() => LongPressEvent()..mergeFromMessage(this);
+  LongPressEvent copyWith(void Function(LongPressEvent) updates) => super.copyWith((message) => updates(message as LongPressEvent));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static LongPressEvent create() => LongPressEvent._();
+  LongPressEvent createEmptyInstance() => create();
+  static $pb.PbList<LongPressEvent> createRepeated() => $pb.PbList<LongPressEvent>();
+  @$core.pragma('dart2js:noInline')
+  static LongPressEvent getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LongPressEvent>(create);
+  static LongPressEvent _defaultInstance;
+
+  @$pb.TagNumber(1)
+  PointF get point => $_getN(0);
+  @$pb.TagNumber(1)
+  set point(PointF v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPoint() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPoint() => clearField(1);
+  @$pb.TagNumber(1)
+  PointF ensurePoint() => $_ensure(0);
+}
+
+class TwoFingerTap extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('TwoFingerTap', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..aOM<PointF>(1, 'point', subBuilder: PointF.create)
+    ..hasRequiredFields = false
+  ;
+
+  TwoFingerTap._() : super();
+  factory TwoFingerTap() => create();
+  factory TwoFingerTap.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory TwoFingerTap.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  TwoFingerTap clone() => TwoFingerTap()..mergeFromMessage(this);
+  TwoFingerTap copyWith(void Function(TwoFingerTap) updates) => super.copyWith((message) => updates(message as TwoFingerTap));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static TwoFingerTap create() => TwoFingerTap._();
+  TwoFingerTap createEmptyInstance() => create();
+  static $pb.PbList<TwoFingerTap> createRepeated() => $pb.PbList<TwoFingerTap>();
+  @$core.pragma('dart2js:noInline')
+  static TwoFingerTap getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TwoFingerTap>(create);
+  static TwoFingerTap _defaultInstance;
+
+  @$pb.TagNumber(1)
+  PointF get point => $_getN(0);
+  @$pb.TagNumber(1)
+  set point(PointF v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPoint() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPoint() => clearField(1);
+  @$pb.TagNumber(1)
+  PointF ensurePoint() => $_ensure(0);
+}
+
+class DoubleTap extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('DoubleTap', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..aOM<PointF>(1, 'point', subBuilder: PointF.create)
+    ..hasRequiredFields = false
+  ;
+
+  DoubleTap._() : super();
+  factory DoubleTap() => create();
+  factory DoubleTap.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory DoubleTap.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  DoubleTap clone() => DoubleTap()..mergeFromMessage(this);
+  DoubleTap copyWith(void Function(DoubleTap) updates) => super.copyWith((message) => updates(message as DoubleTap));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static DoubleTap create() => DoubleTap._();
+  DoubleTap createEmptyInstance() => create();
+  static $pb.PbList<DoubleTap> createRepeated() => $pb.PbList<DoubleTap>();
+  @$core.pragma('dart2js:noInline')
+  static DoubleTap getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<DoubleTap>(create);
+  static DoubleTap _defaultInstance;
+
+  @$pb.TagNumber(1)
+  PointF get point => $_getN(0);
+  @$pb.TagNumber(1)
+  set point(PointF v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPoint() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPoint() => clearField(1);
+  @$pb.TagNumber(1)
+  PointF ensurePoint() => $_ensure(0);
+}
+
+class TiltEvent extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('TiltEvent', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..a<$core.double>(1, 'tilt', $pb.PbFieldType.OF)
+    ..hasRequiredFields = false
+  ;
+
+  TiltEvent._() : super();
+  factory TiltEvent() => create();
+  factory TiltEvent.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory TiltEvent.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  TiltEvent clone() => TiltEvent()..mergeFromMessage(this);
+  TiltEvent copyWith(void Function(TiltEvent) updates) => super.copyWith((message) => updates(message as TiltEvent));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static TiltEvent create() => TiltEvent._();
+  TiltEvent createEmptyInstance() => create();
+  static $pb.PbList<TiltEvent> createRepeated() => $pb.PbList<TiltEvent>();
+  @$core.pragma('dart2js:noInline')
+  static TiltEvent getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TiltEvent>(create);
+  static TiltEvent _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.double get tilt => $_getN(0);
+  @$pb.TagNumber(1)
+  set tilt($core.double v) { $_setFloat(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasTilt() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearTilt() => clearField(1);
+}
+
+class TapEvent extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('TapEvent', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..aOM<PointF>(1, 'point', subBuilder: PointF.create)
+    ..hasRequiredFields = false
+  ;
+
+  TapEvent._() : super();
+  factory TapEvent() => create();
+  factory TapEvent.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory TapEvent.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  TapEvent clone() => TapEvent()..mergeFromMessage(this);
+  TapEvent copyWith(void Function(TapEvent) updates) => super.copyWith((message) => updates(message as TapEvent));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static TapEvent create() => TapEvent._();
+  TapEvent createEmptyInstance() => create();
+  static $pb.PbList<TapEvent> createRepeated() => $pb.PbList<TapEvent>();
+  @$core.pragma('dart2js:noInline')
+  static TapEvent getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<TapEvent>(create);
+  static TapEvent _defaultInstance;
+
+  @$pb.TagNumber(1)
+  PointF get point => $_getN(0);
+  @$pb.TagNumber(1)
+  set point(PointF v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPoint() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPoint() => clearField(1);
+  @$pb.TagNumber(1)
+  PointF ensurePoint() => $_ensure(0);
+}
+
+class PinchZoom extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('PinchZoom', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..a<$core.double>(1, 'zoom', $pb.PbFieldType.OF)
+    ..aOM<PointF>(2, 'point', subBuilder: PointF.create)
+    ..hasRequiredFields = false
+  ;
+
+  PinchZoom._() : super();
+  factory PinchZoom() => create();
+  factory PinchZoom.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory PinchZoom.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  PinchZoom clone() => PinchZoom()..mergeFromMessage(this);
+  PinchZoom copyWith(void Function(PinchZoom) updates) => super.copyWith((message) => updates(message as PinchZoom));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static PinchZoom create() => PinchZoom._();
+  PinchZoom createEmptyInstance() => create();
+  static $pb.PbList<PinchZoom> createRepeated() => $pb.PbList<PinchZoom>();
+  @$core.pragma('dart2js:noInline')
+  static PinchZoom getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PinchZoom>(create);
+  static PinchZoom _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.double get zoom => $_getN(0);
+  @$pb.TagNumber(1)
+  set zoom($core.double v) { $_setFloat(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasZoom() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearZoom() => clearField(1);
+
+  @$pb.TagNumber(2)
+  PointF get point => $_getN(1);
+  @$pb.TagNumber(2)
+  set point(PointF v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasPoint() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearPoint() => clearField(2);
+  @$pb.TagNumber(2)
+  PointF ensurePoint() => $_ensure(1);
+}
+
+class Rotate extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('Rotate', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..a<$core.double>(1, 'rotate', $pb.PbFieldType.OF)
+    ..hasRequiredFields = false
+  ;
+
+  Rotate._() : super();
+  factory Rotate() => create();
+  factory Rotate.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory Rotate.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  Rotate clone() => Rotate()..mergeFromMessage(this);
+  Rotate copyWith(void Function(Rotate) updates) => super.copyWith((message) => updates(message as Rotate));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static Rotate create() => Rotate._();
+  Rotate createEmptyInstance() => create();
+  static $pb.PbList<Rotate> createRepeated() => $pb.PbList<Rotate>();
+  @$core.pragma('dart2js:noInline')
+  static Rotate getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<Rotate>(create);
+  static Rotate _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.double get rotate => $_getN(0);
+  @$pb.TagNumber(1)
+  set rotate($core.double v) { $_setFloat(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasRotate() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearRotate() => clearField(1);
+}
+
+class PointF extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('PointF', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..a<$core.double>(1, 'x', $pb.PbFieldType.OF)
+    ..a<$core.double>(2, 'y', $pb.PbFieldType.OF)
+    ..hasRequiredFields = false
+  ;
+
+  PointF._() : super();
+  factory PointF() => create();
+  factory PointF.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory PointF.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  PointF clone() => PointF()..mergeFromMessage(this);
+  PointF copyWith(void Function(PointF) updates) => super.copyWith((message) => updates(message as PointF));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static PointF create() => PointF._();
+  PointF createEmptyInstance() => create();
+  static $pb.PbList<PointF> createRepeated() => $pb.PbList<PointF>();
+  @$core.pragma('dart2js:noInline')
+  static PointF getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<PointF>(create);
+  static PointF _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.double get x => $_getN(0);
+  @$pb.TagNumber(1)
+  set x($core.double v) { $_setFloat(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasX() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearX() => clearField(1);
+
+  @$pb.TagNumber(2)
+  $core.double get y => $_getN(1);
+  @$pb.TagNumber(2)
+  set y($core.double v) { $_setFloat(1, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasY() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearY() => clearField(2);
 }
 
 class FloatValue extends $pb.GeneratedMessage {

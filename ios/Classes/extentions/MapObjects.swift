@@ -17,3 +17,12 @@ extension FlutterHereMaps_ViewRect {
         return CGRect(x: CGFloat(x), y: CGFloat(y), width: CGFloat(width), height: CGFloat(height))
     }
 }
+
+extension CGPoint {
+    func toPoint() -> FlutterHereMaps_PointF {
+        var point = FlutterHereMaps_PointF()
+        point.x = Float(self.x)
+        point.y = Float(self.y)
+        return point
+    }
+}
