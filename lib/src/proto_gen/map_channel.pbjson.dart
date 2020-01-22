@@ -22,6 +22,7 @@ const MapChannelReplay$json = const {
   '1': 'MapChannelReplay',
   '2': const [
     const {'1': 'getCenter', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapCenter', '9': 0, '10': 'getCenter'},
+    const {'1': 'mapGesture', '3': 2, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapGesture', '9': 0, '10': 'mapGesture'},
   ],
   '8': const [
     const {'1': 'object'},

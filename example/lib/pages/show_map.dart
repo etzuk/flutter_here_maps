@@ -34,6 +34,9 @@ class ShowMapPage extends StatelessWidget {
           title: const Text('Here maps'),
         ),
         body: MapView(
+          onPanEnd: () {
+            print("onPanEnd");
+          },
           initialMapCenter: MapCenter()
             ..coordinate = (Coordinate()
               ..lat = 32.06356430053711

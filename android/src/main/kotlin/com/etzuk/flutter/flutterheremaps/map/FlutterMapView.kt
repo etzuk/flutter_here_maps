@@ -7,6 +7,7 @@ import android.app.Activity
 import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.PointF
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
@@ -14,7 +15,9 @@ import com.google.protobuf.MessageLite
 import com.here.android.mpa.common.ApplicationContext
 import com.here.android.mpa.common.MapEngine
 import com.here.android.mpa.common.OnEngineInitListener
+import com.here.android.mpa.common.ViewObject
 import com.here.android.mpa.mapping.Map
+import com.here.android.mpa.mapping.MapGesture
 import com.here.android.mpa.mapping.MapMarker
 import com.here.android.mpa.mapping.MapView
 import io.flutter.plugin.common.MethodCall
@@ -31,7 +34,7 @@ class Map(val mapView: MapView) {
 class FlutterMapView(private val registrar: PluginRegistry.Registrar, private val context: Context?, id: Int, private val args: Any?) :
         PlatformView,
         OnEngineInitListener,
-        PluginRegistry.RequestPermissionsResultListener, MethodChannel.MethodCallHandler, Application.ActivityLifecycleCallbacks {
+        PluginRegistry.RequestPermissionsResultListener, MethodChannel.MethodCallHandler, Application.ActivityLifecycleCallbacks, MapGesture.OnGestureListener {
 
     private val map = Map(MapView(registrar.activeContext()))
     private var hereMap: Map? = null
@@ -98,6 +101,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
                     map.setMapCenter(mapCenter)
                 }
             }
+            map.mapView.mapGesture.addOnGestureListener(this, 0, true)
         } else {
             //TODO: Add error when error mechanism will be developed
         }
@@ -144,7 +148,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
         return replay.objectCase?.let { objectCase ->
             when (objectCase) {
                 MapChannel.MapChannelReplay.ObjectCase.GETCENTER -> map.getMapCenter()
-                MapChannel.MapChannelReplay.ObjectCase.OBJECT_NOT_SET -> null
+                else -> null
             }
         }
     }
@@ -178,6 +182,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
         map.mapView.onPause()
         map.clean()
         channel.setMethodCallHandler(null)
+        map.mapView.mapGesture.removeOnGestureListener(this)
         registrar.activity().application.unregisterActivityLifecycleCallbacks(this)
     }
 
@@ -213,6 +218,77 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
 
     override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
 
+    }
+
+    private fun invokeSimpleGesture(event: MapObjects.MapGestureEvents) {
+        val response =  MapChannel.MapChannelReplay.newBuilder().let {
+            it.mapGesture = MapObjects.MapGesture.newBuilder().let {mapGesture ->
+                mapGesture.event = event
+                mapGesture.build()
+            }
+            it.build()
+        }.toByteArray()
+        channel.invokeMethod("replay", response)
+    }
+
+    override fun onLongPressRelease() {
+        invokeSimpleGesture(MapObjects.MapGestureEvents.OnLongPressRelease)
+    }
+
+    override fun onRotateEvent(p0: Float): Boolean {
+        return false
+    }
+
+    override fun onMultiFingerManipulationStart() {
+        invokeSimpleGesture(MapObjects.MapGestureEvents.OnMultiFingerManipulationStart)
+    }
+
+    override fun onPinchLocked() {
+        invokeSimpleGesture(MapObjects.MapGestureEvents.OnPinchLocked)
+    }
+
+    override fun onPinchZoomEvent(p0: Float, p1: PointF?): Boolean {
+        return false
+    }
+
+    override fun onTapEvent(p0: PointF?): Boolean {
+        return false
+    }
+
+    override fun onPanStart() {
+        invokeSimpleGesture(MapObjects.MapGestureEvents.OnPanStart)
+    }
+
+    override fun onMultiFingerManipulationEnd() {
+        invokeSimpleGesture(MapObjects.MapGestureEvents.OnMultiFingerManipulationEnd)
+    }
+
+    override fun onDoubleTapEvent(p0: PointF?): Boolean {
+        return false
+    }
+
+    override fun onPanEnd() {
+        invokeSimpleGesture(MapObjects.MapGestureEvents.OnPanEnd)
+    }
+
+    override fun onTiltEvent(p0: Float): Boolean {
+        return false
+    }
+
+    override fun onMapObjectsSelected(p0: MutableList<ViewObject>?): Boolean {
+        return false
+    }
+
+    override fun onRotateLocked() {
+        invokeSimpleGesture(MapObjects.MapGestureEvents.OnRotateLocked)
+    }
+
+    override fun onLongPressEvent(p0: PointF?): Boolean {
+        return false
+    }
+
+    override fun onTwoFingerTapEvent(p0: PointF?): Boolean {
+        return false
     }
 }
 

@@ -10,22 +10,32 @@ class HereMapsController {
   HereMapsController._(
     this._mapChannel,
     this._mapCenter,
-  ) : assert(_mapChannel != null);
+    this._mapViewGestures,
+  ) : assert(_mapChannel != null) {
+    _mapChannel.setMethodCallHandler(_handleMethodCall);
+  }
 
-  static Future<HereMapsController> init({int id, MapCenter mapCenter}) async {
+  static Future<HereMapsController> init({
+    int id,
+    MapCenter mapCenter,
+    MapViewGestures mapViewGestures,
+  }) async {
     assert(id != null);
     final channel =
         MethodChannel('flugins.etzuk.flutter_here_maps/MapViewChannel_$id');
     await channel.invokeMethod("initMap");
     return HereMapsController._(
-        channel,
-        mapCenter ?? MapCenter()
-          ..zoomLevel = (FloatValue()..value = 17.0)
-          ..orientation = (FloatValue()..value = 0.0)
-          ..tilt = (FloatValue()..value = 0.0));
+      channel,
+      mapCenter ?? MapCenter()
+        ..zoomLevel = (FloatValue()..value = 17.0)
+        ..orientation = (FloatValue()..value = 0.0)
+        ..tilt = (FloatValue()..value = 0.0),
+      mapViewGestures,
+    );
   }
 
   final MethodChannel _mapChannel;
+  final MapViewGestures _mapViewGestures;
   MapCenter _mapCenter;
 
   MapCenter get center => _mapCenter;
@@ -63,5 +73,19 @@ class HereMapsController {
 
   Future<Uint8List> _invokeReplay(MapChannelReplay replay) async {
     return await _mapChannel.invokeMethod('replay', replay.writeToBuffer());
+  }
+}
+
+extension on HereMapsController {
+  Future<dynamic> _handleMethodCall(MethodCall call) async {
+    if (call.method == "replay") {
+      Uint8List params = call.arguments;
+      final mapReplay = MapChannelReplay.fromBuffer(params);
+      if (mapReplay.hasMapGesture()) {
+        this
+            ._mapViewGestures
+            .onMapGestureEventReceived(mapReplay.mapGesture.event);
+      }
+    }
   }
 }

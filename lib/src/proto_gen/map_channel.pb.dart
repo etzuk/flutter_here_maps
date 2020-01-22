@@ -101,17 +101,20 @@ class MapChannelRequest extends $pb.GeneratedMessage {
 
 enum MapChannelReplay_Object {
   getCenter, 
+  mapGesture, 
   notSet
 }
 
 class MapChannelReplay extends $pb.GeneratedMessage {
   static const $core.Map<$core.int, MapChannelReplay_Object> _MapChannelReplay_ObjectByTag = {
     1 : MapChannelReplay_Object.getCenter,
+    2 : MapChannelReplay_Object.mapGesture,
     0 : MapChannelReplay_Object.notSet
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('MapChannelReplay', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
-    ..oo(0, [1])
+    ..oo(0, [1, 2])
     ..aOM<$0.MapCenter>(1, 'getCenter', protoName: 'getCenter', subBuilder: $0.MapCenter.create)
+    ..aOM<$0.MapGesture>(2, 'mapGesture', protoName: 'mapGesture', subBuilder: $0.MapGesture.create)
     ..hasRequiredFields = false
   ;
 
@@ -143,5 +146,16 @@ class MapChannelReplay extends $pb.GeneratedMessage {
   void clearGetCenter() => clearField(1);
   @$pb.TagNumber(1)
   $0.MapCenter ensureGetCenter() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  $0.MapGesture get mapGesture => $_getN(1);
+  @$pb.TagNumber(2)
+  set mapGesture($0.MapGesture v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasMapGesture() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearMapGesture() => clearField(2);
+  @$pb.TagNumber(2)
+  $0.MapGesture ensureMapGesture() => $_ensure(1);
 }
 

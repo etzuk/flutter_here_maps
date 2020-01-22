@@ -19,5 +19,6 @@ message MapChannelReplay {
     oneof object {
         //Map actions
         MapCenter getCenter = 1;
+        MapGesture mapGesture = 2;
     }
 }

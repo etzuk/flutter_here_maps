@@ -585,6 +585,37 @@ class ZoomTo extends $pb.GeneratedMessage {
   FloatValue ensurePaddingFactor() => $_ensure(5);
 }
 
+class MapGesture extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MapGesture', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..e<MapGestureEvents>(1, 'event', $pb.PbFieldType.OE, defaultOrMaker: MapGestureEvents.OnLongPressRelease, valueOf: MapGestureEvents.valueOf, enumValues: MapGestureEvents.values)
+    ..hasRequiredFields = false
+  ;
+
+  MapGesture._() : super();
+  factory MapGesture() => create();
+  factory MapGesture.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory MapGesture.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  MapGesture clone() => MapGesture()..mergeFromMessage(this);
+  MapGesture copyWith(void Function(MapGesture) updates) => super.copyWith((message) => updates(message as MapGesture));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static MapGesture create() => MapGesture._();
+  MapGesture createEmptyInstance() => create();
+  static $pb.PbList<MapGesture> createRepeated() => $pb.PbList<MapGesture>();
+  @$core.pragma('dart2js:noInline')
+  static MapGesture getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MapGesture>(create);
+  static MapGesture _defaultInstance;
+
+  @$pb.TagNumber(1)
+  MapGestureEvents get event => $_getN(0);
+  @$pb.TagNumber(1)
+  set event(MapGestureEvents v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasEvent() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearEvent() => clearField(1);
+}
+
 class FloatValue extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('FloatValue', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
     ..a<$core.double>(1, 'value', $pb.PbFieldType.OF)

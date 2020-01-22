@@ -67,6 +67,66 @@ extension FlutterHereMaps_Animation: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+enum FlutterHereMaps_MapGestureEvents: SwiftProtobuf.Enum {
+  typealias RawValue = Int
+  case onLongPressRelease // = 0
+  case onMultiFingerManipulationStart // = 1
+  case onPinchLocked // = 2
+  case onPanStart // = 3
+  case onMultiFingerManipulationEnd // = 4
+  case onPanEnd // = 5
+  case onRotateLocked // = 6
+  case UNRECOGNIZED(Int)
+
+  init() {
+    self = .onLongPressRelease
+  }
+
+  init?(rawValue: Int) {
+    switch rawValue {
+    case 0: self = .onLongPressRelease
+    case 1: self = .onMultiFingerManipulationStart
+    case 2: self = .onPinchLocked
+    case 3: self = .onPanStart
+    case 4: self = .onMultiFingerManipulationEnd
+    case 5: self = .onPanEnd
+    case 6: self = .onRotateLocked
+    default: self = .UNRECOGNIZED(rawValue)
+    }
+  }
+
+  var rawValue: Int {
+    switch self {
+    case .onLongPressRelease: return 0
+    case .onMultiFingerManipulationStart: return 1
+    case .onPinchLocked: return 2
+    case .onPanStart: return 3
+    case .onMultiFingerManipulationEnd: return 4
+    case .onPanEnd: return 5
+    case .onRotateLocked: return 6
+    case .UNRECOGNIZED(let i): return i
+    }
+  }
+
+}
+
+#if swift(>=4.2)
+
+extension FlutterHereMaps_MapGestureEvents: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  static var allCases: [FlutterHereMaps_MapGestureEvents] = [
+    .onLongPressRelease,
+    .onMultiFingerManipulationStart,
+    .onPinchLocked,
+    .onPanStart,
+    .onMultiFingerManipulationEnd,
+    .onPanEnd,
+    .onRotateLocked,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 struct FlutterHereMaps_Coordinate {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -408,6 +468,18 @@ struct FlutterHereMaps_ZoomTo {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct FlutterHereMaps_MapGesture {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var event: FlutterHereMaps_MapGestureEvents = .onLongPressRelease
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 /// Wrapper message for `float`.
 ///
 /// The JSON representation for `FloatValue` is JSON number.
@@ -450,6 +522,18 @@ extension FlutterHereMaps_Animation: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "Linear"),
     2: .same(proto: "None"),
     3: .same(proto: "Rocket"),
+  ]
+}
+
+extension FlutterHereMaps_MapGestureEvents: SwiftProtobuf._ProtoNameProviding {
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "OnLongPressRelease"),
+    1: .same(proto: "OnMultiFingerManipulationStart"),
+    2: .same(proto: "OnPinchLocked"),
+    3: .same(proto: "OnPanStart"),
+    4: .same(proto: "OnMultiFingerManipulationEnd"),
+    5: .same(proto: "OnPanEnd"),
+    6: .same(proto: "OnRotateLocked"),
   ]
 }
 
@@ -1098,6 +1182,35 @@ extension FlutterHereMaps_ZoomTo: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       }
       if !storagesAreEqual {return false}
     }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_MapGesture: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".MapGesture"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "event"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularEnumField(value: &self.event)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.event != .onLongPressRelease {
+      try visitor.visitSingularEnumField(value: self.event, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_MapGesture, rhs: FlutterHereMaps_MapGesture) -> Bool {
+    if lhs.event != rhs.event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

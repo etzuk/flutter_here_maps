@@ -110,16 +110,27 @@ struct FlutterHereMaps_MapChannelReplay {
     set {_uniqueStorage()._object = .getCenter(newValue)}
   }
 
+  var mapGesture: FlutterHereMaps_MapGesture {
+    get {
+      if case .mapGesture(let v)? = _storage._object {return v}
+      return FlutterHereMaps_MapGesture()
+    }
+    set {_uniqueStorage()._object = .mapGesture(newValue)}
+  }
+
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   enum OneOf_Object: Equatable {
     ///Map actions
     case getCenter(FlutterHereMaps_MapCenter)
+    case mapGesture(FlutterHereMaps_MapGesture)
 
   #if !swift(>=4.1)
     static func ==(lhs: FlutterHereMaps_MapChannelReplay.OneOf_Object, rhs: FlutterHereMaps_MapChannelReplay.OneOf_Object) -> Bool {
       switch (lhs, rhs) {
       case (.getCenter(let l), .getCenter(let r)): return l == r
+      case (.mapGesture(let l), .mapGesture(let r)): return l == r
+      default: return false
       }
     }
   #endif
@@ -241,6 +252,7 @@ extension FlutterHereMaps_MapChannelReplay: SwiftProtobuf.Message, SwiftProtobuf
   static let protoMessageName: String = _protobuf_package + ".MapChannelReplay"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "getCenter"),
+    2: .same(proto: "mapGesture"),
   ]
 
   fileprivate class _StorageClass {
@@ -275,6 +287,14 @@ extension FlutterHereMaps_MapChannelReplay: SwiftProtobuf.Message, SwiftProtobuf
           }
           try decoder.decodeSingularMessageField(value: &v)
           if let v = v {_storage._object = .getCenter(v)}
+        case 2:
+          var v: FlutterHereMaps_MapGesture?
+          if let current = _storage._object {
+            try decoder.handleConflictingOneOf()
+            if case .mapGesture(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {_storage._object = .mapGesture(v)}
         default: break
         }
       }
@@ -283,8 +303,12 @@ extension FlutterHereMaps_MapChannelReplay: SwiftProtobuf.Message, SwiftProtobuf
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if case .getCenter(let v)? = _storage._object {
+      switch _storage._object {
+      case .getCenter(let v)?:
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      case .mapGesture(let v)?:
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      case nil: break
       }
     }
     try unknownFields.traverse(visitor: &visitor)
