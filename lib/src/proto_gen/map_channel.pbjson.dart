@@ -29,3 +29,18 @@ const MapChannelReplay$json = const {
   ],
 };
 
+const InitMapConfigutation$json = const {
+  '1': 'InitMapConfigutation',
+  '2': const [
+    const {'1': 'initialMapCenter', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapCenter', '10': 'initialMapCenter'},
+    const {'1': 'gestureTapEnable', '3': 10, '4': 1, '5': 8, '10': 'gestureTapEnable'},
+    const {'1': 'gestureLongPressEnable', '3': 11, '4': 1, '5': 8, '10': 'gestureLongPressEnable'},
+    const {'1': 'gesturePinchEnable', '3': 12, '4': 1, '5': 8, '10': 'gesturePinchEnable'},
+    const {'1': 'gestureTwoFingerTapEnable', '3': 13, '4': 1, '5': 8, '10': 'gestureTwoFingerTapEnable'},
+    const {'1': 'gestureDoubleTapEnable', '3': 14, '4': 1, '5': 8, '10': 'gestureDoubleTapEnable'},
+    const {'1': 'gesturePanEnable', '3': 15, '4': 1, '5': 8, '10': 'gesturePanEnable'},
+    const {'1': 'gestureRotationEnable', '3': 16, '4': 1, '5': 8, '10': 'gestureRotationEnable'},
+    const {'1': 'gestureTwoFingerPanEnable', '3': 17, '4': 1, '5': 8, '10': 'gestureTwoFingerPanEnable'},
+  ],
+};
+

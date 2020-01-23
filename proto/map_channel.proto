@@ -22,3 +22,15 @@ message MapChannelReplay {
         MapGesture mapGesture = 2;
     }
 }
+
+message InitMapConfigutation {
+    MapCenter initialMapCenter = 1;
+    bool gestureTapEnable = 10;
+    bool gestureLongPressEnable = 11;
+    bool gesturePinchEnable = 12;
+    bool gestureTwoFingerTapEnable = 13;
+    bool gestureDoubleTapEnable = 14;
+    bool gesturePanEnable = 15;
+    bool gestureRotationEnable = 16;
+    bool gestureTwoFingerPanEnable = 17;
+}

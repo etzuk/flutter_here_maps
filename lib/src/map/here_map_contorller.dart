@@ -82,9 +82,15 @@ extension on HereMapsController {
       Uint8List params = call.arguments;
       final mapReplay = MapChannelReplay.fromBuffer(params);
       if (mapReplay.hasMapGesture()) {
-        this
-            ._mapViewGestures
-            .onMapGestureEventReceived(mapReplay.mapGesture.event);
+        if (mapReplay.mapGesture.event == MapGestureEvents.OnEventData) {
+          this
+              ._mapViewGestures
+              .onMapGestureEventDateReceived(mapReplay.mapGesture);
+        } else {
+          this
+              ._mapViewGestures
+              .onMapGestureEventReceived(mapReplay.mapGesture.event);
+        }
       }
     }
   }

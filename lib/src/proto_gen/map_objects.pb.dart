@@ -609,7 +609,7 @@ class MapGesture extends $pb.GeneratedMessage {
   };
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('MapGesture', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
     ..oo(0, [100, 101, 102, 103, 104, 105, 106])
-    ..e<MapGestureEvents>(1, 'event', $pb.PbFieldType.OE, defaultOrMaker: MapGestureEvents.OnLongPressRelease, valueOf: MapGestureEvents.valueOf, enumValues: MapGestureEvents.values)
+    ..e<MapGestureEvents>(1, 'event', $pb.PbFieldType.OE, defaultOrMaker: MapGestureEvents.OnMultiFingerManipulationEnd, valueOf: MapGestureEvents.valueOf, enumValues: MapGestureEvents.values)
     ..aOM<LongPressEvent>(100, 'longPressEvent', protoName: 'longPressEvent', subBuilder: LongPressEvent.create)
     ..aOM<TwoFingerTap>(101, 'twoFingerTap', protoName: 'twoFingerTap', subBuilder: TwoFingerTap.create)
     ..aOM<TiltEvent>(102, 'tiltEvent', protoName: 'tiltEvent', subBuilder: TiltEvent.create)

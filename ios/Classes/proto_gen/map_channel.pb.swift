@@ -141,6 +141,67 @@ struct FlutterHereMaps_MapChannelReplay {
   fileprivate var _storage = _StorageClass.defaultInstance
 }
 
+struct FlutterHereMaps_InitMapConfigutation {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var initialMapCenter: FlutterHereMaps_MapCenter {
+    get {return _storage._initialMapCenter ?? FlutterHereMaps_MapCenter()}
+    set {_uniqueStorage()._initialMapCenter = newValue}
+  }
+  /// Returns true if `initialMapCenter` has been explicitly set.
+  var hasInitialMapCenter: Bool {return _storage._initialMapCenter != nil}
+  /// Clears the value of `initialMapCenter`. Subsequent reads from it will return its default value.
+  mutating func clearInitialMapCenter() {_uniqueStorage()._initialMapCenter = nil}
+
+  var gestureTapEnable: Bool {
+    get {return _storage._gestureTapEnable}
+    set {_uniqueStorage()._gestureTapEnable = newValue}
+  }
+
+  var gestureLongPressEnable: Bool {
+    get {return _storage._gestureLongPressEnable}
+    set {_uniqueStorage()._gestureLongPressEnable = newValue}
+  }
+
+  var gesturePinchEnable: Bool {
+    get {return _storage._gesturePinchEnable}
+    set {_uniqueStorage()._gesturePinchEnable = newValue}
+  }
+
+  var gestureTwoFingerTapEnable: Bool {
+    get {return _storage._gestureTwoFingerTapEnable}
+    set {_uniqueStorage()._gestureTwoFingerTapEnable = newValue}
+  }
+
+  var gestureDoubleTapEnable: Bool {
+    get {return _storage._gestureDoubleTapEnable}
+    set {_uniqueStorage()._gestureDoubleTapEnable = newValue}
+  }
+
+  var gesturePanEnable: Bool {
+    get {return _storage._gesturePanEnable}
+    set {_uniqueStorage()._gesturePanEnable = newValue}
+  }
+
+  var gestureRotationEnable: Bool {
+    get {return _storage._gestureRotationEnable}
+    set {_uniqueStorage()._gestureRotationEnable = newValue}
+  }
+
+  var gestureTwoFingerPanEnable: Bool {
+    get {return _storage._gestureTwoFingerPanEnable}
+    set {_uniqueStorage()._gestureTwoFingerPanEnable = newValue}
+  }
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "FlutterHereMaps"
@@ -320,6 +381,131 @@ extension FlutterHereMaps_MapChannelReplay: SwiftProtobuf.Message, SwiftProtobuf
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._object != rhs_storage._object {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_InitMapConfigutation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".InitMapConfigutation"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "initialMapCenter"),
+    10: .same(proto: "gestureTapEnable"),
+    11: .same(proto: "gestureLongPressEnable"),
+    12: .same(proto: "gesturePinchEnable"),
+    13: .same(proto: "gestureTwoFingerTapEnable"),
+    14: .same(proto: "gestureDoubleTapEnable"),
+    15: .same(proto: "gesturePanEnable"),
+    16: .same(proto: "gestureRotationEnable"),
+    17: .same(proto: "gestureTwoFingerPanEnable"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _initialMapCenter: FlutterHereMaps_MapCenter? = nil
+    var _gestureTapEnable: Bool = false
+    var _gestureLongPressEnable: Bool = false
+    var _gesturePinchEnable: Bool = false
+    var _gestureTwoFingerTapEnable: Bool = false
+    var _gestureDoubleTapEnable: Bool = false
+    var _gesturePanEnable: Bool = false
+    var _gestureRotationEnable: Bool = false
+    var _gestureTwoFingerPanEnable: Bool = false
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _initialMapCenter = source._initialMapCenter
+      _gestureTapEnable = source._gestureTapEnable
+      _gestureLongPressEnable = source._gestureLongPressEnable
+      _gesturePinchEnable = source._gesturePinchEnable
+      _gestureTwoFingerTapEnable = source._gestureTwoFingerTapEnable
+      _gestureDoubleTapEnable = source._gestureDoubleTapEnable
+      _gesturePanEnable = source._gesturePanEnable
+      _gestureRotationEnable = source._gestureRotationEnable
+      _gestureTwoFingerPanEnable = source._gestureTwoFingerPanEnable
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._initialMapCenter)
+        case 10: try decoder.decodeSingularBoolField(value: &_storage._gestureTapEnable)
+        case 11: try decoder.decodeSingularBoolField(value: &_storage._gestureLongPressEnable)
+        case 12: try decoder.decodeSingularBoolField(value: &_storage._gesturePinchEnable)
+        case 13: try decoder.decodeSingularBoolField(value: &_storage._gestureTwoFingerTapEnable)
+        case 14: try decoder.decodeSingularBoolField(value: &_storage._gestureDoubleTapEnable)
+        case 15: try decoder.decodeSingularBoolField(value: &_storage._gesturePanEnable)
+        case 16: try decoder.decodeSingularBoolField(value: &_storage._gestureRotationEnable)
+        case 17: try decoder.decodeSingularBoolField(value: &_storage._gestureTwoFingerPanEnable)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._initialMapCenter {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if _storage._gestureTapEnable != false {
+        try visitor.visitSingularBoolField(value: _storage._gestureTapEnable, fieldNumber: 10)
+      }
+      if _storage._gestureLongPressEnable != false {
+        try visitor.visitSingularBoolField(value: _storage._gestureLongPressEnable, fieldNumber: 11)
+      }
+      if _storage._gesturePinchEnable != false {
+        try visitor.visitSingularBoolField(value: _storage._gesturePinchEnable, fieldNumber: 12)
+      }
+      if _storage._gestureTwoFingerTapEnable != false {
+        try visitor.visitSingularBoolField(value: _storage._gestureTwoFingerTapEnable, fieldNumber: 13)
+      }
+      if _storage._gestureDoubleTapEnable != false {
+        try visitor.visitSingularBoolField(value: _storage._gestureDoubleTapEnable, fieldNumber: 14)
+      }
+      if _storage._gesturePanEnable != false {
+        try visitor.visitSingularBoolField(value: _storage._gesturePanEnable, fieldNumber: 15)
+      }
+      if _storage._gestureRotationEnable != false {
+        try visitor.visitSingularBoolField(value: _storage._gestureRotationEnable, fieldNumber: 16)
+      }
+      if _storage._gestureTwoFingerPanEnable != false {
+        try visitor.visitSingularBoolField(value: _storage._gestureTwoFingerPanEnable, fieldNumber: 17)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_InitMapConfigutation, rhs: FlutterHereMaps_InitMapConfigutation) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._initialMapCenter != rhs_storage._initialMapCenter {return false}
+        if _storage._gestureTapEnable != rhs_storage._gestureTapEnable {return false}
+        if _storage._gestureLongPressEnable != rhs_storage._gestureLongPressEnable {return false}
+        if _storage._gesturePinchEnable != rhs_storage._gesturePinchEnable {return false}
+        if _storage._gestureTwoFingerTapEnable != rhs_storage._gestureTwoFingerTapEnable {return false}
+        if _storage._gestureDoubleTapEnable != rhs_storage._gestureDoubleTapEnable {return false}
+        if _storage._gesturePanEnable != rhs_storage._gesturePanEnable {return false}
+        if _storage._gestureRotationEnable != rhs_storage._gestureRotationEnable {return false}
+        if _storage._gestureTwoFingerPanEnable != rhs_storage._gestureTwoFingerPanEnable {return false}
         return true
       }
       if !storagesAreEqual {return false}

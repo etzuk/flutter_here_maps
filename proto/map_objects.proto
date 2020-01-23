@@ -78,14 +78,9 @@ message ZoomTo {
 }
 
 enum MapGestureEvents {
-    OnLongPressRelease = 0;
-    OnMultiFingerManipulationStart = 1;
-    OnPinchLocked = 2;
-    OnPanStart = 3;
-    OnMultiFingerManipulationEnd = 4;
-    OnPanEnd = 5;
-    OnRotateLocked = 6;
-    OnEventData = 7;
+    OnMultiFingerManipulationEnd = 0;
+    OnPanEnd = 1;
+    OnEventData = 2;
 }
 
 message MapGesture {
@@ -118,7 +113,7 @@ message TapEvent{
 }
 message PinchZoom{
     float zoom =1;
-    PointF point = 2    ;
+    PointF point = 2;
 }
 message Rotate {
     float rotate =1;

@@ -18,14 +18,9 @@ const Animation$json = const {
 const MapGestureEvents$json = const {
   '1': 'MapGestureEvents',
   '2': const [
-    const {'1': 'OnLongPressRelease', '2': 0},
-    const {'1': 'OnMultiFingerManipulationStart', '2': 1},
-    const {'1': 'OnPinchLocked', '2': 2},
-    const {'1': 'OnPanStart', '2': 3},
-    const {'1': 'OnMultiFingerManipulationEnd', '2': 4},
-    const {'1': 'OnPanEnd', '2': 5},
-    const {'1': 'OnRotateLocked', '2': 6},
-    const {'1': 'OnEventData', '2': 7},
+    const {'1': 'OnMultiFingerManipulationEnd', '2': 0},
+    const {'1': 'OnPanEnd', '2': 1},
+    const {'1': 'OnEventData', '2': 2},
   ],
 };
 
