@@ -19,6 +19,9 @@ extension MapView : NMAMapGestureDelegate {
     }
     
     public func mapView(_ mapView: NMAMapView, didReceiveTapAt location: CGPoint) {
+        if let defaultHandler = mapView.defaultGestureHandler {
+            defaultHandler.mapView!(mapView, didReceiveTapAt: location)
+        }
         guard mapConfiguration.gestureTapEnable else {
             return
         }
@@ -31,6 +34,9 @@ extension MapView : NMAMapGestureDelegate {
         invokeDataGestureEvent(event:mapGesture)
     }
     public func mapView(_ mapView: NMAMapView, didReceiveLongPressAt location: CGPoint) {
+        if let defaultHandler = mapView.defaultGestureHandler {
+            defaultHandler.mapView!(mapView, didReceiveLongPressAt: location)
+        }
         guard mapConfiguration.gestureLongPressEnable else {
             return
         }
@@ -43,6 +49,9 @@ extension MapView : NMAMapGestureDelegate {
     }
     
     public func mapView(_ mapView: NMAMapView, didReceivePinch pinch: Float, at location: CGPoint) {
+        if let defaultHandler = mapView.defaultGestureHandler {
+            defaultHandler.mapView!(mapView, didReceivePinch:pinch, at:location)
+        }
         guard mapConfiguration.gesturePinchEnable else {
             return
         }
@@ -56,6 +65,9 @@ extension MapView : NMAMapGestureDelegate {
     }
     
     public func mapView(_ mapView: NMAMapView, didReceiveTwoFingerTapAt location: CGPoint) {
+        if let defaultHandler = mapView.defaultGestureHandler {
+            defaultHandler.mapView!(mapView, didReceiveTwoFingerTapAt: location)
+        }
         guard mapConfiguration.gestureTwoFingerTapEnable else {
             return
         }
@@ -68,6 +80,9 @@ extension MapView : NMAMapGestureDelegate {
     }
     
     public func mapView(_ mapView: NMAMapView, didReceiveDoubleTapAt location: CGPoint) {
+        if let defaultHandler = mapView.defaultGestureHandler {
+            defaultHandler.mapView!(mapView, didReceiveDoubleTapAt: location)
+        }
         guard mapConfiguration.gestureDoubleTapEnable else {
             return
         }
@@ -80,6 +95,9 @@ extension MapView : NMAMapGestureDelegate {
     }
     
     public func mapView(_ mapView: NMAMapView, didReceiveRotation rotation: Float, at location: CGPoint) {
+        if let defaultHandler = mapView.defaultGestureHandler {
+            defaultHandler.mapView!(mapView, didReceiveRotation: rotation, at: location)
+        }
         guard mapConfiguration.gestureRotationEnable else {
             return
         }
@@ -92,6 +110,9 @@ extension MapView : NMAMapGestureDelegate {
     }
     
     public func mapView(_ mapView: NMAMapView, didReceivePan translation: CGPoint, at location: CGPoint) {
+        if let defaultHandler = mapView.defaultGestureHandler {
+            defaultHandler.mapView!(mapView, didReceivePan: translation, at: location)
+        }
         guard mapConfiguration.gesturePanEnable else {
             return
         }
@@ -99,6 +120,9 @@ extension MapView : NMAMapGestureDelegate {
     }
     
     public func mapView(_ mapView: NMAMapView, didReceiveTwoFingerPan translation: CGPoint, at location: CGPoint) {
+        if let defaultHandler = mapView.defaultGestureHandler {
+            defaultHandler.mapView!(mapView, didReceiveTwoFingerPan: translation, at: location)
+        }
         guard mapConfiguration.gestureTwoFingerPanEnable else {
             return
         }
