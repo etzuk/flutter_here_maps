@@ -159,3 +159,116 @@ class MapChannelReplay extends $pb.GeneratedMessage {
   $0.MapGesture ensureMapGesture() => $_ensure(1);
 }
 
+class InitMapConfigutation extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('InitMapConfigutation', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..aOM<$0.MapCenter>(1, 'initialMapCenter', protoName: 'initialMapCenter', subBuilder: $0.MapCenter.create)
+    ..aOB(10, 'gestureTapEnable', protoName: 'gestureTapEnable')
+    ..aOB(11, 'gestureLongPressEnable', protoName: 'gestureLongPressEnable')
+    ..aOB(12, 'gesturePinchEnable', protoName: 'gesturePinchEnable')
+    ..aOB(13, 'gestureTwoFingerTapEnable', protoName: 'gestureTwoFingerTapEnable')
+    ..aOB(14, 'gestureDoubleTapEnable', protoName: 'gestureDoubleTapEnable')
+    ..aOB(15, 'gesturePanEnable', protoName: 'gesturePanEnable')
+    ..aOB(16, 'gestureRotationEnable', protoName: 'gestureRotationEnable')
+    ..aOB(17, 'gestureTwoFingerPanEnable', protoName: 'gestureTwoFingerPanEnable')
+    ..hasRequiredFields = false
+  ;
+
+  InitMapConfigutation._() : super();
+  factory InitMapConfigutation() => create();
+  factory InitMapConfigutation.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory InitMapConfigutation.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  InitMapConfigutation clone() => InitMapConfigutation()..mergeFromMessage(this);
+  InitMapConfigutation copyWith(void Function(InitMapConfigutation) updates) => super.copyWith((message) => updates(message as InitMapConfigutation));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static InitMapConfigutation create() => InitMapConfigutation._();
+  InitMapConfigutation createEmptyInstance() => create();
+  static $pb.PbList<InitMapConfigutation> createRepeated() => $pb.PbList<InitMapConfigutation>();
+  @$core.pragma('dart2js:noInline')
+  static InitMapConfigutation getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<InitMapConfigutation>(create);
+  static InitMapConfigutation _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $0.MapCenter get initialMapCenter => $_getN(0);
+  @$pb.TagNumber(1)
+  set initialMapCenter($0.MapCenter v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasInitialMapCenter() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearInitialMapCenter() => clearField(1);
+  @$pb.TagNumber(1)
+  $0.MapCenter ensureInitialMapCenter() => $_ensure(0);
+
+  @$pb.TagNumber(10)
+  $core.bool get gestureTapEnable => $_getBF(1);
+  @$pb.TagNumber(10)
+  set gestureTapEnable($core.bool v) { $_setBool(1, v); }
+  @$pb.TagNumber(10)
+  $core.bool hasGestureTapEnable() => $_has(1);
+  @$pb.TagNumber(10)
+  void clearGestureTapEnable() => clearField(10);
+
+  @$pb.TagNumber(11)
+  $core.bool get gestureLongPressEnable => $_getBF(2);
+  @$pb.TagNumber(11)
+  set gestureLongPressEnable($core.bool v) { $_setBool(2, v); }
+  @$pb.TagNumber(11)
+  $core.bool hasGestureLongPressEnable() => $_has(2);
+  @$pb.TagNumber(11)
+  void clearGestureLongPressEnable() => clearField(11);
+
+  @$pb.TagNumber(12)
+  $core.bool get gesturePinchEnable => $_getBF(3);
+  @$pb.TagNumber(12)
+  set gesturePinchEnable($core.bool v) { $_setBool(3, v); }
+  @$pb.TagNumber(12)
+  $core.bool hasGesturePinchEnable() => $_has(3);
+  @$pb.TagNumber(12)
+  void clearGesturePinchEnable() => clearField(12);
+
+  @$pb.TagNumber(13)
+  $core.bool get gestureTwoFingerTapEnable => $_getBF(4);
+  @$pb.TagNumber(13)
+  set gestureTwoFingerTapEnable($core.bool v) { $_setBool(4, v); }
+  @$pb.TagNumber(13)
+  $core.bool hasGestureTwoFingerTapEnable() => $_has(4);
+  @$pb.TagNumber(13)
+  void clearGestureTwoFingerTapEnable() => clearField(13);
+
+  @$pb.TagNumber(14)
+  $core.bool get gestureDoubleTapEnable => $_getBF(5);
+  @$pb.TagNumber(14)
+  set gestureDoubleTapEnable($core.bool v) { $_setBool(5, v); }
+  @$pb.TagNumber(14)
+  $core.bool hasGestureDoubleTapEnable() => $_has(5);
+  @$pb.TagNumber(14)
+  void clearGestureDoubleTapEnable() => clearField(14);
+
+  @$pb.TagNumber(15)
+  $core.bool get gesturePanEnable => $_getBF(6);
+  @$pb.TagNumber(15)
+  set gesturePanEnable($core.bool v) { $_setBool(6, v); }
+  @$pb.TagNumber(15)
+  $core.bool hasGesturePanEnable() => $_has(6);
+  @$pb.TagNumber(15)
+  void clearGesturePanEnable() => clearField(15);
+
+  @$pb.TagNumber(16)
+  $core.bool get gestureRotationEnable => $_getBF(7);
+  @$pb.TagNumber(16)
+  set gestureRotationEnable($core.bool v) { $_setBool(7, v); }
+  @$pb.TagNumber(16)
+  $core.bool hasGestureRotationEnable() => $_has(7);
+  @$pb.TagNumber(16)
+  void clearGestureRotationEnable() => clearField(16);
+
+  @$pb.TagNumber(17)
+  $core.bool get gestureTwoFingerPanEnable => $_getBF(8);
+  @$pb.TagNumber(17)
+  set gestureTwoFingerPanEnable($core.bool v) { $_setBool(8, v); }
+  @$pb.TagNumber(17)
+  $core.bool hasGestureTwoFingerPanEnable() => $_has(8);
+  @$pb.TagNumber(17)
+  void clearGestureTwoFingerPanEnable() => clearField(17);
+}
+

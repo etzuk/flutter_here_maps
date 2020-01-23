@@ -3,17 +3,17 @@ import NMAKit
 import SwiftProtobuf
 
 class MapViewFactory : NSObject, FlutterPlatformViewFactory {
-
+    
     var registerar: FlutterPluginRegistrar!
-
+    
     public func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {
-          return FlutterBinaryCodec.sharedInstance()
+        return FlutterBinaryCodec.sharedInstance()
     }
     
     init(with registerar: FlutterPluginRegistrar) {
         self.registerar = registerar
     }
-
+    
     public func create(
         withFrame frame: CGRect,
         viewIdentifier viewId: Int64,
@@ -27,8 +27,9 @@ public class MapView : NSObject, FlutterPlatformView {
     private let viewId : Int64
     private let registerar: FlutterPluginRegistrar
     private var map: Map!
-    private var channel: FlutterMethodChannel!
-
+    internal var channel: FlutterMethodChannel!
+    internal var mapConfiguration = FlutterHereMaps_InitMapConfigutation()
+    
     init(_ frame:CGRect, viewId:Int64, args: Any?, registerar: FlutterPluginRegistrar){
         self.frame = frame
         self.viewId = viewId
@@ -36,28 +37,30 @@ public class MapView : NSObject, FlutterPlatformView {
         map = Map(mapView: NMAMapView(frame: frame))
         map.mapView.mapScheme = map.mapView.availableMapSchemes[12]
         if let argsDict = args as? Data {
-            if let mapCenter = try? FlutterHereMaps_MapCenter(serializedData: argsDict) {
-                map.set(center: mapCenter)
+            if let configuration = try? FlutterHereMaps_InitMapConfigutation(serializedData: argsDict) {
+                mapConfiguration = configuration
+                map.set(center: configuration.initialMapCenter)
             }
         }
+        
         channel = FlutterMethodChannel(name: "flugins.etzuk.flutter_here_maps/MapViewChannel_\(viewId)", binaryMessenger: registerar.messenger())
     }
-
+    
     func initMethodCallHanlder() {
         channel.setMethodCallHandler { [weak self] (call, result) in
             self?.onMethodCallHanler(call, result: result)
         }
     }
-
+    
     public func view() -> UIView {
         initMethodCallHanlder()
         map.mapView.gestureDelegate = self
         return map.mapView
     }
-
-
+    
+    
     public func onMethodCallHanler(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
-
+        
         if(call.method == "initMap") {
             //Wait for map ready. (Support Set Bounding box)
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -69,8 +72,8 @@ public class MapView : NSObject, FlutterPlatformView {
         guard let arg = call.arguments as? FlutterStandardTypedData else { fatalError("Non standart type")}
         //TODO: Optimize this by sending in the function name the decoder and split into
         // two .proto file. one for objects and one for chanel method.
-
-
+        
+        
         var responseObject: Any? = nil
         switch call.method {
         case "request":
@@ -83,7 +86,7 @@ public class MapView : NSObject, FlutterPlatformView {
             }
         default: break;
         }
-
+        
         if let replay = responseObject as? Message {
             do {
                 result(try replay.serializedData())
@@ -93,9 +96,9 @@ public class MapView : NSObject, FlutterPlatformView {
         } else {
             result(nil)
         }
-
+        
     }
-
+    
     private func invoke(request: FlutterHereMaps_MapChannelRequest) -> Any?{
         switch request.object {
         case .setMapObject(let mapObject)?:
@@ -110,7 +113,7 @@ public class MapView : NSObject, FlutterPlatformView {
         }
         return nil
     }
-
+    
     private func invoke(replay: FlutterHereMaps_MapChannelReplay) -> Any? {
         switch replay.object {
         case .getCenter?:
@@ -122,68 +125,7 @@ public class MapView : NSObject, FlutterPlatformView {
     }
 }
 
-extension MapView : NMAMapGestureDelegate {
-    
-    private func invokeSimpleGesture(event: FlutterHereMaps_MapGestureEvents) {
-        var replay = FlutterHereMaps_MapChannelReplay()
-        var mapGesture = FlutterHereMaps_MapGesture()
-        mapGesture.event = event
-        replay.mapGesture = mapGesture
-        try? channel.invokeMethod("replay", arguments: replay.serializedData())
-    }
-    
-    private func invokeDataGestureEvent(event: FlutterHereMaps_MapGesture) {
-        var replay = FlutterHereMaps_MapChannelReplay()
-        replay.mapGesture = event
-        try? channel.invokeMethod("replay", arguments: replay.serializedData())
-    }
-    
-    public func mapView(_ mapView: NMAMapView, didReceiveTapAt location: CGPoint) {
-        var mapGesture = FlutterHereMaps_MapGesture()
-        mapGesture.event = .onEventData
-        var tapEvent = FlutterHereMaps_TapEvent()
-        tapEvent.point = location.toPoint()
-        mapGesture.tapEvent = tapEvent
-        invokeDataGestureEvent(event:mapGesture)
-    }
-    public func mapView(_ mapView: NMAMapView, didReceiveLongPressAt location: CGPoint) {
-        invokeSimpleGesture(event: .onLongPressRelease)
-    }
-    public func mapView(_ mapView: NMAMapView, didReceivePinch pinch: Float, at location: CGPoint) {
-        var mapGesture = FlutterHereMaps_MapGesture()
-        mapGesture.event = .onEventData
-        var pinchZoom = FlutterHereMaps_PinchZoom()
-        pinchZoom.point = location.toPoint()
-        pinchZoom.zoom = pinch
-        mapGesture.pinchZoom = pinchZoom
-        invokeDataGestureEvent(event:mapGesture)
-    }
-    public func mapView(_ mapView: NMAMapView, didReceiveTwoFingerTapAt location: CGPoint) {
-        var mapGesture = FlutterHereMaps_MapGesture()
-        mapGesture.event = .onEventData
-        var twoFingerTap = FlutterHereMaps_TwoFingerTap()
-        twoFingerTap.point = location.toPoint()
-        mapGesture.twoFingerTap = twoFingerTap
-        invokeDataGestureEvent(event:mapGesture)
-    }
-    public func mapView(_ mapView: NMAMapView, didReceiveDoubleTapAt location: CGPoint) {
-        var mapGesture = FlutterHereMaps_MapGesture()
-        mapGesture.event = .onEventData
-        var doubleTap = FlutterHereMaps_DoubleTap()
-        doubleTap.point = location.toPoint()
-        mapGesture.doubleTap = doubleTap
-        invokeDataGestureEvent(event:mapGesture)
-    }
-    public func mapView(_ mapView: NMAMapView, didReceivePan translation: CGPoint, at location: CGPoint) {
-        invokeSimpleGesture(event: .onPanEnd)
-    }
-    public func mapView(_ mapView: NMAMapView, didReceiveRotation rotation: Float, at location: CGPoint) {
-        invokeSimpleGesture(event: .onRotateLocked)
-    }
-    public func mapView(_ mapView: NMAMapView, didReceiveTwoFingerPan translation: CGPoint, at location: CGPoint) {
-        invokeSimpleGesture(event: .onMultiFingerManipulationEnd)
-    }
-}
+
 
 protocol FlutterHereMapView : class {
     func set(center: FlutterHereMaps_MapCenter);
@@ -205,7 +147,7 @@ class Map {
 extension Map : FlutterHereMapView {
     
     //MARK -ZoomTo
-
+    
     func set(zoomTo: FlutterHereMaps_ZoomTo) {
         if let bb:NMAGeoBoundingBox = NMAGeoBoundingBox.init(coordinates: zoomTo.coordinates.map({ (coordinate) -> NMAGeoCoordinates in
             coordinate.toGeo()
@@ -228,14 +170,14 @@ extension Map : FlutterHereMapView {
     }
     
     //MARK -MapObjects
-
+    
     internal func add(mapObject: FlutterHereMaps_MapObject, registerar: FlutterPluginRegistrar) {
         switch mapObject.object {
         case .marker?: self.add(mapMarker: mapObject, registerar: registerar)
         default: break
         }
     }
-
+    
     private func add(mapMarker: FlutterHereMaps_MapObject, registerar: FlutterPluginRegistrar) {
         
         if let marker = markers[mapMarker.uniqueID] {
@@ -252,32 +194,32 @@ extension Map : FlutterHereMapView {
             mapView.add(mapObject: hereMapMarker)
         }
     }
-
+    
     internal func set(configuration: FlutterHereMaps_Configuration) {
         self.mapView.isTrafficVisible = configuration.trafficVisible;
         self.mapView.positionIndicator.isVisible = configuration.positionIndicator.isVisible.value;
         self.mapView.positionIndicator.isAccuracyIndicatorVisible = configuration.positionIndicator.isAccuracyIndicatorVisible.value;
     }
-
+    
     internal func set(center: FlutterHereMaps_MapCenter) {
         
         if center.hasZoomLevel {
             self.mapView.set(zoomLevel: center.zoomLevel.value, animation: .none);
         }
-
+        
         if center.hasTilt {
             self.mapView.set(tilt: center.tilt.value, animation: .none);
         }
-
+        
         if center.hasOrientation {
             self.mapView.set(orientation: center.orientation.value, animation: .none);
         }
-
+        
         if center.hasCoordinate {
             self.mapView.set(geoCenter: NMAGeoCoordinates(latitude: center.coordinate.lat, longitude: center.coordinate.lng), animation: .none)
         }
     }
-
+    
     internal func getCenter() -> FlutterHereMaps_MapCenter {
         var center = FlutterHereMaps_MapCenter()
         var coordinate = FlutterHereMaps_Coordinate()

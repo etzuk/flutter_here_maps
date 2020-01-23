@@ -34,7 +34,7 @@ class ShowMapPage extends StatelessWidget {
           title: const Text('Here maps'),
         ),
         body: MapView(
-          onPanEnd: () {
+          onPan: () {
             print("onPanEnd");
           },
           initialMapCenter: MapCenter()

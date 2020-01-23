@@ -69,44 +69,29 @@ extension FlutterHereMaps_Animation: CaseIterable {
 
 enum FlutterHereMaps_MapGestureEvents: SwiftProtobuf.Enum {
   typealias RawValue = Int
-  case onLongPressRelease // = 0
-  case onMultiFingerManipulationStart // = 1
-  case onPinchLocked // = 2
-  case onPanStart // = 3
-  case onMultiFingerManipulationEnd // = 4
-  case onPanEnd // = 5
-  case onRotateLocked // = 6
-  case onEventData // = 7
+  case onMultiFingerManipulationEnd // = 0
+  case onPanEnd // = 1
+  case onEventData // = 2
   case UNRECOGNIZED(Int)
 
   init() {
-    self = .onLongPressRelease
+    self = .onMultiFingerManipulationEnd
   }
 
   init?(rawValue: Int) {
     switch rawValue {
-    case 0: self = .onLongPressRelease
-    case 1: self = .onMultiFingerManipulationStart
-    case 2: self = .onPinchLocked
-    case 3: self = .onPanStart
-    case 4: self = .onMultiFingerManipulationEnd
-    case 5: self = .onPanEnd
-    case 6: self = .onRotateLocked
-    case 7: self = .onEventData
+    case 0: self = .onMultiFingerManipulationEnd
+    case 1: self = .onPanEnd
+    case 2: self = .onEventData
     default: self = .UNRECOGNIZED(rawValue)
     }
   }
 
   var rawValue: Int {
     switch self {
-    case .onLongPressRelease: return 0
-    case .onMultiFingerManipulationStart: return 1
-    case .onPinchLocked: return 2
-    case .onPanStart: return 3
-    case .onMultiFingerManipulationEnd: return 4
-    case .onPanEnd: return 5
-    case .onRotateLocked: return 6
-    case .onEventData: return 7
+    case .onMultiFingerManipulationEnd: return 0
+    case .onPanEnd: return 1
+    case .onEventData: return 2
     case .UNRECOGNIZED(let i): return i
     }
   }
@@ -118,13 +103,8 @@ enum FlutterHereMaps_MapGestureEvents: SwiftProtobuf.Enum {
 extension FlutterHereMaps_MapGestureEvents: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   static var allCases: [FlutterHereMaps_MapGestureEvents] = [
-    .onLongPressRelease,
-    .onMultiFingerManipulationStart,
-    .onPinchLocked,
-    .onPanStart,
     .onMultiFingerManipulationEnd,
     .onPanEnd,
-    .onRotateLocked,
     .onEventData,
   ]
 }
@@ -770,14 +750,9 @@ extension FlutterHereMaps_Animation: SwiftProtobuf._ProtoNameProviding {
 
 extension FlutterHereMaps_MapGestureEvents: SwiftProtobuf._ProtoNameProviding {
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "OnLongPressRelease"),
-    1: .same(proto: "OnMultiFingerManipulationStart"),
-    2: .same(proto: "OnPinchLocked"),
-    3: .same(proto: "OnPanStart"),
-    4: .same(proto: "OnMultiFingerManipulationEnd"),
-    5: .same(proto: "OnPanEnd"),
-    6: .same(proto: "OnRotateLocked"),
-    7: .same(proto: "OnEventData"),
+    0: .same(proto: "OnMultiFingerManipulationEnd"),
+    1: .same(proto: "OnPanEnd"),
+    2: .same(proto: "OnEventData"),
   ]
 }
 
@@ -1445,7 +1420,7 @@ extension FlutterHereMaps_MapGesture: SwiftProtobuf.Message, SwiftProtobuf._Mess
   ]
 
   fileprivate class _StorageClass {
-    var _event: FlutterHereMaps_MapGestureEvents = .onLongPressRelease
+    var _event: FlutterHereMaps_MapGestureEvents = .onMultiFingerManipulationEnd
     var _eventData: FlutterHereMaps_MapGesture.OneOf_EventData?
 
     static let defaultInstance = _StorageClass()
@@ -1535,7 +1510,7 @@ extension FlutterHereMaps_MapGesture: SwiftProtobuf.Message, SwiftProtobuf._Mess
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if _storage._event != .onLongPressRelease {
+      if _storage._event != .onMultiFingerManipulationEnd {
         try visitor.visitSingularEnumField(value: _storage._event, fieldNumber: 1)
       }
       switch _storage._eventData {
