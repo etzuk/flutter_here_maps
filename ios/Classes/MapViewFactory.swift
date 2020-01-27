@@ -191,6 +191,7 @@ extension Map : FlutterHereMapView {
                 }
             }
             markers[mapMarker.uniqueID]  = hereMapMarker
+            hereMapMarker.setAnchorOffset(.bottomCenter)
             mapView.add(mapObject: hereMapMarker)
         }
     }

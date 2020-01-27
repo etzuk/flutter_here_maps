@@ -89,7 +89,7 @@ class _ShowBBState extends State<ShowBB> {
         ..uniqueId = "${coordinate.lat}"
         ..marker = (MapMarker()
           ..coordinate = coordinate
-          ..image = "assets/group_2.png"));
+          ..image = "assets/pin.png"));
     });
   }
 
@@ -102,7 +102,7 @@ class _ShowBBState extends State<ShowBB> {
         ..uniqueId = "${coordinate.lat}"
         ..marker = (MapMarker()
           ..coordinate = coordinate
-          ..image = "assets/group_2.png"));
+          ..image = "assets/pin.png"));
     });
   }
 }

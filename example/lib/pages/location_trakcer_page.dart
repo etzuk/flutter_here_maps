@@ -79,7 +79,7 @@ class _LocationTrackerPageState extends State<LocationTrackerPage> {
           ..uniqueId = "MarkerTracker"
           ..marker = (MapMarker()
             ..coordinate = coordinate
-            ..image = "assets/group_2.png"))
+            ..image = "assets/pin.png"))
         .then((value) => map.setCenter(MapCenter()
           ..coordinate = coordinate
           ..zoomLevel = (FloatValue()..value = 14.0)));

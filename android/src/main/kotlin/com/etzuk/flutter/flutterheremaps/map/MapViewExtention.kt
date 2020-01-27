@@ -3,6 +3,7 @@ package com.etzuk.flutter.flutterheremaps.map
 import FlutterHereMaps.MapObjects
 import android.content.res.AssetManager
 import android.graphics.BitmapFactory
+import android.graphics.PointF
 import com.here.android.mpa.common.GeoBoundingBox
 import com.here.android.mpa.common.Image
 import com.here.android.mpa.common.ViewRect
@@ -55,6 +56,8 @@ internal fun Map.setMapMarker(mapObject: MapObjects.MapObject, registrar: Plugin
     image.bitmap = BitmapFactory.decodeStream(fd.createInputStream())
     val geo = mapObject.marker.coordinate.toGeo()
     val marker = MapMarker(geo, image)
+
+    marker.anchorPoint = PointF(image.width / 2f, image.height.toFloat())
 
     markers[mapObject.uniqueId] = marker
     mapView.map.addMapObject(marker)
