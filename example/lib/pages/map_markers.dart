@@ -19,8 +19,11 @@ class _MapMarkersPageState extends State<MapMarkersPage> {
   Future<void> setMapMarker(Coordinate coordinate) async {
     final map = await _controller.future;
     await map
-        .setMapObject(
-            MapObject()..marker = (MapMarker()..coordinate = coordinate))
+        .setMapObject(MapObject()
+          ..uniqueId = "Marker"
+          ..marker = (MapMarker()
+            ..coordinate = coordinate
+            ..image = "assets/pin.png"))
         .then((value) => map.setCenter(MapCenter()
           ..coordinate = coordinate
           ..zoomLevel = (FloatValue()..value = 14.0)));
@@ -62,8 +65,8 @@ class _MapMarkersPageState extends State<MapMarkersPage> {
         })) {
       case DialogResult.YES:
         return Coordinate()
-          ..lat = double.parse(latController.text)
-          ..lng = double.parse(lngController.text);
+          ..lat = 32.086905
+          ..lng = 34.789741;
         break;
       case DialogResult.NO:
         return null;
