@@ -63,7 +63,7 @@ public class MapView : NSObject, FlutterPlatformView {
         
         if(call.method == "initMap") {
             //Wait for map ready. (Support Set Bounding box)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
                 result(nil)
             }
             return

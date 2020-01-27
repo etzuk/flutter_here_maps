@@ -24,6 +24,9 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
 import io.flutter.plugin.platform.PlatformView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.nio.ByteBuffer
 
 
@@ -231,7 +234,10 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             }
             it.build()
         }.toByteArray()
-        channel.invokeMethod("replay", response)
+
+        GlobalScope.launch (Dispatchers.Main) {
+            channel.invokeMethod("replay", response)
+        }
     }
 
     private fun invokeDataEvent(event: MapObjects.MapGesture) {
@@ -239,7 +245,9 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             it.mapGesture = event
             it.build()
         }.toByteArray()
-        channel.invokeMethod("replay", response)
+        GlobalScope.launch (Dispatchers.Main) {
+            channel.invokeMethod("replay", response)
+        }
     }
 
     override fun onTapEvent(p0: PointF?): Boolean {

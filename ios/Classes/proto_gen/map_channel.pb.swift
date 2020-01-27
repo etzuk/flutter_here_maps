@@ -155,6 +155,15 @@ struct FlutterHereMaps_InitMapConfigutation {
   /// Clears the value of `initialMapCenter`. Subsequent reads from it will return its default value.
   mutating func clearInitialMapCenter() {_uniqueStorage()._initialMapCenter = nil}
 
+  var configuration: FlutterHereMaps_Configuration {
+    get {return _storage._configuration ?? FlutterHereMaps_Configuration()}
+    set {_uniqueStorage()._configuration = newValue}
+  }
+  /// Returns true if `configuration` has been explicitly set.
+  var hasConfiguration: Bool {return _storage._configuration != nil}
+  /// Clears the value of `configuration`. Subsequent reads from it will return its default value.
+  mutating func clearConfiguration() {_uniqueStorage()._configuration = nil}
+
   var gestureTapEnable: Bool {
     get {return _storage._gestureTapEnable}
     set {_uniqueStorage()._gestureTapEnable = newValue}
@@ -394,6 +403,7 @@ extension FlutterHereMaps_InitMapConfigutation: SwiftProtobuf.Message, SwiftProt
   static let protoMessageName: String = _protobuf_package + ".InitMapConfigutation"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "initialMapCenter"),
+    2: .same(proto: "configuration"),
     10: .same(proto: "gestureTapEnable"),
     11: .same(proto: "gestureLongPressEnable"),
     12: .same(proto: "gesturePinchEnable"),
@@ -406,6 +416,7 @@ extension FlutterHereMaps_InitMapConfigutation: SwiftProtobuf.Message, SwiftProt
 
   fileprivate class _StorageClass {
     var _initialMapCenter: FlutterHereMaps_MapCenter? = nil
+    var _configuration: FlutterHereMaps_Configuration? = nil
     var _gestureTapEnable: Bool = false
     var _gestureLongPressEnable: Bool = false
     var _gesturePinchEnable: Bool = false
@@ -421,6 +432,7 @@ extension FlutterHereMaps_InitMapConfigutation: SwiftProtobuf.Message, SwiftProt
 
     init(copying source: _StorageClass) {
       _initialMapCenter = source._initialMapCenter
+      _configuration = source._configuration
       _gestureTapEnable = source._gestureTapEnable
       _gestureLongPressEnable = source._gestureLongPressEnable
       _gesturePinchEnable = source._gesturePinchEnable
@@ -445,6 +457,7 @@ extension FlutterHereMaps_InitMapConfigutation: SwiftProtobuf.Message, SwiftProt
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
         case 1: try decoder.decodeSingularMessageField(value: &_storage._initialMapCenter)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._configuration)
         case 10: try decoder.decodeSingularBoolField(value: &_storage._gestureTapEnable)
         case 11: try decoder.decodeSingularBoolField(value: &_storage._gestureLongPressEnable)
         case 12: try decoder.decodeSingularBoolField(value: &_storage._gesturePinchEnable)
@@ -463,6 +476,9 @@ extension FlutterHereMaps_InitMapConfigutation: SwiftProtobuf.Message, SwiftProt
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       if let v = _storage._initialMapCenter {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._configuration {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
       }
       if _storage._gestureTapEnable != false {
         try visitor.visitSingularBoolField(value: _storage._gestureTapEnable, fieldNumber: 10)
@@ -498,6 +514,7 @@ extension FlutterHereMaps_InitMapConfigutation: SwiftProtobuf.Message, SwiftProt
         let _storage = _args.0
         let rhs_storage = _args.1
         if _storage._initialMapCenter != rhs_storage._initialMapCenter {return false}
+        if _storage._configuration != rhs_storage._configuration {return false}
         if _storage._gestureTapEnable != rhs_storage._gestureTapEnable {return false}
         if _storage._gestureLongPressEnable != rhs_storage._gestureLongPressEnable {return false}
         if _storage._gesturePinchEnable != rhs_storage._gesturePinchEnable {return false}

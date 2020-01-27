@@ -25,6 +25,7 @@ message MapChannelReplay {
 
 message InitMapConfigutation {
     MapCenter initialMapCenter = 1;
+    Configuration configuration = 2;
     bool gestureTapEnable = 10;
     bool gestureLongPressEnable = 11;
     bool gesturePinchEnable = 12;

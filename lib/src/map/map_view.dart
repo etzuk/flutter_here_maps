@@ -17,6 +17,7 @@ class MapView extends StatefulWidget {
     Key key,
     this.onMapCreated,
     this.initialMapCenter,
+    this.initialMapConfiguration,
     this.onTap,
     this.onLongPress,
     this.onPinch,
@@ -29,7 +30,7 @@ class MapView extends StatefulWidget {
 
   final MapCreatedCallback onMapCreated;
   final MapCenter initialMapCenter;
-
+  final Configuration initialMapConfiguration;
   final VoidCallback onTwoFingerPan;
   final VoidCallback onPan;
   final PointCallback onTap;
@@ -38,11 +39,6 @@ class MapView extends StatefulWidget {
   final PointCallback onTwoFingerTap;
   final PointCallback onDoubleTap;
   final RotationCallback onRotation;
-
-  MapCenter get _initialMapCenter => initialMapCenter ?? MapCenter()
-    ..zoomLevel = (FloatValue()..value = 17.0)
-    ..orientation = (FloatValue()..value = 0.0)
-    ..tilt = (FloatValue()..value = 0.0);
 
   @override
   State<StatefulWidget> createState() {
@@ -56,6 +52,17 @@ abstract class MapViewGestures {
 }
 
 class _MapViewState extends State<MapView> with MapViewGestures {
+  MapCenter get _initialMapCenter => widget.initialMapCenter ?? MapCenter()
+    ..zoomLevel = (FloatValue()..value = 17.0)
+    ..orientation = (FloatValue()..value = 0.0)
+    ..tilt = (FloatValue()..value = 0.0);
+
+  Configuration get _initialMapConfiguration =>
+      widget.initialMapConfiguration ?? Configuration()
+        ..trafficVisible = false
+        ..positionIndicator = (Configuration_PositionIndicator()
+          ..isVisible = (BoolValue()..value = true));
+
   final Completer<HereMapsController> _controller =
       Completer<HereMapsController>();
   @override
@@ -81,7 +88,8 @@ class _MapViewState extends State<MapView> with MapViewGestures {
 
   InitMapConfigutation _mapConfiguration() {
     return InitMapConfigutation()
-      ..initialMapCenter = widget.initialMapCenter
+      ..initialMapCenter = _initialMapCenter
+      ..configuration = _initialMapConfiguration
       ..gestureDoubleTapEnable = widget.onDoubleTap != null
       ..gestureLongPressEnable = widget.onLongPress != null
       ..gesturePanEnable = widget.onPan != null
