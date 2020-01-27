@@ -162,6 +162,7 @@ class MapChannelReplay extends $pb.GeneratedMessage {
 class InitMapConfigutation extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('InitMapConfigutation', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
     ..aOM<$0.MapCenter>(1, 'initialMapCenter', protoName: 'initialMapCenter', subBuilder: $0.MapCenter.create)
+    ..aOM<$0.Configuration>(2, 'configuration', subBuilder: $0.Configuration.create)
     ..aOB(10, 'gestureTapEnable', protoName: 'gestureTapEnable')
     ..aOB(11, 'gestureLongPressEnable', protoName: 'gestureLongPressEnable')
     ..aOB(12, 'gesturePinchEnable', protoName: 'gesturePinchEnable')
@@ -199,75 +200,86 @@ class InitMapConfigutation extends $pb.GeneratedMessage {
   @$pb.TagNumber(1)
   $0.MapCenter ensureInitialMapCenter() => $_ensure(0);
 
+  @$pb.TagNumber(2)
+  $0.Configuration get configuration => $_getN(1);
+  @$pb.TagNumber(2)
+  set configuration($0.Configuration v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasConfiguration() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearConfiguration() => clearField(2);
+  @$pb.TagNumber(2)
+  $0.Configuration ensureConfiguration() => $_ensure(1);
+
   @$pb.TagNumber(10)
-  $core.bool get gestureTapEnable => $_getBF(1);
+  $core.bool get gestureTapEnable => $_getBF(2);
   @$pb.TagNumber(10)
-  set gestureTapEnable($core.bool v) { $_setBool(1, v); }
+  set gestureTapEnable($core.bool v) { $_setBool(2, v); }
   @$pb.TagNumber(10)
-  $core.bool hasGestureTapEnable() => $_has(1);
+  $core.bool hasGestureTapEnable() => $_has(2);
   @$pb.TagNumber(10)
   void clearGestureTapEnable() => clearField(10);
 
   @$pb.TagNumber(11)
-  $core.bool get gestureLongPressEnable => $_getBF(2);
+  $core.bool get gestureLongPressEnable => $_getBF(3);
   @$pb.TagNumber(11)
-  set gestureLongPressEnable($core.bool v) { $_setBool(2, v); }
+  set gestureLongPressEnable($core.bool v) { $_setBool(3, v); }
   @$pb.TagNumber(11)
-  $core.bool hasGestureLongPressEnable() => $_has(2);
+  $core.bool hasGestureLongPressEnable() => $_has(3);
   @$pb.TagNumber(11)
   void clearGestureLongPressEnable() => clearField(11);
 
   @$pb.TagNumber(12)
-  $core.bool get gesturePinchEnable => $_getBF(3);
+  $core.bool get gesturePinchEnable => $_getBF(4);
   @$pb.TagNumber(12)
-  set gesturePinchEnable($core.bool v) { $_setBool(3, v); }
+  set gesturePinchEnable($core.bool v) { $_setBool(4, v); }
   @$pb.TagNumber(12)
-  $core.bool hasGesturePinchEnable() => $_has(3);
+  $core.bool hasGesturePinchEnable() => $_has(4);
   @$pb.TagNumber(12)
   void clearGesturePinchEnable() => clearField(12);
 
   @$pb.TagNumber(13)
-  $core.bool get gestureTwoFingerTapEnable => $_getBF(4);
+  $core.bool get gestureTwoFingerTapEnable => $_getBF(5);
   @$pb.TagNumber(13)
-  set gestureTwoFingerTapEnable($core.bool v) { $_setBool(4, v); }
+  set gestureTwoFingerTapEnable($core.bool v) { $_setBool(5, v); }
   @$pb.TagNumber(13)
-  $core.bool hasGestureTwoFingerTapEnable() => $_has(4);
+  $core.bool hasGestureTwoFingerTapEnable() => $_has(5);
   @$pb.TagNumber(13)
   void clearGestureTwoFingerTapEnable() => clearField(13);
 
   @$pb.TagNumber(14)
-  $core.bool get gestureDoubleTapEnable => $_getBF(5);
+  $core.bool get gestureDoubleTapEnable => $_getBF(6);
   @$pb.TagNumber(14)
-  set gestureDoubleTapEnable($core.bool v) { $_setBool(5, v); }
+  set gestureDoubleTapEnable($core.bool v) { $_setBool(6, v); }
   @$pb.TagNumber(14)
-  $core.bool hasGestureDoubleTapEnable() => $_has(5);
+  $core.bool hasGestureDoubleTapEnable() => $_has(6);
   @$pb.TagNumber(14)
   void clearGestureDoubleTapEnable() => clearField(14);
 
   @$pb.TagNumber(15)
-  $core.bool get gesturePanEnable => $_getBF(6);
+  $core.bool get gesturePanEnable => $_getBF(7);
   @$pb.TagNumber(15)
-  set gesturePanEnable($core.bool v) { $_setBool(6, v); }
+  set gesturePanEnable($core.bool v) { $_setBool(7, v); }
   @$pb.TagNumber(15)
-  $core.bool hasGesturePanEnable() => $_has(6);
+  $core.bool hasGesturePanEnable() => $_has(7);
   @$pb.TagNumber(15)
   void clearGesturePanEnable() => clearField(15);
 
   @$pb.TagNumber(16)
-  $core.bool get gestureRotationEnable => $_getBF(7);
+  $core.bool get gestureRotationEnable => $_getBF(8);
   @$pb.TagNumber(16)
-  set gestureRotationEnable($core.bool v) { $_setBool(7, v); }
+  set gestureRotationEnable($core.bool v) { $_setBool(8, v); }
   @$pb.TagNumber(16)
-  $core.bool hasGestureRotationEnable() => $_has(7);
+  $core.bool hasGestureRotationEnable() => $_has(8);
   @$pb.TagNumber(16)
   void clearGestureRotationEnable() => clearField(16);
 
   @$pb.TagNumber(17)
-  $core.bool get gestureTwoFingerPanEnable => $_getBF(8);
+  $core.bool get gestureTwoFingerPanEnable => $_getBF(9);
   @$pb.TagNumber(17)
-  set gestureTwoFingerPanEnable($core.bool v) { $_setBool(8, v); }
+  set gestureTwoFingerPanEnable($core.bool v) { $_setBool(9, v); }
   @$pb.TagNumber(17)
-  $core.bool hasGestureTwoFingerPanEnable() => $_has(8);
+  $core.bool hasGestureTwoFingerPanEnable() => $_has(9);
   @$pb.TagNumber(17)
   void clearGestureTwoFingerPanEnable() => clearField(17);
 }

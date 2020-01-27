@@ -33,6 +33,7 @@ const InitMapConfigutation$json = const {
   '1': 'InitMapConfigutation',
   '2': const [
     const {'1': 'initialMapCenter', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapCenter', '10': 'initialMapCenter'},
+    const {'1': 'configuration', '3': 2, '4': 1, '5': 11, '6': '.FlutterHereMaps.Configuration', '10': 'configuration'},
     const {'1': 'gestureTapEnable', '3': 10, '4': 1, '5': 8, '10': 'gestureTapEnable'},
     const {'1': 'gestureLongPressEnable', '3': 11, '4': 1, '5': 8, '10': 'gestureLongPressEnable'},
     const {'1': 'gesturePinchEnable', '3': 12, '4': 1, '5': 8, '10': 'gesturePinchEnable'},

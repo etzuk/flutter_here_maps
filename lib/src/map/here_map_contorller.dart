@@ -42,13 +42,9 @@ class HereMapsController {
 
   Future<void> setCenter(MapCenter mapCenter) async {
     _mapCenter.mergeFromMessage(mapCenter);
-    print(_mapCenter.toDebugString());
     var request = MapChannelRequest()..setCenter = mapCenter;
-    return await _invokeRequest(request).then((value) {
-      getMapCenter().then((value) {
-        print(value.toDebugString());
-      });
-    });
+    await _invokeRequest(request);
+    return;
   }
 
   Future<void> setConfiguration(Configuration configuration) async =>

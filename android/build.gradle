@@ -71,7 +71,7 @@ dependencies {
     api project(':HERE-sdk')
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.protobuf:protobuf-lite:3.0.1'
-
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3'
     // androidx not supported in HereMaps SDK.
     implementation 'com.android.support:support-v13:28.0.2'
 }
