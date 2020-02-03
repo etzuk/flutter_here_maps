@@ -1,0 +1,36 @@
+syntax = "proto3";
+package FlutterHereMaps;
+
+import "map_objects.proto";
+
+message LocationReading {
+    Coordinate coordinate = 1;
+    double altitude = 3;
+    double heading = 4;
+    double accuracy = 5;
+    double speed = 6;
+}
+
+message AndroidLocationSettings {
+
+    LocationNotificationSettings notification_settings = 1;
+    LocationMethod location_method = 2;
+
+    message LocationNotificationSettings {
+        string channel_id = 1;
+        string channel_name = 2;
+        string title = 3;
+        string body = 4;
+    }
+
+    enum LocationMethod {
+        NONE = 0;
+        GPS = 1;
+        NETWORK = 2;
+        GPS_NETWORK = 3;
+        GPS_NETWORK_INDOOR = 4;
+        INDOOR = 5;
+    }
+
+
+}

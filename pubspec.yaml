@@ -21,3 +21,4 @@ flutter:
   plugin:
     androidPackage: com.etzuk.flutter.flutterheremaps
     pluginClass: FlutterHereMapsPlugin
+

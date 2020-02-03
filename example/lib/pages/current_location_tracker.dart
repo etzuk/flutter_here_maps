@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_here_maps/flutter_here_maps.dart';
@@ -17,10 +18,10 @@ class CurrentLocationTrackerPage extends StatefulWidget {
 class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
   static const String route = 'current_location_tracker';
   var configuration;
-  LocationData _currentLocation;
+  LocationReading _currentLocation;
   Completer<HereMapsController> _controller = Completer();
 
-  StreamSubscription<LocationData> _locationSubscription;
+  StreamSubscription<LocationReading> _locationSubscription;
 
   Location _locationService = new Location();
   bool _permission = false;
@@ -118,7 +119,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
               },
             ),
             Text(
-              "Lat: ${_currentLocation?.latitude}, Lng: ${_currentLocation?.longitude}",
+              "Lat: ${_currentLocation?.coordinate?.lat}, Lng: ${_currentLocation?.coordinate?.lng}",
               style: TextStyle(color: Colors.red),
               textAlign: TextAlign.center,
             ),
@@ -148,6 +149,33 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   _initPlatformState() async {
+    if (Platform.isIOS) {
+      await oldLocationProvider();
+    } else {
+
+      BackgroundLocationPlugin.getLocationUpdates((location) {
+        if (mounted) {
+          setState(() {
+            _currentLocation = location;
+          });
+        }
+      });
+
+      var notificationSettings =
+          AndroidLocationSettings_LocationNotificationSettings()
+            ..channelId = "Location Channel_id"
+            ..channelName = "Location Channel"
+            ..title = "Location is on";
+
+     var androidSettings =  AndroidLocationSettings()
+        ..locationMethod = AndroidLocationSettings_LocationMethod.GPS_NETWORK
+        ..notificationSettings = notificationSettings;
+
+      BackgroundLocationPlugin.startLocationService(androidSettings);
+    }
+  }
+
+  Future oldLocationProvider() async {
     await _locationService.changeSettings(
         accuracy: LocationAccuracy.HIGH, interval: 1000);
     // Platform messages may fail, so we use a try/catch PlatformException.
@@ -160,13 +188,14 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
         if (_permission) {
           _locationSubscription = _locationService
               .onLocationChanged()
-              .listen((LocationData result) async {
+              .map((locationData) => locationData.toLocationReading())
+              .listen((LocationReading result) async {
             if (_currentLocation == null) {
               final map = await _controller.future;
               map.setCenter(MapCenter()
                 ..coordinate = (Coordinate()
-                  ..lat = result.latitude
-                  ..lng = result.longitude)
+                  ..lat = result.coordinate.lat
+                  ..lng = result.coordinate.lng)
                 ..zoomLevel = (FloatValue()..value = 16));
             }
             if (mounted) {
@@ -191,5 +220,20 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
         error = e.message;
       }
     }
+  }
+}
+
+extension LocationDataExtention on LocationData {
+  LocationReading toLocationReading() {
+    var coordinate = Coordinate()
+      ..lat = this.latitude
+      ..lng = this.longitude;
+
+    return LocationReading()
+      ..coordinate = coordinate
+      ..accuracy = this.accuracy
+      ..altitude = this.altitude
+      ..speed = this.speed
+      ..heading = this.heading;
   }
 }
