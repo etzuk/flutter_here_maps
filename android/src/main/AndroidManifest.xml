@@ -1,7 +1,34 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
   package="com.etzuk.flutter.flutterheremaps">
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" android:maxSdkVersion="22" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+
+    <application
+        android:networkSecurityConfig="@xml/network_security_config"
+        >
+
+        <!-- HERE Positioning Service definition. -->
+        <service
+            android:name="com.here.services.internal.LocationService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote">
+        </service>
+
+        <service android:name=".location.BackgroundLocationService"
+            android:exported="false"/>
+
+
+    </application>
 </manifest>

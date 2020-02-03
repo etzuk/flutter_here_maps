@@ -136,7 +136,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
         }
 
         methodCall.let { call ->
-            (call.arguments as ByteArray).let {
+            (call.arguments as? ByteArray)?.let {
                 var responseObject: MessageLite? = null
                 if (call.method == "request") {
                     responseObject = invokeRequest(MapChannel.MapChannelRequest.parseFrom(it))

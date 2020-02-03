@@ -139,3 +139,4 @@ message BoolValue {
     // The bool value.
     bool value = 1;
 }
+

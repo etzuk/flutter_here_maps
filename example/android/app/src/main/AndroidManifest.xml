@@ -44,6 +44,7 @@
         <meta-data android:name="com.here.android.maps.apptoken" android:value="@string/apptoken"/>
         <meta-data android:name="com.here.android.maps.license.key" android:value="@string/license"/>
 
+
         <service
             android:name="com.here.android.mpa.service.MapService"
             android:label="HereMapsService"
