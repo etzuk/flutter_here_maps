@@ -58,8 +58,7 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
                 .setSmallIcon(iconRes)
                 .build()
 
-        //TODO resolve service id?
-        startForeground(1, notification)
+        startForeground(androidSettings.locationServiceId, notification)
         startTracking(androidSettings.locationMethod)
         return START_NOT_STICKY
     }

@@ -23,9 +23,9 @@ message AndroidIconData {
 }
 
 message AndroidLocationSettings {
-
     LocationNotificationSettings notification_settings = 1;
     LocationMethod location_method = 2;
+    int32 location_service_id = 3;
 
     message LocationNotificationSettings {
         string channel_id = 1;

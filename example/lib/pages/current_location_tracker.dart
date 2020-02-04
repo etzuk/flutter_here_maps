@@ -172,6 +172,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
             ..body = "Thanks for sharing";
 
       var androidSettings = AndroidLocationSettings()
+        ..locationServiceId = 1
         ..locationMethod = AndroidLocationSettings_LocationMethod.GPS_NETWORK
         ..notificationSettings = notificationSettings;
 

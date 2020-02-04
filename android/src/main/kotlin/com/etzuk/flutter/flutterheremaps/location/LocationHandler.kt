@@ -11,6 +11,9 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.here.android.mpa.common.ApplicationContext
+import com.here.android.mpa.common.MapEngine
+import com.here.android.mpa.common.OnEngineInitListener
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.PluginRegistry
@@ -52,8 +55,21 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
         }
     }
 
-
     override fun onMethodCall(call: MethodCall, result: MethodChannel.Result) {
+        if (!MapEngine.isInitialized()) {
+            MapEngine.getInstance().init(ApplicationContext(context)) { error ->
+                if (error != OnEngineInitListener.Error.NONE) {
+                    result.error("Map engine init error", error.details, error.stackTrace)
+                }  else {
+                    handleMethodCalls(call, result)
+                }
+            }
+        } else {
+            handleMethodCalls(call, result)
+        }
+    }
+
+    private fun handleMethodCalls(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             "start_location_service" -> {
                 call.argument<ByteArray>(ARGUMENT_SETTINGS_KEY)?.let {

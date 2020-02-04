@@ -109,7 +109,9 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             }
             map.mapView.mapGesture.addOnGestureListener(this, 0, true)
         } else {
-            //TODO: Add error when error mechanism will be developed
+            error?.let {
+                mapReadyResult?.error("Map engine init error", error.details, error.stackTrace)
+            }
         }
     }
 
