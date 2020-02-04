@@ -16,34 +16,45 @@ import 'location_objects.pbenum.dart';
 export 'location_objects.pbenum.dart';
 
 class LocationReading extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('LocationReading', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('LocationReading',
+      package: const $pb.PackageName('FlutterHereMaps'),
+      createEmptyInstance: create)
     ..aOM<$0.Coordinate>(1, 'coordinate', subBuilder: $0.Coordinate.create)
     ..a<$core.double>(3, 'altitude', $pb.PbFieldType.OD)
     ..a<$core.double>(4, 'heading', $pb.PbFieldType.OD)
     ..a<$core.double>(5, 'accuracy', $pb.PbFieldType.OD)
     ..a<$core.double>(6, 'speed', $pb.PbFieldType.OD)
-    ..hasRequiredFields = false
-  ;
+    ..hasRequiredFields = false;
 
   LocationReading._() : super();
   factory LocationReading() => create();
-  factory LocationReading.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory LocationReading.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory LocationReading.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory LocationReading.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
   LocationReading clone() => LocationReading()..mergeFromMessage(this);
-  LocationReading copyWith(void Function(LocationReading) updates) => super.copyWith((message) => updates(message as LocationReading));
+  LocationReading copyWith(void Function(LocationReading) updates) =>
+      super.copyWith((message) => updates(message as LocationReading));
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static LocationReading create() => LocationReading._();
   LocationReading createEmptyInstance() => create();
-  static $pb.PbList<LocationReading> createRepeated() => $pb.PbList<LocationReading>();
+  static $pb.PbList<LocationReading> createRepeated() =>
+      $pb.PbList<LocationReading>();
   @$core.pragma('dart2js:noInline')
-  static LocationReading getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<LocationReading>(create);
+  static LocationReading getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<LocationReading>(create);
   static LocationReading _defaultInstance;
 
   @$pb.TagNumber(1)
   $0.Coordinate get coordinate => $_getN(0);
   @$pb.TagNumber(1)
-  set coordinate($0.Coordinate v) { setField(1, v); }
+  set coordinate($0.Coordinate v) {
+    setField(1, v);
+  }
+
   @$pb.TagNumber(1)
   $core.bool hasCoordinate() => $_has(0);
   @$pb.TagNumber(1)
@@ -54,7 +65,10 @@ class LocationReading extends $pb.GeneratedMessage {
   @$pb.TagNumber(3)
   $core.double get altitude => $_getN(1);
   @$pb.TagNumber(3)
-  set altitude($core.double v) { $_setDouble(1, v); }
+  set altitude($core.double v) {
+    $_setDouble(1, v);
+  }
+
   @$pb.TagNumber(3)
   $core.bool hasAltitude() => $_has(1);
   @$pb.TagNumber(3)
@@ -63,7 +77,10 @@ class LocationReading extends $pb.GeneratedMessage {
   @$pb.TagNumber(4)
   $core.double get heading => $_getN(2);
   @$pb.TagNumber(4)
-  set heading($core.double v) { $_setDouble(2, v); }
+  set heading($core.double v) {
+    $_setDouble(2, v);
+  }
+
   @$pb.TagNumber(4)
   $core.bool hasHeading() => $_has(2);
   @$pb.TagNumber(4)
@@ -72,7 +89,10 @@ class LocationReading extends $pb.GeneratedMessage {
   @$pb.TagNumber(5)
   $core.double get accuracy => $_getN(3);
   @$pb.TagNumber(5)
-  set accuracy($core.double v) { $_setDouble(3, v); }
+  set accuracy($core.double v) {
+    $_setDouble(3, v);
+  }
+
   @$pb.TagNumber(5)
   $core.bool hasAccuracy() => $_has(3);
   @$pb.TagNumber(5)
@@ -81,7 +101,10 @@ class LocationReading extends $pb.GeneratedMessage {
   @$pb.TagNumber(6)
   $core.double get speed => $_getN(4);
   @$pb.TagNumber(6)
-  set speed($core.double v) { $_setDouble(4, v); }
+  set speed($core.double v) {
+    $_setDouble(4, v);
+  }
+
   @$pb.TagNumber(6)
   $core.bool hasSpeed() => $_has(4);
   @$pb.TagNumber(6)
@@ -89,31 +112,45 @@ class LocationReading extends $pb.GeneratedMessage {
 }
 
 class AndroidIconData extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('AndroidIconData', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('AndroidIconData',
+      package: const $pb.PackageName('FlutterHereMaps'),
+      createEmptyInstance: create)
     ..aOS(1, 'iconName')
-    ..e<AndroidIconData_Type>(2, 'iconType', $pb.PbFieldType.OE, defaultOrMaker: AndroidIconData_Type.UNKNOWN, valueOf: AndroidIconData_Type.valueOf, enumValues: AndroidIconData_Type.values)
-    ..hasRequiredFields = false
-  ;
+    ..e<AndroidIconData_Type>(2, 'iconType', $pb.PbFieldType.OE,
+        defaultOrMaker: AndroidIconData_Type.UNKNOWN,
+        valueOf: AndroidIconData_Type.valueOf,
+        enumValues: AndroidIconData_Type.values)
+    ..hasRequiredFields = false;
 
   AndroidIconData._() : super();
   factory AndroidIconData() => create();
-  factory AndroidIconData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AndroidIconData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  factory AndroidIconData.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory AndroidIconData.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
   AndroidIconData clone() => AndroidIconData()..mergeFromMessage(this);
-  AndroidIconData copyWith(void Function(AndroidIconData) updates) => super.copyWith((message) => updates(message as AndroidIconData));
+  AndroidIconData copyWith(void Function(AndroidIconData) updates) =>
+      super.copyWith((message) => updates(message as AndroidIconData));
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static AndroidIconData create() => AndroidIconData._();
   AndroidIconData createEmptyInstance() => create();
-  static $pb.PbList<AndroidIconData> createRepeated() => $pb.PbList<AndroidIconData>();
+  static $pb.PbList<AndroidIconData> createRepeated() =>
+      $pb.PbList<AndroidIconData>();
   @$core.pragma('dart2js:noInline')
-  static AndroidIconData getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AndroidIconData>(create);
+  static AndroidIconData getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<AndroidIconData>(create);
   static AndroidIconData _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get iconName => $_getSZ(0);
   @$pb.TagNumber(1)
-  set iconName($core.String v) { $_setString(0, v); }
+  set iconName($core.String v) {
+    $_setString(0, v);
+  }
+
   @$pb.TagNumber(1)
   $core.bool hasIconName() => $_has(0);
   @$pb.TagNumber(1)
@@ -122,42 +159,69 @@ class AndroidIconData extends $pb.GeneratedMessage {
   @$pb.TagNumber(2)
   AndroidIconData_Type get iconType => $_getN(1);
   @$pb.TagNumber(2)
-  set iconType(AndroidIconData_Type v) { setField(2, v); }
+  set iconType(AndroidIconData_Type v) {
+    setField(2, v);
+  }
+
   @$pb.TagNumber(2)
   $core.bool hasIconType() => $_has(1);
   @$pb.TagNumber(2)
   void clearIconType() => clearField(2);
 }
 
-class AndroidLocationSettings_LocationNotificationSettings extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('AndroidLocationSettings.LocationNotificationSettings', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+class AndroidLocationSettings_LocationNotificationSettings
+    extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo(
+      'AndroidLocationSettings.LocationNotificationSettings',
+      package: const $pb.PackageName('FlutterHereMaps'),
+      createEmptyInstance: create)
     ..aOS(1, 'channelId')
     ..aOS(2, 'channelName')
     ..aOS(3, 'title')
     ..aOS(4, 'body')
     ..aOM<AndroidIconData>(5, 'iconData', subBuilder: AndroidIconData.create)
-    ..hasRequiredFields = false
-  ;
+    ..hasRequiredFields = false;
 
   AndroidLocationSettings_LocationNotificationSettings._() : super();
   factory AndroidLocationSettings_LocationNotificationSettings() => create();
-  factory AndroidLocationSettings_LocationNotificationSettings.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AndroidLocationSettings_LocationNotificationSettings.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  AndroidLocationSettings_LocationNotificationSettings clone() => AndroidLocationSettings_LocationNotificationSettings()..mergeFromMessage(this);
-  AndroidLocationSettings_LocationNotificationSettings copyWith(void Function(AndroidLocationSettings_LocationNotificationSettings) updates) => super.copyWith((message) => updates(message as AndroidLocationSettings_LocationNotificationSettings));
+  factory AndroidLocationSettings_LocationNotificationSettings.fromBuffer(
+          $core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory AndroidLocationSettings_LocationNotificationSettings.fromJson(
+          $core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  AndroidLocationSettings_LocationNotificationSettings clone() =>
+      AndroidLocationSettings_LocationNotificationSettings()
+        ..mergeFromMessage(this);
+  AndroidLocationSettings_LocationNotificationSettings copyWith(
+          void Function(AndroidLocationSettings_LocationNotificationSettings)
+              updates) =>
+      super.copyWith((message) => updates(
+          message as AndroidLocationSettings_LocationNotificationSettings));
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
-  static AndroidLocationSettings_LocationNotificationSettings create() => AndroidLocationSettings_LocationNotificationSettings._();
-  AndroidLocationSettings_LocationNotificationSettings createEmptyInstance() => create();
-  static $pb.PbList<AndroidLocationSettings_LocationNotificationSettings> createRepeated() => $pb.PbList<AndroidLocationSettings_LocationNotificationSettings>();
+  static AndroidLocationSettings_LocationNotificationSettings create() =>
+      AndroidLocationSettings_LocationNotificationSettings._();
+  AndroidLocationSettings_LocationNotificationSettings createEmptyInstance() =>
+      create();
+  static $pb.PbList<AndroidLocationSettings_LocationNotificationSettings>
+      createRepeated() =>
+          $pb.PbList<AndroidLocationSettings_LocationNotificationSettings>();
   @$core.pragma('dart2js:noInline')
-  static AndroidLocationSettings_LocationNotificationSettings getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AndroidLocationSettings_LocationNotificationSettings>(create);
+  static AndroidLocationSettings_LocationNotificationSettings getDefault() =>
+      _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<
+          AndroidLocationSettings_LocationNotificationSettings>(create);
   static AndroidLocationSettings_LocationNotificationSettings _defaultInstance;
 
   @$pb.TagNumber(1)
   $core.String get channelId => $_getSZ(0);
   @$pb.TagNumber(1)
-  set channelId($core.String v) { $_setString(0, v); }
+  set channelId($core.String v) {
+    $_setString(0, v);
+  }
+
   @$pb.TagNumber(1)
   $core.bool hasChannelId() => $_has(0);
   @$pb.TagNumber(1)
@@ -166,7 +230,10 @@ class AndroidLocationSettings_LocationNotificationSettings extends $pb.Generated
   @$pb.TagNumber(2)
   $core.String get channelName => $_getSZ(1);
   @$pb.TagNumber(2)
-  set channelName($core.String v) { $_setString(1, v); }
+  set channelName($core.String v) {
+    $_setString(1, v);
+  }
+
   @$pb.TagNumber(2)
   $core.bool hasChannelName() => $_has(1);
   @$pb.TagNumber(2)
@@ -175,7 +242,10 @@ class AndroidLocationSettings_LocationNotificationSettings extends $pb.Generated
   @$pb.TagNumber(3)
   $core.String get title => $_getSZ(2);
   @$pb.TagNumber(3)
-  set title($core.String v) { $_setString(2, v); }
+  set title($core.String v) {
+    $_setString(2, v);
+  }
+
   @$pb.TagNumber(3)
   $core.bool hasTitle() => $_has(2);
   @$pb.TagNumber(3)
@@ -184,7 +254,10 @@ class AndroidLocationSettings_LocationNotificationSettings extends $pb.Generated
   @$pb.TagNumber(4)
   $core.String get body => $_getSZ(3);
   @$pb.TagNumber(4)
-  set body($core.String v) { $_setString(3, v); }
+  set body($core.String v) {
+    $_setString(3, v);
+  }
+
   @$pb.TagNumber(4)
   $core.bool hasBody() => $_has(3);
   @$pb.TagNumber(4)
@@ -193,7 +266,10 @@ class AndroidLocationSettings_LocationNotificationSettings extends $pb.Generated
   @$pb.TagNumber(5)
   AndroidIconData get iconData => $_getN(4);
   @$pb.TagNumber(5)
-  set iconData(AndroidIconData v) { setField(5, v); }
+  set iconData(AndroidIconData v) {
+    setField(5, v);
+  }
+
   @$pb.TagNumber(5)
   $core.bool hasIconData() => $_has(4);
   @$pb.TagNumber(5)
@@ -203,45 +279,69 @@ class AndroidLocationSettings_LocationNotificationSettings extends $pb.Generated
 }
 
 class AndroidLocationSettings extends $pb.GeneratedMessage {
-  static final $pb.BuilderInfo _i = $pb.BuilderInfo('AndroidLocationSettings', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
-    ..aOM<AndroidLocationSettings_LocationNotificationSettings>(1, 'notificationSettings', subBuilder: AndroidLocationSettings_LocationNotificationSettings.create)
-    ..e<AndroidLocationSettings_LocationMethod>(2, 'locationMethod', $pb.PbFieldType.OE, defaultOrMaker: AndroidLocationSettings_LocationMethod.NONE, valueOf: AndroidLocationSettings_LocationMethod.valueOf, enumValues: AndroidLocationSettings_LocationMethod.values)
-    ..hasRequiredFields = false
-  ;
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('AndroidLocationSettings',
+      package: const $pb.PackageName('FlutterHereMaps'),
+      createEmptyInstance: create)
+    ..aOM<AndroidLocationSettings_LocationNotificationSettings>(
+        1, 'notificationSettings',
+        subBuilder: AndroidLocationSettings_LocationNotificationSettings.create)
+    ..e<AndroidLocationSettings_LocationMethod>(
+        2, 'locationMethod', $pb.PbFieldType.OE,
+        defaultOrMaker: AndroidLocationSettings_LocationMethod.NONE,
+        valueOf: AndroidLocationSettings_LocationMethod.valueOf,
+        enumValues: AndroidLocationSettings_LocationMethod.values)
+    ..hasRequiredFields = false;
 
   AndroidLocationSettings._() : super();
   factory AndroidLocationSettings() => create();
-  factory AndroidLocationSettings.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
-  factory AndroidLocationSettings.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
-  AndroidLocationSettings clone() => AndroidLocationSettings()..mergeFromMessage(this);
-  AndroidLocationSettings copyWith(void Function(AndroidLocationSettings) updates) => super.copyWith((message) => updates(message as AndroidLocationSettings));
+  factory AndroidLocationSettings.fromBuffer($core.List<$core.int> i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromBuffer(i, r);
+  factory AndroidLocationSettings.fromJson($core.String i,
+          [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) =>
+      create()..mergeFromJson(i, r);
+  AndroidLocationSettings clone() =>
+      AndroidLocationSettings()..mergeFromMessage(this);
+  AndroidLocationSettings copyWith(
+          void Function(AndroidLocationSettings) updates) =>
+      super.copyWith((message) => updates(message as AndroidLocationSettings));
   $pb.BuilderInfo get info_ => _i;
   @$core.pragma('dart2js:noInline')
   static AndroidLocationSettings create() => AndroidLocationSettings._();
   AndroidLocationSettings createEmptyInstance() => create();
-  static $pb.PbList<AndroidLocationSettings> createRepeated() => $pb.PbList<AndroidLocationSettings>();
+  static $pb.PbList<AndroidLocationSettings> createRepeated() =>
+      $pb.PbList<AndroidLocationSettings>();
   @$core.pragma('dart2js:noInline')
-  static AndroidLocationSettings getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AndroidLocationSettings>(create);
+  static AndroidLocationSettings getDefault() => _defaultInstance ??=
+      $pb.GeneratedMessage.$_defaultFor<AndroidLocationSettings>(create);
   static AndroidLocationSettings _defaultInstance;
 
   @$pb.TagNumber(1)
-  AndroidLocationSettings_LocationNotificationSettings get notificationSettings => $_getN(0);
+  AndroidLocationSettings_LocationNotificationSettings
+      get notificationSettings => $_getN(0);
   @$pb.TagNumber(1)
-  set notificationSettings(AndroidLocationSettings_LocationNotificationSettings v) { setField(1, v); }
+  set notificationSettings(
+      AndroidLocationSettings_LocationNotificationSettings v) {
+    setField(1, v);
+  }
+
   @$pb.TagNumber(1)
   $core.bool hasNotificationSettings() => $_has(0);
   @$pb.TagNumber(1)
   void clearNotificationSettings() => clearField(1);
   @$pb.TagNumber(1)
-  AndroidLocationSettings_LocationNotificationSettings ensureNotificationSettings() => $_ensure(0);
+  AndroidLocationSettings_LocationNotificationSettings
+      ensureNotificationSettings() => $_ensure(0);
 
   @$pb.TagNumber(2)
   AndroidLocationSettings_LocationMethod get locationMethod => $_getN(1);
   @$pb.TagNumber(2)
-  set locationMethod(AndroidLocationSettings_LocationMethod v) { setField(2, v); }
+  set locationMethod(AndroidLocationSettings_LocationMethod v) {
+    setField(2, v);
+  }
+
   @$pb.TagNumber(2)
   $core.bool hasLocationMethod() => $_has(1);
   @$pb.TagNumber(2)
   void clearLocationMethod() => clearField(2);
 }
-
