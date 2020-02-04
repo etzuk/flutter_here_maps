@@ -31,16 +31,12 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
 
 
     private val context: Context
-        get() = registrar.activeContext()
+        get() = registrar.context()
 
-    private val localBroadcastManager = LocalBroadcastManager.getInstance(context)
-    private lateinit var settings: LocationObjects.AndroidLocationSettings
-
-
-    init {
-        registrar.addRequestPermissionsResultListener(this)
-        channel.setMethodCallHandler(this)
+    private val localBroadcastManager: LocalBroadcastManager by lazy {
+        LocalBroadcastManager.getInstance(context)
     }
+    private lateinit var settings: LocationObjects.AndroidLocationSettings
 
     /**
      * Broadcast receiver to receive the data
@@ -144,5 +140,5 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
                 REQUEST_PERMISSIONS_REQUEST_CODE)
 //    }
     }
-
 }
+
