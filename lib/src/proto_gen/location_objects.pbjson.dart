@@ -16,6 +16,24 @@ const LocationReading$json = const {
   ],
 };
 
+const AndroidIconData$json = const {
+  '1': 'AndroidIconData',
+  '2': const [
+    const {'1': 'icon_name', '3': 1, '4': 1, '5': 9, '10': 'iconName'},
+    const {'1': 'icon_type', '3': 2, '4': 1, '5': 14, '6': '.FlutterHereMaps.AndroidIconData.Type', '10': 'iconType'},
+  ],
+  '4': const [AndroidIconData_Type$json],
+};
+
+const AndroidIconData_Type$json = const {
+  '1': 'Type',
+  '2': const [
+    const {'1': 'UNKNOWN', '2': 0},
+    const {'1': 'MIPMAP', '2': 1},
+    const {'1': 'DRAWABLE', '2': 2},
+  ],
+};
+
 const AndroidLocationSettings$json = const {
   '1': 'AndroidLocationSettings',
   '2': const [
@@ -33,6 +51,7 @@ const AndroidLocationSettings_LocationNotificationSettings$json = const {
     const {'1': 'channel_name', '3': 2, '4': 1, '5': 9, '10': 'channelName'},
     const {'1': 'title', '3': 3, '4': 1, '5': 9, '10': 'title'},
     const {'1': 'body', '3': 4, '4': 1, '5': 9, '10': 'body'},
+    const {'1': 'icon_data', '3': 5, '4': 1, '5': 11, '6': '.FlutterHereMaps.AndroidIconData', '10': 'iconData'},
   ],
 };
 

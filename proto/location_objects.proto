@@ -11,6 +11,17 @@ message LocationReading {
     double speed = 6;
 }
 
+message AndroidIconData {
+    string icon_name = 1;
+    Type icon_type = 2;
+
+    enum Type {
+        UNKNOWN = 0;
+        MIPMAP = 1;
+        DRAWABLE =2;
+    }
+}
+
 message AndroidLocationSettings {
 
     LocationNotificationSettings notification_settings = 1;
@@ -21,6 +32,7 @@ message AndroidLocationSettings {
         string channel_name = 2;
         string title = 3;
         string body = 4;
+        AndroidIconData icon_data = 5;
     }
 
     enum LocationMethod {

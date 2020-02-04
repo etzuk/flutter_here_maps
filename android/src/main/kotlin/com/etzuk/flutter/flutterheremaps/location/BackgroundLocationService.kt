@@ -3,6 +3,7 @@ package com.etzuk.flutter.flutterheremaps.location
 import FlutterHereMaps.LocationObjects
 import FlutterHereMaps.MapObjects
 import android.app.*
+import android.content.Context
 import android.content.Intent
 import android.os.Binder
 import android.os.Build
@@ -50,11 +51,12 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
 
         createNotificationChannel(androidSettings)
 
+        val iconRes = androidSettings.notificationSettings.iconData.toResId(context = this)
+
         val notification: Notification = NotificationCompat.Builder(this, androidSettings.notificationSettings.channelId)
                 .setContentTitle(androidSettings.notificationSettings.title)
                 .setContentText(androidSettings.notificationSettings.body)
-                //TODO resolve icon setting in proto
-                .setSmallIcon(android.R.drawable.ic_menu_add)
+                .setSmallIcon(iconRes)
                 .build()
 
         //TODO resolve service id?
@@ -129,3 +131,18 @@ private fun GeoCoordinate.toCoordinate(): MapObjects.Coordinate {
         this.lat = this@toCoordinate.latitude
     }.build()
 }
+
+
+fun LocationObjects.AndroidIconData.toResId(context: Context) : Int {
+    val type = when (iconType) {
+        LocationObjects.AndroidIconData.Type.DRAWABLE -> "drawable"
+        LocationObjects.AndroidIconData.Type.MIPMAP -> "mipmap"
+        else -> ""
+    }
+
+    return context.resources.getIdentifier(iconName, type, context.packageName)
+}
+
+
+
+
