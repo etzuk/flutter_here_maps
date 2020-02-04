@@ -167,10 +167,8 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
           AndroidLocationSettings_LocationNotificationSettings()
             ..channelId = "Location Channel_id"
             ..channelName = "Location Channel"
-            ..iconData = icon
             ..title = "Location is on"
             ..body = "Thanks for sharing";
-
       var androidSettings = AndroidLocationSettings()
         ..locationServiceId = 1
         ..locationMethod = AndroidLocationSettings_LocationMethod.GPS_NETWORK
