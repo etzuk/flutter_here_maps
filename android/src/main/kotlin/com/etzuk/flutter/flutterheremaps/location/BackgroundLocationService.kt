@@ -26,7 +26,6 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
     private lateinit var positioningManager: PositioningManager
 
     companion object {
-        const val CHANNEL_ID = "ForegroundServiceChannel"
         const val BROADCAST_ACTION = "Location_Broadcast_Actions"
         const val EXTRA_DATA = "Location_Read_Data"
         const val EXTRA_SETTINGS = "Location_Settings"

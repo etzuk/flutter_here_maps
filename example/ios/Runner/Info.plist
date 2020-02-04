@@ -52,11 +52,11 @@
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>here_maps_app_id</key>
-	<string>your_app_id</string>
+	<string>V9gCZ00ozBlbYMm7UNNx</string>
 	<key>here_maps_app_license</key>
-	<string>your_app_license</string>
+	<string>D9CHU3S9vTbdnDbu75uGzErMQIlP2uCjNN+uiFWhWBcstrb+VxVRzkHhJiK/cQiaD07A5Q+3Q4QliEfGs8wEJPo+RGCnEQtzKk3r0MCz1QTgTL52kPIg04dojFdv1SF8imPPMUmIY741KrKvmsLhsF8Zle80yIWTFk5ZBT7zDuB4Ss0zUlfZy8fB5POGPse6feXtsYTNLvrffrivw63uCBsht/RydnytptOF49ypCgq98KGnWiw/8UFk4SwfhtPAKPtMiAuot5ebKOPjduwu2WZHHvconnQzhflgBLeLbUnjh07skCVPLrVRRQJZEZpZR3UUiBDoJbAAhj1vwBFOJuFJ2wNMh7hum/reQ5wAMQPW6t7S/fvsIcvsg9xzYPhPJkgyyhrfZTt9NfOGqHFMSP7kA4D/lvmdXnItz/+VaIdyJZhUmRloYTqkBRlsXX3TzzJaxFIYnIFIPiq7wlxysjkvzbZIdhOBlqHMQD8BjF0dcGWADVvpcfB37ZfN6EoY5h4lZs7Kc/Y9+mi/KNt8I4Sr4PFH4fFy5KWyq3Bu7RWxDnsCspNRPocvl51d/ruLNsMSY3yOL77KBIO6LivmxCof7OmJjiqqvn6kw/jlEYLd8Qmmhf3A1BYVITVqTA0IZlixE75ZCirmiob80VUCTbq4FnmH6c6AyKiZ/LThYcA=</string>
 	<key>here_maps_app_token</key>
-	<string>your_app_token</string>
+	<string>9Eep4LFRqnMjX3NQXey8vg</string>
 	<key>io.flutter.embedded_views_preview</key>
 	<string>YES</string>
 </dict>
