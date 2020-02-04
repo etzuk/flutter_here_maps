@@ -88,12 +88,54 @@ class LocationReading extends $pb.GeneratedMessage {
   void clearSpeed() => clearField(6);
 }
 
+class AndroidIconData extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('AndroidIconData', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..aOS(1, 'iconName')
+    ..e<AndroidIconData_Type>(2, 'iconType', $pb.PbFieldType.OE, defaultOrMaker: AndroidIconData_Type.UNKNOWN, valueOf: AndroidIconData_Type.valueOf, enumValues: AndroidIconData_Type.values)
+    ..hasRequiredFields = false
+  ;
+
+  AndroidIconData._() : super();
+  factory AndroidIconData() => create();
+  factory AndroidIconData.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory AndroidIconData.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  AndroidIconData clone() => AndroidIconData()..mergeFromMessage(this);
+  AndroidIconData copyWith(void Function(AndroidIconData) updates) => super.copyWith((message) => updates(message as AndroidIconData));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static AndroidIconData create() => AndroidIconData._();
+  AndroidIconData createEmptyInstance() => create();
+  static $pb.PbList<AndroidIconData> createRepeated() => $pb.PbList<AndroidIconData>();
+  @$core.pragma('dart2js:noInline')
+  static AndroidIconData getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<AndroidIconData>(create);
+  static AndroidIconData _defaultInstance;
+
+  @$pb.TagNumber(1)
+  $core.String get iconName => $_getSZ(0);
+  @$pb.TagNumber(1)
+  set iconName($core.String v) { $_setString(0, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasIconName() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearIconName() => clearField(1);
+
+  @$pb.TagNumber(2)
+  AndroidIconData_Type get iconType => $_getN(1);
+  @$pb.TagNumber(2)
+  set iconType(AndroidIconData_Type v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasIconType() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearIconType() => clearField(2);
+}
+
 class AndroidLocationSettings_LocationNotificationSettings extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('AndroidLocationSettings.LocationNotificationSettings', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
     ..aOS(1, 'channelId')
     ..aOS(2, 'channelName')
     ..aOS(3, 'title')
     ..aOS(4, 'body')
+    ..aOM<AndroidIconData>(5, 'iconData', subBuilder: AndroidIconData.create)
     ..hasRequiredFields = false
   ;
 
@@ -147,6 +189,17 @@ class AndroidLocationSettings_LocationNotificationSettings extends $pb.Generated
   $core.bool hasBody() => $_has(3);
   @$pb.TagNumber(4)
   void clearBody() => clearField(4);
+
+  @$pb.TagNumber(5)
+  AndroidIconData get iconData => $_getN(4);
+  @$pb.TagNumber(5)
+  set iconData(AndroidIconData v) { setField(5, v); }
+  @$pb.TagNumber(5)
+  $core.bool hasIconData() => $_has(4);
+  @$pb.TagNumber(5)
+  void clearIconData() => clearField(5);
+  @$pb.TagNumber(5)
+  AndroidIconData ensureIconData() => $_ensure(4);
 }
 
 class AndroidLocationSettings extends $pb.GeneratedMessage {
