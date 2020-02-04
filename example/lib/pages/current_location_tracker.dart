@@ -152,7 +152,6 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
     if (Platform.isIOS) {
       await oldLocationProvider();
     } else {
-
       BackgroundLocationPlugin.getLocationUpdates((location) {
         if (mounted) {
           setState(() {
@@ -161,13 +160,18 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
         }
       });
 
+      var icon = AndroidIconData()
+        ..iconName = "ic_launcher"
+        ..iconType = AndroidIconData_Type.MIPMAP;
       var notificationSettings =
           AndroidLocationSettings_LocationNotificationSettings()
             ..channelId = "Location Channel_id"
             ..channelName = "Location Channel"
-            ..title = "Location is on";
+            ..iconData = icon
+            ..title = "Location is on"
+            ..body = "Thanks for sharing";
 
-     var androidSettings =  AndroidLocationSettings()
+      var androidSettings = AndroidLocationSettings()
         ..locationMethod = AndroidLocationSettings_LocationMethod.GPS_NETWORK
         ..notificationSettings = notificationSettings;
 
