@@ -39,6 +39,7 @@ const AndroidLocationSettings$json = const {
   '2': const [
     const {'1': 'notification_settings', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.AndroidLocationSettings.LocationNotificationSettings', '10': 'notificationSettings'},
     const {'1': 'location_method', '3': 2, '4': 1, '5': 14, '6': '.FlutterHereMaps.AndroidLocationSettings.LocationMethod', '10': 'locationMethod'},
+    const {'1': 'location_service_id', '3': 3, '4': 1, '5': 5, '10': 'locationServiceId'},
   ],
   '3': const [AndroidLocationSettings_LocationNotificationSettings$json],
   '4': const [AndroidLocationSettings_LocationMethod$json],
