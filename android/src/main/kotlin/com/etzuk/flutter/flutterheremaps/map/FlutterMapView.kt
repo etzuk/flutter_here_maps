@@ -84,35 +84,43 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     private fun initMapEngine() {
-        MapEngine.getInstance().init(ApplicationContext(context), this)
+        if (!MapEngine.isInitialized()) {
+            MapEngine.getInstance().init(ApplicationContext(context), this)
+        } else {
+            initMapView()
+        }
     }
 
     override fun onEngineInitializationCompleted(error: OnEngineInitListener.Error?) {
 
         if (error?.ordinal == OnEngineInitListener.Error.NONE.ordinal) {
-            map.mapView.onResume()
-            hereMap = Map()
-            mapReadyResult?.let {
-                it.success(null)
-            }
-            mapReadyResult = null
-            map.mapView.map = hereMap
-            map.mapView.map.mapScheme = map.mapView.map.mapSchemes[12]
-            map.mapView.positionIndicator.isVisible = true
-            args?.let { args ->
-                (args as? ByteBuffer)?.let {
-                    mapConfiguration = MapChannel.InitMapConfigutation.parseFrom(it.array())
-                    if (mapConfiguration.hasInitialMapCenter()) {
-                        map.setMapCenter(mapConfiguration.initialMapCenter)
-                    }
-                }
-            }
-            map.mapView.mapGesture.addOnGestureListener(this, 0, true)
+            initMapView()
         } else {
             error?.let {
                 mapReadyResult?.error("Map engine init error", error.details, error.stackTrace)
             }
         }
+    }
+
+    private fun initMapView() {
+        map.mapView.onResume()
+        hereMap = Map()
+        mapReadyResult?.let {
+            it.success(null)
+        }
+        mapReadyResult = null
+        map.mapView.map = hereMap
+        map.mapView.map.mapScheme = map.mapView.map.mapSchemes[12]
+        map.mapView.positionIndicator.isVisible = true
+        args?.let { args ->
+            (args as? ByteBuffer)?.let {
+                mapConfiguration = MapChannel.InitMapConfigutation.parseFrom(it.array())
+                if (mapConfiguration.hasInitialMapCenter()) {
+                    map.setMapCenter(mapConfiguration.initialMapCenter)
+                }
+            }
+        }
+        map.mapView.mapGesture.addOnGestureListener(this, 0, true)
     }
 
     override fun getView(): View {
@@ -190,7 +198,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
         map.mapView.onPause()
         map.clean()
         channel.setMethodCallHandler(null)
-        map.mapView.mapGesture.removeOnGestureListener(this)
+        map.mapView.mapGesture?.removeOnGestureListener(this)
         registrar.activity().application.unregisterActivityLifecycleCallbacks(this)
     }
 
@@ -237,7 +245,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             it.build()
         }.toByteArray()
 
-        GlobalScope.launch (Dispatchers.Main) {
+        GlobalScope.launch(Dispatchers.Main) {
             channel.invokeMethod("replay", response)
         }
     }
@@ -247,7 +255,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             it.mapGesture = event
             it.build()
         }.toByteArray()
-        GlobalScope.launch (Dispatchers.Main) {
+        GlobalScope.launch(Dispatchers.Main) {
             channel.invokeMethod("replay", response)
         }
     }
@@ -392,5 +400,3 @@ private fun PointF.toPoint(): MapObjects.PointF? {
         it.build()
     }
 }
-
-
