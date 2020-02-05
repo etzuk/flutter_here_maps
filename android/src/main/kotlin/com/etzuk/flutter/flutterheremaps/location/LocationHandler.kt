@@ -36,7 +36,7 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
     private val localBroadcastManager: LocalBroadcastManager by lazy {
         LocalBroadcastManager.getInstance(context)
     }
-    private lateinit var settings: LocationObjects.AndroidLocationSettings
+    private var settings: LocationObjects.AndroidLocationSettings? = null
 
     /**
      * Broadcast receiver to receive the data
@@ -69,15 +69,23 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
         when (call.method) {
             "start_location_service" -> {
                 call.argument<ByteArray>(ARGUMENT_SETTINGS_KEY)?.let {
-                    settings = LocationObjects.AndroidLocationSettings.parseFrom(it)
+                    try {
+                        LocationObjects.AndroidLocationSettings.parseFrom(it)?.let { androidSettings ->
+                            settings = androidSettings
+                        }
+                    } catch (e: Exception) {
+                        Log.e("Location Handler", "error extracting settings object")
+                    }
                 }
 
-                if (!::settings.isInitialized) {
-                    result.error("configuration_missing", "configure must be provided at least once before tracking can start", null)
-                } else {
+                settings?.let { settings ->
                     result.success("starting location tracking")
                     startBackgroundTracking(settings)
-                }
+                } ?: result.error(
+                        "configuration_missing",
+                        "configure must be provided at least once before tracking can start",
+                        null)
+
             }
             "stop_location_service" -> {
                 stopLocationTracking()
@@ -120,7 +128,7 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
                 grantResults!!.isEmpty() -> {
                     Log.i("BackgroundLocation", "User interaction was cancelled.")
                 }
-                grantResults[0] == PackageManager.PERMISSION_GRANTED -> startBackgroundTracking(settings)
+                grantResults[0] == PackageManager.PERMISSION_GRANTED -> settings?.let { startBackgroundTracking(it) }
                 else -> {
                     //TODO
                 }
