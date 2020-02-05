@@ -173,13 +173,16 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
       var icon = AndroidIconData()
         ..iconName = "ic_launcher"
         ..iconType = AndroidIconData_Type.MIPMAP;
+
       var notificationSettings =
           AndroidLocationSettings_LocationNotificationSettings()
             ..iconData = icon
             ..channelId = "Location Channel_id"
             ..channelName = "Location Channel"
             ..title = "Location is on"
+            ..iconData = icon
             ..body = "Thanks for sharing";
+
       var androidSettings = AndroidLocationSettings()
         ..locationServiceId = 1
         ..locationMethod = AndroidLocationSettings_LocationMethod.GPS_NETWORK
