@@ -21,7 +21,6 @@ import kotlin.math.max
 
 class BackgroundLocationService : Service(), PositioningManager.OnPositionChangedListener {
 
-    private val binder: Binder = Binder()
     private lateinit var localBroadcastReceiver: LocalBroadcastManager
     private lateinit var positioningManager: PositioningManager
 
@@ -39,7 +38,7 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
     }
 
     override fun onBind(intent: Intent?): IBinder? {
-        return binder
+        return null
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
@@ -70,6 +69,10 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
         } ?: return super.onStartCommand(intent, flags, startId)
     }
 
+    override fun onTaskRemoved(root: Intent?) {
+        super.onTaskRemoved(root)
+        cleanup()
+    }
 
     private fun createNotificationChannel(androidSettings: LocationObjects.AndroidLocationSettings) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -97,17 +100,26 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
             if (positioningManager.start(PositioningManager.LocationMethod.values()[locationMethod.ordinal])) {
                 Log.d("Background locations", "tracking started")
                 // Position updates started successfully.
+            } else {
+                Log.e("Background locations", "error starting tracking")
+                stopSelf()
             }
         }
     }
 
     override fun onDestroy() {
+        cleanup()
+        super.onDestroy()
+    }
+
+    private fun cleanup() {
         if (::positioningManager.isInitialized) {
             positioningManager.stop()
             positioningManager.removeListener(this)
         }
 
-        super.onDestroy()
+        stopForeground(true)
+        stopSelf()
     }
 
     override fun onPositionFixChanged(p0: PositioningManager.LocationMethod?, p1: PositioningManager.LocationStatus?) {
