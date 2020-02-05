@@ -36,7 +36,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
 
   @override
   void dispose() {
-    _locationSubscription.cancel();
+    _locationSubscription?.cancel();
     super.dispose();
   }
 
@@ -147,6 +147,15 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
     return BoolValue()..value = value;
   }
 
+  _mapCenter(Coordinate coordinate) async {
+    final map = await _controller.future;
+    map.setCenter(MapCenter()
+      ..coordinate = (Coordinate()
+        ..lat = coordinate.lat
+        ..lng = coordinate.lng)
+      ..zoomLevel = (FloatValue()..value = 16));
+  }
+
   // Platform messages are asynchronous, so we initialize in an async method.
   _initPlatformState() async {
     if (Platform.isIOS) {
@@ -154,6 +163,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
     } else {
       BackgroundLocationPlugin.getLocationUpdates((location) {
         if (mounted) {
+          _mapCenter(location.coordinate);
           setState(() {
             _currentLocation = location;
           });
@@ -165,6 +175,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
         ..iconType = AndroidIconData_Type.MIPMAP;
       var notificationSettings =
           AndroidLocationSettings_LocationNotificationSettings()
+            ..iconData = icon
             ..channelId = "Location Channel_id"
             ..channelName = "Location Channel"
             ..title = "Location is on"
@@ -194,12 +205,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
               .map((locationData) => locationData.toLocationReading())
               .listen((LocationReading result) async {
             if (_currentLocation == null) {
-              final map = await _controller.future;
-              map.setCenter(MapCenter()
-                ..coordinate = (Coordinate()
-                  ..lat = result.coordinate.lat
-                  ..lng = result.coordinate.lng)
-                ..zoomLevel = (FloatValue()..value = 16));
+              _mapCenter(_currentLocation.coordinate);
             }
             if (mounted) {
               setState(() {
