@@ -60,7 +60,7 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
             MapEngine.getInstance().init(ApplicationContext(context)) { error ->
                 if (error != OnEngineInitListener.Error.NONE) {
                     result.error("Map engine init error", error.details, error.stackTrace)
-                }  else {
+                } else {
                     handleMethodCalls(call, result)
                 }
             }

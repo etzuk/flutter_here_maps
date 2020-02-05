@@ -131,7 +131,7 @@ private fun GeoCoordinate.toCoordinate(): MapObjects.Coordinate {
 }
 
 
-fun LocationObjects.AndroidIconData.toResId(context: Context) : Int {
+fun LocationObjects.AndroidIconData.toResId(context: Context): Int {
     val type = when (iconType) {
         LocationObjects.AndroidIconData.Type.DRAWABLE -> "drawable"
         LocationObjects.AndroidIconData.Type.MIPMAP -> "mipmap"
