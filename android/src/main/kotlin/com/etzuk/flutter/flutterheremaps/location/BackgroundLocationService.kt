@@ -51,10 +51,17 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
             createNotificationChannel(androidSettings)
             val iconRes = androidSettings.notificationSettings.iconData.toResId(context = this)
 
+            val launchIntent = packageManager.getLaunchIntentForPackage(packageName)
+
+            val notifyPendingIntent = PendingIntent.getActivity(
+                    this, 0, launchIntent, PendingIntent.FLAG_UPDATE_CURRENT
+            )
+
             val notification: Notification = NotificationCompat.Builder(this, androidSettings.notificationSettings.channelId)
                     .setContentTitle(androidSettings.notificationSettings.title)
                     .setContentText(androidSettings.notificationSettings.body)
                     .setSmallIcon(iconRes)
+                    .setContentIntent(notifyPendingIntent)
                     .build()
 
             startForeground(androidSettings.locationServiceId, notification)
@@ -62,6 +69,7 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
             return START_NOT_STICKY
         } ?: return super.onStartCommand(intent, flags, startId)
     }
+
 
     private fun createNotificationChannel(androidSettings: LocationObjects.AndroidLocationSettings) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
