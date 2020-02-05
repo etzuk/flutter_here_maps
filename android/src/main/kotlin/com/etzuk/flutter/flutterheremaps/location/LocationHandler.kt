@@ -75,6 +75,7 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
                 if (!::settings.isInitialized) {
                     result.error("configuration_missing", "configure must be provided at least once before tracking can start", null)
                 } else {
+                    result.success("starting location tracking")
                     startBackgroundTracking(settings)
                 }
             }
@@ -92,8 +93,8 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
 
 
     private fun startBackgroundTracking(settings: LocationObjects.AndroidLocationSettings) {
-
         if (!checkPermissions()) {
+            registrar.addRequestPermissionsResultListener(this)
             requestPermissions()
         } else {
             localBroadcastManager.unregisterReceiver(mReceiver)
@@ -124,8 +125,9 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
                     //TODO
                 }
             }
+            return true
         }
-        return true
+        return false
     }
 
 

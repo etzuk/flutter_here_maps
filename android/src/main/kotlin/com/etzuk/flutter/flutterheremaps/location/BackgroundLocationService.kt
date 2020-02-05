@@ -43,24 +43,24 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-
-        val androidSettings = intent?.getByteArrayExtra(EXTRA_SETTINGS)!!.let {
+        val androidLocationSettings = intent?.getByteArrayExtra(EXTRA_SETTINGS)?.let {
             LocationObjects.AndroidLocationSettings.parseFrom(it)
         }
 
-        createNotificationChannel(androidSettings)
+        androidLocationSettings?.let { androidSettings ->
+            createNotificationChannel(androidSettings)
+            val iconRes = androidSettings.notificationSettings.iconData.toResId(context = this)
 
-        val iconRes = androidSettings.notificationSettings.iconData.toResId(context = this)
+            val notification: Notification = NotificationCompat.Builder(this, androidSettings.notificationSettings.channelId)
+                    .setContentTitle(androidSettings.notificationSettings.title)
+                    .setContentText(androidSettings.notificationSettings.body)
+                    .setSmallIcon(iconRes)
+                    .build()
 
-        val notification: Notification = NotificationCompat.Builder(this, androidSettings.notificationSettings.channelId)
-                .setContentTitle(androidSettings.notificationSettings.title)
-                .setContentText(androidSettings.notificationSettings.body)
-                .setSmallIcon(iconRes)
-                .build()
-
-        startForeground(androidSettings.locationServiceId, notification)
-        startTracking(androidSettings.locationMethod)
-        return START_NOT_STICKY
+            startForeground(androidSettings.locationServiceId, notification)
+            startTracking(androidSettings.locationMethod)
+            return START_NOT_STICKY
+        } ?: return super.onStartCommand(intent, flags, startId)
     }
 
     private fun createNotificationChannel(androidSettings: LocationObjects.AndroidLocationSettings) {
@@ -77,7 +77,9 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
 
 
     private fun startTracking(locationMethod: LocationObjects.AndroidLocationSettings.LocationMethod) {
-        positioningManager = PositioningManager.getInstance()
+        if (!::positioningManager.isInitialized) {
+            positioningManager = PositioningManager.getInstance()
+        }
 
         val hereDataSource = LocationDataSourceHERE.getInstance()
         if (hereDataSource != null) {
