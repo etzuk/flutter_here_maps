@@ -72,15 +72,15 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
         channel.setMethodCallHandler(this)
     }
 
-
-    override fun onRequestPermissionsResult(p0: Int, p1: Array<out String>?, p2: IntArray?): Boolean {
-        if (p0 == WRITE_STORAGE_PERMISSION_CODE) {
-            if (p1?.first().equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    && p2?.first() == PackageManager.PERMISSION_GRANTED) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?): Boolean {
+        if (requestCode == WRITE_STORAGE_PERMISSION_CODE) {
+            if (permissions?.firstOrNull().equals(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    && grantResults?.firstOrNull() == PackageManager.PERMISSION_GRANTED) {
                 initMapEngine()
             }
+            return true
         }
-        return true
+        return false
     }
 
     private fun initMapEngine() {
@@ -221,7 +221,6 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     override fun onActivityDestroyed(activity: Activity?) {
-
     }
 
     override fun onActivitySaveInstanceState(activity: Activity?, outState: Bundle?) {
