@@ -16,7 +16,8 @@ class FlutterHereMapsPlugin {
 
         @JvmStatic
         fun registerWith(registrar: Registrar) {
-            registerMapView(registrar)
+            registrar.platformViewRegistry()
+                    .registerViewFactory("$pluginPrefix/MapView", MapViewFactory(registrar))
             registerLocationPlugin(registrar)
         }
 
@@ -27,15 +28,6 @@ class FlutterHereMapsPlugin {
 
                 registrar.addRequestPermissionsResultListener(handler)
                 channel.setMethodCallHandler(handler)
-            }
-        }
-
-        private fun registerMapView(registrar: Registrar) {
-            val success = MapSettings.setIsolatedDiskCacheRootPath("${registrar.context().getExternalFilesDir(null)}${File.separator}.here-maps",
-                    registrar.context().packageName)
-            if (success) {
-                registrar.platformViewRegistry()
-                        .registerViewFactory("$pluginPrefix/MapView", MapViewFactory(registrar))
             }
         }
     }
