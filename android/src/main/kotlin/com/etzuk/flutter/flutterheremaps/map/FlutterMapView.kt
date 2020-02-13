@@ -82,14 +82,12 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     private fun initMapEngine() {
-        val success = MapSettings.setIsolatedDiskCacheRootPath("${registrar.context().getExternalFilesDir(null)}${File.separator}.here-maps",
+        MapSettings.setIsolatedDiskCacheRootPath("${registrar.context().getExternalFilesDir(null)}${File.separator}.here-maps",
                 registrar.context().packageName)
-        if (success) {
-            if (!MapEngine.isInitialized()) {
-                MapEngine.getInstance().init(ApplicationContext(context), this)
-            } else {
-                initMapView()
-            }
+        if (!MapEngine.isInitialized()) {
+            MapEngine.getInstance().init(ApplicationContext(context), this)
+        } else {
+            initMapView()
         }
     }
 
