@@ -29,7 +29,7 @@ extension MapView : NMAMapGestureDelegate {
         var mapGesture = FlutterHereMaps_MapGesture()
         mapGesture.event = .onEventData
         var tapEvent = FlutterHereMaps_TapEvent()
-        tapEvent.point = location.toPoint()
+        tapEvent.point = location.toMapPoint(map: mapView)
         mapGesture.tapEvent = tapEvent
         invokeDataGestureEvent(event:mapGesture)
     }
@@ -43,7 +43,7 @@ extension MapView : NMAMapGestureDelegate {
         var mapGesture = FlutterHereMaps_MapGesture()
         mapGesture.event = .onEventData
         var longPress = FlutterHereMaps_LongPressEvent()
-        longPress.point = location.toPoint()
+        longPress.mapPoint =  location.toMapPoint(map: mapView)
         mapGesture.longPressEvent = longPress
         invokeDataGestureEvent(event:mapGesture)
     }
@@ -58,7 +58,7 @@ extension MapView : NMAMapGestureDelegate {
         var mapGesture = FlutterHereMaps_MapGesture()
         mapGesture.event = .onEventData
         var pinchZoom = FlutterHereMaps_PinchZoom()
-        pinchZoom.point = location.toPoint()
+        pinchZoom.point = location.toMapPoint(map: mapView)
         pinchZoom.zoom = pinch
         mapGesture.pinchZoom = pinchZoom
         invokeDataGestureEvent(event:mapGesture)
@@ -74,7 +74,7 @@ extension MapView : NMAMapGestureDelegate {
         var mapGesture = FlutterHereMaps_MapGesture()
         mapGesture.event = .onEventData
         var twoFingerTap = FlutterHereMaps_TwoFingerTap()
-        twoFingerTap.point = location.toPoint()
+        twoFingerTap.point = location.toMapPoint(map: mapView)
         mapGesture.twoFingerTap = twoFingerTap
         invokeDataGestureEvent(event:mapGesture)
     }
@@ -89,7 +89,7 @@ extension MapView : NMAMapGestureDelegate {
         var mapGesture = FlutterHereMaps_MapGesture()
         mapGesture.event = .onEventData
         var doubleTap = FlutterHereMaps_DoubleTap()
-        doubleTap.point = location.toPoint()
+        doubleTap.point = location.toMapPoint(map: mapView)
         mapGesture.doubleTap = doubleTap
         invokeDataGestureEvent(event:mapGesture)
     }
