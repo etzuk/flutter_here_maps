@@ -97,26 +97,31 @@ message MapGesture {
 }
 
 message LongPressEvent {
-    PointF point = 1;
+    MapPoint map_point = 1;
 }
 message TwoFingerTap {
-    PointF point = 1;
+    MapPoint point = 1;
 }
 message DoubleTap {
-    PointF point = 1;
+    MapPoint point = 1;
 }
 message TiltEvent{
     float tilt =1;
 }
 message TapEvent{
-    PointF point = 1;
+    MapPoint point = 1;
 }
 message PinchZoom{
     float zoom =1;
-    PointF point = 2;
+    MapPoint point = 2;
 }
 message Rotate {
     float rotate =1;
+}
+
+message MapPoint{
+    PointF point = 1;
+    Coordinate coordinate = 2;
 }
 
 message PointF{

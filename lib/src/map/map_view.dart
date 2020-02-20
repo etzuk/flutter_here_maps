@@ -130,19 +130,20 @@ class _MapViewState extends State<MapView> with MapViewGestures {
 
   onMapGestureEventDateReceived(MapGesture mapGesture) {
     if (mapGesture.hasTapEvent()) {
-      widget.onTap(mapGesture.tapEvent.point);
+      widget.onTap(mapGesture.tapEvent.point.point);
     }
     if (mapGesture.hasLongPressEvent()) {
-      widget.onLongPress(mapGesture.longPressEvent.point);
+      widget.onLongPress(mapGesture.longPressEvent.mapPoint.point);
     }
     if (mapGesture.hasPinchZoom()) {
-      widget.onPinch(mapGesture.pinchZoom.point, mapGesture.pinchZoom.zoom);
+      widget.onPinch(
+          mapGesture.pinchZoom.point.point, mapGesture.pinchZoom.zoom);
     }
     if (mapGesture.hasTwoFingerTap()) {
-      widget.onTwoFingerTap(mapGesture.twoFingerTap.point);
+      widget.onTwoFingerTap(mapGesture.twoFingerTap.point.point);
     }
     if (mapGesture.hasDoubleTap()) {
-      widget.onDoubleTap(mapGesture.doubleTap.point);
+      widget.onDoubleTap(mapGesture.doubleTap.point.point);
     }
     if (mapGesture.hasRotate()) {
       widget.onRotation(mapGesture.rotate.rotate);

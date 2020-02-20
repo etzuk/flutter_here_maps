@@ -267,7 +267,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             invokeDataEvent(MapObjects.MapGesture.newBuilder().let {
                 it.event = MapObjects.MapGestureEvents.OnEventData
                 it.tapEvent = MapObjects.TapEvent.newBuilder().let { zoom ->
-                    zoom.point = point.toPoint()
+                    zoom.point = point.toMapPoint(map)
                     zoom.build()
                 }
                 it.build()
@@ -284,7 +284,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             invokeDataEvent(MapObjects.MapGesture.newBuilder().let {
                 it.event = MapObjects.MapGestureEvents.OnEventData
                 it.longPressEvent = MapObjects.LongPressEvent.newBuilder().let { zoom ->
-                    zoom.point = point.toPoint()
+                    zoom.mapPoint = point.toMapPoint(map)
                     zoom.build()
                 }
                 it.build()
@@ -302,7 +302,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
                 it.event = MapObjects.MapGestureEvents.OnEventData
                 it.pinchZoom = MapObjects.PinchZoom.newBuilder().let { zoom ->
                     zoom.zoom = p0
-                    zoom.point = point.toPoint()
+                    zoom.point = point.toMapPoint(map)
                     zoom.build()
                 }
                 it.build()
@@ -320,7 +320,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             invokeDataEvent(MapObjects.MapGesture.newBuilder().let {
                 it.event = MapObjects.MapGestureEvents.OnEventData
                 it.twoFingerTap = MapObjects.TwoFingerTap.newBuilder().let { zoom ->
-                    zoom.point = point.toPoint()
+                    zoom.point = point.toMapPoint(map)
                     zoom.build()
                 }
                 it.build()
@@ -337,7 +337,7 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
             invokeDataEvent(MapObjects.MapGesture.newBuilder().let {
                 it.event = MapObjects.MapGestureEvents.OnEventData
                 it.doubleTap = MapObjects.DoubleTap.newBuilder().let { zoom ->
-                    zoom.point = point.toPoint()
+                    zoom.point = point.toMapPoint(map)
                     zoom.build()
                 }
                 it.build()
@@ -392,10 +392,23 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     override fun onPinchLocked() {}
 }
 
-private fun PointF.toPoint(): MapObjects.PointF? {
+private fun PointF.toPoint(): MapObjects.PointF {
     return MapObjects.PointF.newBuilder().let {
         it.x = this.x
         it.y = this.y
         it.build()
     }
 }
+
+private fun PointF.toMapPoint(map: com.etzuk.flutter.flutterheremaps.map.Map): MapObjects.MapPoint {
+    val geoCoordinate = map.mapView.map.pixelToGeo(this)
+
+    return MapObjects.MapPoint.newBuilder().apply {
+        this.point = toPoint()
+        this.coordinate = MapObjects.Coordinate.newBuilder().apply {
+            this.lat = geoCoordinate.latitude
+            this.lng = geoCoordinate.longitude
+        }.build()
+    }.build()
+}
+

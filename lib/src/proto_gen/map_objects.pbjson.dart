@@ -136,21 +136,21 @@ const MapGesture$json = const {
 const LongPressEvent$json = const {
   '1': 'LongPressEvent',
   '2': const [
-    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+    const {'1': 'map_point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapPoint', '10': 'mapPoint'},
   ],
 };
 
 const TwoFingerTap$json = const {
   '1': 'TwoFingerTap',
   '2': const [
-    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapPoint', '10': 'point'},
   ],
 };
 
 const DoubleTap$json = const {
   '1': 'DoubleTap',
   '2': const [
-    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapPoint', '10': 'point'},
   ],
 };
 
@@ -164,7 +164,7 @@ const TiltEvent$json = const {
 const TapEvent$json = const {
   '1': 'TapEvent',
   '2': const [
-    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapPoint', '10': 'point'},
   ],
 };
 
@@ -172,7 +172,7 @@ const PinchZoom$json = const {
   '1': 'PinchZoom',
   '2': const [
     const {'1': 'zoom', '3': 1, '4': 1, '5': 2, '10': 'zoom'},
-    const {'1': 'point', '3': 2, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+    const {'1': 'point', '3': 2, '4': 1, '5': 11, '6': '.FlutterHereMaps.MapPoint', '10': 'point'},
   ],
 };
 
@@ -180,6 +180,14 @@ const Rotate$json = const {
   '1': 'Rotate',
   '2': const [
     const {'1': 'rotate', '3': 1, '4': 1, '5': 2, '10': 'rotate'},
+  ],
+};
+
+const MapPoint$json = const {
+  '1': 'MapPoint',
+  '2': const [
+    const {'1': 'point', '3': 1, '4': 1, '5': 11, '6': '.FlutterHereMaps.PointF', '10': 'point'},
+    const {'1': 'coordinate', '3': 2, '4': 1, '5': 11, '6': '.FlutterHereMaps.Coordinate', '10': 'coordinate'},
   ],
 };
 

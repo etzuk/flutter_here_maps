@@ -560,14 +560,14 @@ struct FlutterHereMaps_LongPressEvent {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var point: FlutterHereMaps_PointF {
-    get {return _storage._point ?? FlutterHereMaps_PointF()}
-    set {_uniqueStorage()._point = newValue}
+  var mapPoint: FlutterHereMaps_MapPoint {
+    get {return _storage._mapPoint ?? FlutterHereMaps_MapPoint()}
+    set {_uniqueStorage()._mapPoint = newValue}
   }
-  /// Returns true if `point` has been explicitly set.
-  var hasPoint: Bool {return _storage._point != nil}
-  /// Clears the value of `point`. Subsequent reads from it will return its default value.
-  mutating func clearPoint() {_uniqueStorage()._point = nil}
+  /// Returns true if `mapPoint` has been explicitly set.
+  var hasMapPoint: Bool {return _storage._mapPoint != nil}
+  /// Clears the value of `mapPoint`. Subsequent reads from it will return its default value.
+  mutating func clearMapPoint() {_uniqueStorage()._mapPoint = nil}
 
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -581,8 +581,8 @@ struct FlutterHereMaps_TwoFingerTap {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var point: FlutterHereMaps_PointF {
-    get {return _storage._point ?? FlutterHereMaps_PointF()}
+  var point: FlutterHereMaps_MapPoint {
+    get {return _storage._point ?? FlutterHereMaps_MapPoint()}
     set {_uniqueStorage()._point = newValue}
   }
   /// Returns true if `point` has been explicitly set.
@@ -602,8 +602,8 @@ struct FlutterHereMaps_DoubleTap {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var point: FlutterHereMaps_PointF {
-    get {return _storage._point ?? FlutterHereMaps_PointF()}
+  var point: FlutterHereMaps_MapPoint {
+    get {return _storage._point ?? FlutterHereMaps_MapPoint()}
     set {_uniqueStorage()._point = newValue}
   }
   /// Returns true if `point` has been explicitly set.
@@ -635,8 +635,8 @@ struct FlutterHereMaps_TapEvent {
   // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
   // methods supported on all messages.
 
-  var point: FlutterHereMaps_PointF {
-    get {return _storage._point ?? FlutterHereMaps_PointF()}
+  var point: FlutterHereMaps_MapPoint {
+    get {return _storage._point ?? FlutterHereMaps_MapPoint()}
     set {_uniqueStorage()._point = newValue}
   }
   /// Returns true if `point` has been explicitly set.
@@ -661,8 +661,8 @@ struct FlutterHereMaps_PinchZoom {
     set {_uniqueStorage()._zoom = newValue}
   }
 
-  var point: FlutterHereMaps_PointF {
-    get {return _storage._point ?? FlutterHereMaps_PointF()}
+  var point: FlutterHereMaps_MapPoint {
+    get {return _storage._point ?? FlutterHereMaps_MapPoint()}
     set {_uniqueStorage()._point = newValue}
   }
   /// Returns true if `point` has been explicitly set.
@@ -687,6 +687,36 @@ struct FlutterHereMaps_Rotate {
   var unknownFields = SwiftProtobuf.UnknownStorage()
 
   init() {}
+}
+
+struct FlutterHereMaps_MapPoint {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var point: FlutterHereMaps_PointF {
+    get {return _storage._point ?? FlutterHereMaps_PointF()}
+    set {_uniqueStorage()._point = newValue}
+  }
+  /// Returns true if `point` has been explicitly set.
+  var hasPoint: Bool {return _storage._point != nil}
+  /// Clears the value of `point`. Subsequent reads from it will return its default value.
+  mutating func clearPoint() {_uniqueStorage()._point = nil}
+
+  var coordinate: FlutterHereMaps_Coordinate {
+    get {return _storage._coordinate ?? FlutterHereMaps_Coordinate()}
+    set {_uniqueStorage()._coordinate = newValue}
+  }
+  /// Returns true if `coordinate` has been explicitly set.
+  var hasCoordinate: Bool {return _storage._coordinate != nil}
+  /// Clears the value of `coordinate`. Subsequent reads from it will return its default value.
+  mutating func clearCoordinate() {_uniqueStorage()._coordinate = nil}
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
 
 struct FlutterHereMaps_PointF {
@@ -1553,18 +1583,18 @@ extension FlutterHereMaps_MapGesture: SwiftProtobuf.Message, SwiftProtobuf._Mess
 extension FlutterHereMaps_LongPressEvent: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   static let protoMessageName: String = _protobuf_package + ".LongPressEvent"
   static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "point"),
+    1: .standard(proto: "map_point"),
   ]
 
   fileprivate class _StorageClass {
-    var _point: FlutterHereMaps_PointF? = nil
+    var _mapPoint: FlutterHereMaps_MapPoint? = nil
 
     static let defaultInstance = _StorageClass()
 
     private init() {}
 
     init(copying source: _StorageClass) {
-      _point = source._point
+      _mapPoint = source._mapPoint
     }
   }
 
@@ -1580,7 +1610,7 @@ extension FlutterHereMaps_LongPressEvent: SwiftProtobuf.Message, SwiftProtobuf._
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
       while let fieldNumber = try decoder.nextFieldNumber() {
         switch fieldNumber {
-        case 1: try decoder.decodeSingularMessageField(value: &_storage._point)
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._mapPoint)
         default: break
         }
       }
@@ -1589,7 +1619,7 @@ extension FlutterHereMaps_LongPressEvent: SwiftProtobuf.Message, SwiftProtobuf._
 
   func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
     try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      if let v = _storage._point {
+      if let v = _storage._mapPoint {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
       }
     }
@@ -1601,7 +1631,7 @@ extension FlutterHereMaps_LongPressEvent: SwiftProtobuf.Message, SwiftProtobuf._
       let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
         let _storage = _args.0
         let rhs_storage = _args.1
-        if _storage._point != rhs_storage._point {return false}
+        if _storage._mapPoint != rhs_storage._mapPoint {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -1618,7 +1648,7 @@ extension FlutterHereMaps_TwoFingerTap: SwiftProtobuf.Message, SwiftProtobuf._Me
   ]
 
   fileprivate class _StorageClass {
-    var _point: FlutterHereMaps_PointF? = nil
+    var _point: FlutterHereMaps_MapPoint? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1679,7 +1709,7 @@ extension FlutterHereMaps_DoubleTap: SwiftProtobuf.Message, SwiftProtobuf._Messa
   ]
 
   fileprivate class _StorageClass {
-    var _point: FlutterHereMaps_PointF? = nil
+    var _point: FlutterHereMaps_MapPoint? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1769,7 +1799,7 @@ extension FlutterHereMaps_TapEvent: SwiftProtobuf.Message, SwiftProtobuf._Messag
   ]
 
   fileprivate class _StorageClass {
-    var _point: FlutterHereMaps_PointF? = nil
+    var _point: FlutterHereMaps_MapPoint? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1832,7 +1862,7 @@ extension FlutterHereMaps_PinchZoom: SwiftProtobuf.Message, SwiftProtobuf._Messa
 
   fileprivate class _StorageClass {
     var _zoom: Float = 0
-    var _point: FlutterHereMaps_PointF? = nil
+    var _point: FlutterHereMaps_MapPoint? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -1916,6 +1946,75 @@ extension FlutterHereMaps_Rotate: SwiftProtobuf.Message, SwiftProtobuf._MessageI
 
   static func ==(lhs: FlutterHereMaps_Rotate, rhs: FlutterHereMaps_Rotate) -> Bool {
     if lhs.rotate != rhs.rotate {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension FlutterHereMaps_MapPoint: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".MapPoint"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "point"),
+    2: .same(proto: "coordinate"),
+  ]
+
+  fileprivate class _StorageClass {
+    var _point: FlutterHereMaps_PointF? = nil
+    var _coordinate: FlutterHereMaps_Coordinate? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _point = source._point
+      _coordinate = source._coordinate
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        switch fieldNumber {
+        case 1: try decoder.decodeSingularMessageField(value: &_storage._point)
+        case 2: try decoder.decodeSingularMessageField(value: &_storage._coordinate)
+        default: break
+        }
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      if let v = _storage._point {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+      }
+      if let v = _storage._coordinate {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+      }
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: FlutterHereMaps_MapPoint, rhs: FlutterHereMaps_MapPoint) -> Bool {
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._point != rhs_storage._point {return false}
+        if _storage._coordinate != rhs_storage._coordinate {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
