@@ -8,8 +8,8 @@ import 'here_map_contorller.dart';
 import '../proto_gen/map_objects.pb.dart';
 
 typedef void MapCreatedCallback(HereMapsController controller);
-typedef PointCallback = void Function(PointF point);
-typedef PinchCallback = void Function(PointF point, double pinch);
+typedef PointCallback = void Function(MapPoint point);
+typedef PinchCallback = void Function(MapPoint point, double pinch);
 typedef RotationCallback = void Function(double rotate);
 
 class MapView extends StatefulWidget {
@@ -130,20 +130,19 @@ class _MapViewState extends State<MapView> with MapViewGestures {
 
   onMapGestureEventDateReceived(MapGesture mapGesture) {
     if (mapGesture.hasTapEvent()) {
-      widget.onTap(mapGesture.tapEvent.point.point);
+      widget.onTap(mapGesture.tapEvent.point);
     }
     if (mapGesture.hasLongPressEvent()) {
-      widget.onLongPress(mapGesture.longPressEvent.mapPoint.point);
+      widget.onLongPress(mapGesture.longPressEvent.mapPoint);
     }
     if (mapGesture.hasPinchZoom()) {
-      widget.onPinch(
-          mapGesture.pinchZoom.point.point, mapGesture.pinchZoom.zoom);
+      widget.onPinch(mapGesture.pinchZoom.point, mapGesture.pinchZoom.zoom);
     }
     if (mapGesture.hasTwoFingerTap()) {
-      widget.onTwoFingerTap(mapGesture.twoFingerTap.point.point);
+      widget.onTwoFingerTap(mapGesture.twoFingerTap.point);
     }
     if (mapGesture.hasDoubleTap()) {
-      widget.onDoubleTap(mapGesture.doubleTap.point.point);
+      widget.onDoubleTap(mapGesture.doubleTap.point);
     }
     if (mapGesture.hasRotate()) {
       widget.onRotation(mapGesture.rotate.rotate);
