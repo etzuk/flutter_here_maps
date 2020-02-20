@@ -12,6 +12,15 @@ extension FlutterHereMaps_Coordinate {
     }
 }
 
+extension NMAGeoCoordinates {
+    func toCoordinate() -> FlutterHereMaps_Coordinate {
+         var coordinate = FlutterHereMaps_Coordinate()
+        coordinate.lat = self.latitude
+        coordinate.lng = self.longitude
+        return coordinate
+    }
+}
+
 extension FlutterHereMaps_ViewRect {
     func toRect() -> CGRect {
         return CGRect(x: CGFloat(x), y: CGFloat(y), width: CGFloat(width), height: CGFloat(height))
@@ -24,5 +33,20 @@ extension CGPoint {
         point.x = Float(self.x)
         point.y = Float(self.y)
         return point
+    }
+    
+    func toCoordinate(map : NMAMapView) -> FlutterHereMaps_Coordinate {
+        return map.geoCoordinates(from: self)!.toCoordinate()
+    }
+    
+    func toMapPoint(map : NMAMapView) -> FlutterHereMaps_MapPoint {
+        let coordinate = self.toCoordinate(map: map)
+        let point = self.toPoint()
+        
+        var mapPoint = FlutterHereMaps_MapPoint()
+        mapPoint.coordinate = coordinate
+        mapPoint.point = point
+     
+        return mapPoint
     }
 }

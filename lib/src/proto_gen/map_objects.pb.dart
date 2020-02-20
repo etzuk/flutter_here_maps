@@ -727,7 +727,7 @@ class MapGesture extends $pb.GeneratedMessage {
 
 class LongPressEvent extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('LongPressEvent', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
-    ..aOM<PointF>(1, 'point', subBuilder: PointF.create)
+    ..aOM<MapPoint>(1, 'mapPoint', subBuilder: MapPoint.create)
     ..hasRequiredFields = false
   ;
 
@@ -747,20 +747,20 @@ class LongPressEvent extends $pb.GeneratedMessage {
   static LongPressEvent _defaultInstance;
 
   @$pb.TagNumber(1)
-  PointF get point => $_getN(0);
+  MapPoint get mapPoint => $_getN(0);
   @$pb.TagNumber(1)
-  set point(PointF v) { setField(1, v); }
+  set mapPoint(MapPoint v) { setField(1, v); }
   @$pb.TagNumber(1)
-  $core.bool hasPoint() => $_has(0);
+  $core.bool hasMapPoint() => $_has(0);
   @$pb.TagNumber(1)
-  void clearPoint() => clearField(1);
+  void clearMapPoint() => clearField(1);
   @$pb.TagNumber(1)
-  PointF ensurePoint() => $_ensure(0);
+  MapPoint ensureMapPoint() => $_ensure(0);
 }
 
 class TwoFingerTap extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('TwoFingerTap', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
-    ..aOM<PointF>(1, 'point', subBuilder: PointF.create)
+    ..aOM<MapPoint>(1, 'point', subBuilder: MapPoint.create)
     ..hasRequiredFields = false
   ;
 
@@ -780,20 +780,20 @@ class TwoFingerTap extends $pb.GeneratedMessage {
   static TwoFingerTap _defaultInstance;
 
   @$pb.TagNumber(1)
-  PointF get point => $_getN(0);
+  MapPoint get point => $_getN(0);
   @$pb.TagNumber(1)
-  set point(PointF v) { setField(1, v); }
+  set point(MapPoint v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasPoint() => $_has(0);
   @$pb.TagNumber(1)
   void clearPoint() => clearField(1);
   @$pb.TagNumber(1)
-  PointF ensurePoint() => $_ensure(0);
+  MapPoint ensurePoint() => $_ensure(0);
 }
 
 class DoubleTap extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('DoubleTap', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
-    ..aOM<PointF>(1, 'point', subBuilder: PointF.create)
+    ..aOM<MapPoint>(1, 'point', subBuilder: MapPoint.create)
     ..hasRequiredFields = false
   ;
 
@@ -813,15 +813,15 @@ class DoubleTap extends $pb.GeneratedMessage {
   static DoubleTap _defaultInstance;
 
   @$pb.TagNumber(1)
-  PointF get point => $_getN(0);
+  MapPoint get point => $_getN(0);
   @$pb.TagNumber(1)
-  set point(PointF v) { setField(1, v); }
+  set point(MapPoint v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasPoint() => $_has(0);
   @$pb.TagNumber(1)
   void clearPoint() => clearField(1);
   @$pb.TagNumber(1)
-  PointF ensurePoint() => $_ensure(0);
+  MapPoint ensurePoint() => $_ensure(0);
 }
 
 class TiltEvent extends $pb.GeneratedMessage {
@@ -857,7 +857,7 @@ class TiltEvent extends $pb.GeneratedMessage {
 
 class TapEvent extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('TapEvent', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
-    ..aOM<PointF>(1, 'point', subBuilder: PointF.create)
+    ..aOM<MapPoint>(1, 'point', subBuilder: MapPoint.create)
     ..hasRequiredFields = false
   ;
 
@@ -877,21 +877,21 @@ class TapEvent extends $pb.GeneratedMessage {
   static TapEvent _defaultInstance;
 
   @$pb.TagNumber(1)
-  PointF get point => $_getN(0);
+  MapPoint get point => $_getN(0);
   @$pb.TagNumber(1)
-  set point(PointF v) { setField(1, v); }
+  set point(MapPoint v) { setField(1, v); }
   @$pb.TagNumber(1)
   $core.bool hasPoint() => $_has(0);
   @$pb.TagNumber(1)
   void clearPoint() => clearField(1);
   @$pb.TagNumber(1)
-  PointF ensurePoint() => $_ensure(0);
+  MapPoint ensurePoint() => $_ensure(0);
 }
 
 class PinchZoom extends $pb.GeneratedMessage {
   static final $pb.BuilderInfo _i = $pb.BuilderInfo('PinchZoom', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
     ..a<$core.double>(1, 'zoom', $pb.PbFieldType.OF)
-    ..aOM<PointF>(2, 'point', subBuilder: PointF.create)
+    ..aOM<MapPoint>(2, 'point', subBuilder: MapPoint.create)
     ..hasRequiredFields = false
   ;
 
@@ -920,15 +920,15 @@ class PinchZoom extends $pb.GeneratedMessage {
   void clearZoom() => clearField(1);
 
   @$pb.TagNumber(2)
-  PointF get point => $_getN(1);
+  MapPoint get point => $_getN(1);
   @$pb.TagNumber(2)
-  set point(PointF v) { setField(2, v); }
+  set point(MapPoint v) { setField(2, v); }
   @$pb.TagNumber(2)
   $core.bool hasPoint() => $_has(1);
   @$pb.TagNumber(2)
   void clearPoint() => clearField(2);
   @$pb.TagNumber(2)
-  PointF ensurePoint() => $_ensure(1);
+  MapPoint ensurePoint() => $_ensure(1);
 }
 
 class Rotate extends $pb.GeneratedMessage {
@@ -960,6 +960,51 @@ class Rotate extends $pb.GeneratedMessage {
   $core.bool hasRotate() => $_has(0);
   @$pb.TagNumber(1)
   void clearRotate() => clearField(1);
+}
+
+class MapPoint extends $pb.GeneratedMessage {
+  static final $pb.BuilderInfo _i = $pb.BuilderInfo('MapPoint', package: const $pb.PackageName('FlutterHereMaps'), createEmptyInstance: create)
+    ..aOM<PointF>(1, 'point', subBuilder: PointF.create)
+    ..aOM<Coordinate>(2, 'coordinate', subBuilder: Coordinate.create)
+    ..hasRequiredFields = false
+  ;
+
+  MapPoint._() : super();
+  factory MapPoint() => create();
+  factory MapPoint.fromBuffer($core.List<$core.int> i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromBuffer(i, r);
+  factory MapPoint.fromJson($core.String i, [$pb.ExtensionRegistry r = $pb.ExtensionRegistry.EMPTY]) => create()..mergeFromJson(i, r);
+  MapPoint clone() => MapPoint()..mergeFromMessage(this);
+  MapPoint copyWith(void Function(MapPoint) updates) => super.copyWith((message) => updates(message as MapPoint));
+  $pb.BuilderInfo get info_ => _i;
+  @$core.pragma('dart2js:noInline')
+  static MapPoint create() => MapPoint._();
+  MapPoint createEmptyInstance() => create();
+  static $pb.PbList<MapPoint> createRepeated() => $pb.PbList<MapPoint>();
+  @$core.pragma('dart2js:noInline')
+  static MapPoint getDefault() => _defaultInstance ??= $pb.GeneratedMessage.$_defaultFor<MapPoint>(create);
+  static MapPoint _defaultInstance;
+
+  @$pb.TagNumber(1)
+  PointF get point => $_getN(0);
+  @$pb.TagNumber(1)
+  set point(PointF v) { setField(1, v); }
+  @$pb.TagNumber(1)
+  $core.bool hasPoint() => $_has(0);
+  @$pb.TagNumber(1)
+  void clearPoint() => clearField(1);
+  @$pb.TagNumber(1)
+  PointF ensurePoint() => $_ensure(0);
+
+  @$pb.TagNumber(2)
+  Coordinate get coordinate => $_getN(1);
+  @$pb.TagNumber(2)
+  set coordinate(Coordinate v) { setField(2, v); }
+  @$pb.TagNumber(2)
+  $core.bool hasCoordinate() => $_has(1);
+  @$pb.TagNumber(2)
+  void clearCoordinate() => clearField(2);
+  @$pb.TagNumber(2)
+  Coordinate ensureCoordinate() => $_ensure(1);
 }
 
 class PointF extends $pb.GeneratedMessage {
