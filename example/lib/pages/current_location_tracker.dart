@@ -200,7 +200,8 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
       bool serviceStatus = await _locationService.serviceEnabled();
       print("Service status: $serviceStatus");
       if (serviceStatus) {
-        _permission = await _locationService.requestPermission();
+        _permission = await _locationService.requestPermission() ==
+            PermissionStatus.GRANTED;
         print("Permission: $_permission");
         if (_permission) {
           _locationSubscription = _locationService
