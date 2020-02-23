@@ -4,6 +4,12 @@ A Flutter plugin that provides a Here Maps widget.
 
 ## Getting Started
 
+```
+git clone https://github.com/etzuk/flutter_here_maps.git
+cd flutter_here_maps
+flutter pub get
+```
+
 ### Getting HERE maps keys.
 
 To be able to show the HERE maps you must have appId, appCode and licenseKey
