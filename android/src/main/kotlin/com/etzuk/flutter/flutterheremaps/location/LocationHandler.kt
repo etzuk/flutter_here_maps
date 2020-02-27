@@ -21,11 +21,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class LocationHandler(private val registrar: PluginRegistry.Registrar, private val channel: MethodChannel) : MethodChannel.MethodCallHandler, PluginRegistry.RequestPermissionsResultListener {
+class LocationHandler(private val registrar: PluginRegistry.Registrar, private val channel: MethodChannel) : MethodChannel.MethodCallHandler {
 
     companion object {
         private const val LOCATION_READ_EVENT = "on_location_read"
-        private const val REQUEST_PERMISSIONS_REQUEST_CODE = 435
         private const val ARGUMENT_SETTINGS_KEY = "settings"
     }
 
@@ -68,6 +67,11 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
     private fun handleMethodCalls(call: MethodCall, result: MethodChannel.Result) {
         when (call.method) {
             "start_location_service" -> {
+                if (!checkPermissions()) {
+                    result.error("location_permission_missing", "Manifest.permission.ACCESS_FINE_LOCATION must be granted", null);
+                    return
+                }
+
                 call.argument<ByteArray>(ARGUMENT_SETTINGS_KEY)?.let {
                     try {
                         LocationObjects.AndroidLocationSettings.parseFrom(it)?.let { androidSettings ->
@@ -101,20 +105,15 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
 
 
     private fun startBackgroundTracking(settings: LocationObjects.AndroidLocationSettings) {
-        if (!checkPermissions()) {
-            registrar.addRequestPermissionsResultListener(this)
-            requestPermissions()
-        } else {
-            localBroadcastManager.unregisterReceiver(mReceiver)
-            val filter = IntentFilter(BackgroundLocationService.BROADCAST_ACTION)
+        localBroadcastManager.unregisterReceiver(mReceiver)
+        val filter = IntentFilter(BackgroundLocationService.BROADCAST_ACTION)
 
-            localBroadcastManager.registerReceiver(mReceiver, filter)
-            val intent = Intent(context, BackgroundLocationService::class.java).apply {
-                putExtra(BackgroundLocationService.EXTRA_SETTINGS, settings.toByteArray())
-            }
-
-            ContextCompat.startForegroundService(context, intent)
+        localBroadcastManager.registerReceiver(mReceiver, filter)
+        val intent = Intent(context, BackgroundLocationService::class.java).apply {
+            putExtra(BackgroundLocationService.EXTRA_SETTINGS, settings.toByteArray())
         }
+
+        ContextCompat.startForegroundService(context, intent)
     }
 
     private fun checkPermissions(): Boolean {
@@ -122,33 +121,5 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
                 Manifest.permission.ACCESS_FINE_LOCATION)
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?): Boolean {
-        if (requestCode == REQUEST_PERMISSIONS_REQUEST_CODE) {
-            when {
-                grantResults!!.isEmpty() -> {
-                    Log.i("BackgroundLocation", "User interaction was cancelled.")
-                }
-                grantResults[0] == PackageManager.PERMISSION_GRANTED -> settings?.let { startBackgroundTracking(it) }
-                else -> {
-                    //TODO
-                }
-            }
-            return true
-        }
-        return false
-    }
-
-
-    private fun requestPermissions() {
-        //TODO
-        val shouldProvideRationale = ActivityCompat.shouldShowRequestPermissionRationale(registrar.activity(), Manifest.permission.ACCESS_FINE_LOCATION)
-//        if (shouldProvideRationale) {
-//            Log.i(TAG, "Displaying permission rationale to provide additional context.")
-//        } else {
-        ActivityCompat.requestPermissions(registrar.activity(),
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                REQUEST_PERMISSIONS_REQUEST_CODE)
-//    }
-    }
 }
 

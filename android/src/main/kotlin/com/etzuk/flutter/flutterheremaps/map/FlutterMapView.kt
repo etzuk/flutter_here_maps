@@ -8,6 +8,7 @@ import android.app.Application
 import android.content.Context
 import android.content.pm.PackageManager
 import android.graphics.PointF
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.app.ActivityCompat
@@ -50,7 +51,8 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     init {
-        if (ActivityCompat.checkSelfPermission(
+        if (Build.VERSION.SDK_INT < 19
+                && ActivityCompat.checkSelfPermission(
                         registrar.context(), Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
             // Needed only in android so will be requested in native level.
@@ -82,7 +84,8 @@ class FlutterMapView(private val registrar: PluginRegistry.Registrar, private va
     }
 
     private fun initMapEngine() {
-        MapSettings.setIsolatedDiskCacheRootPath("${registrar.context().getExternalFilesDir(null)}${File.separator}.here-maps",
+        val diskCacheRoot = registrar.context().filesDir.path + File.separator + ".isolated-here-maps"
+        MapSettings.setIsolatedDiskCacheRootPath(diskCacheRoot,
                 registrar.context().packageName)
         if (!MapEngine.isInitialized()) {
             MapEngine.getInstance().init(ApplicationContext(context), this)
