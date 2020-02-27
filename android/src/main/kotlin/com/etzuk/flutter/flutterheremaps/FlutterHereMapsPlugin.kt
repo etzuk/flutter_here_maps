@@ -25,8 +25,6 @@ class FlutterHereMapsPlugin {
             if (registrar.activity() != null) {
                 val channel = MethodChannel(registrar.messenger(), METHOD_CHANNEL_NAME)
                 val handler = LocationHandler(registrar, channel)
-
-                registrar.addRequestPermissionsResultListener(handler)
                 channel.setMethodCallHandler(handler)
             }
         }
