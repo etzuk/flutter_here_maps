@@ -26,8 +26,10 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
     private lateinit var positioningManager: PositioningManager
 
     companion object {
-        const val BROADCAST_ACTION = "Location_Broadcast_Actions"
-        const val EXTRA_DATA = "Location_Read_Data"
+        const val LOCATION_BROADCAST_ACTION = "Location_Broadcast_Actions"
+        const val TERMINATED_BROADCAST_ACTION = "TERMINATED_BROADCAST_ACTION"
+
+        const val EXTRA_DATA = "EXTRA_DATA"
         const val EXTRA_SETTINGS = "Location_Settings"
         const val WAKE_LOCK_TAG = "BackgroundLocationService::WakeLock"
 
@@ -78,8 +80,8 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
     }
 
     override fun onTaskRemoved(root: Intent?) {
+        notifyAndStop()
         super.onTaskRemoved(root)
-        cleanup()
     }
 
     private fun createNotificationChannel(androidSettings: LocationObjects.AndroidLocationSettings) {
@@ -87,7 +89,7 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
             val serviceChannel = NotificationChannel(
                     androidSettings.notificationSettings.channelId,
                     androidSettings.notificationSettings.channelName,
-                    NotificationManager.IMPORTANCE_DEFAULT
+                    NotificationManager.IMPORTANCE_LOW
             )
             val manager: NotificationManager = getSystemService(NotificationManager::class.java)
             manager.createNotificationChannel(serviceChannel)
@@ -102,7 +104,6 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
 
         val hereDataSource = LocationDataSourceHERE.getInstance()
         if (hereDataSource != null) {
-
             positioningManager.dataSource = hereDataSource
             positioningManager.addListener(WeakReference<PositioningManager.OnPositionChangedListener>(this))
             if (positioningManager.start(PositioningManager.LocationMethod.values()[locationMethod.ordinal])) {
@@ -110,9 +111,22 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
                 // Position updates started successfully.
             } else {
                 Log.e("Background locations", "error starting tracking")
-                stopSelf()
+                notifyAndStop(extraData = "error starting position manager")
+            }
+        } else {
+            notifyAndStop(extraData = "cannot find hereDataSource")
+        }
+    }
+
+    private fun notifyAndStop(extraData: String? = null) {
+        val data = Intent().setAction(TERMINATED_BROADCAST_ACTION).apply {
+            extraData?.let {
+                putExtra(EXTRA_DATA, extraData)
             }
         }
+
+        localBroadcastReceiver.sendBroadcast(data)
+        stopSelf()
     }
 
     override fun onDestroy() {
@@ -134,7 +148,6 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
             }
         }
         stopForeground(true)
-        stopSelf()
     }
 
     override fun onPositionFixChanged(p0: PositioningManager.LocationMethod?, p1: PositioningManager.LocationStatus?) {
@@ -142,7 +155,7 @@ class BackgroundLocationService : Service(), PositioningManager.OnPositionChange
     }
 
     override fun onPositionUpdated(p0: PositioningManager.LocationMethod?, geoPosition: GeoPosition, p2: Boolean) {
-        val data = Intent().setAction(BROADCAST_ACTION).putExtra(EXTRA_DATA, geoPosition.toLocation().toByteArray())
+        val data = Intent().setAction(LOCATION_BROADCAST_ACTION).putExtra(EXTRA_DATA, geoPosition.toLocation().toByteArray())
         localBroadcastReceiver.sendBroadcast(data)
     }
 
