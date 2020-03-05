@@ -11,6 +11,8 @@ import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.localbroadcastmanager.content.LocalBroadcastManager
+import com.etzuk.flutter.flutterheremaps.location.BackgroundLocationService.Companion.LOCATION_BROADCAST_ACTION
+import com.etzuk.flutter.flutterheremaps.location.BackgroundLocationService.Companion.TERMINATED_BROADCAST_ACTION
 import com.here.android.mpa.common.ApplicationContext
 import com.here.android.mpa.common.MapEngine
 import com.here.android.mpa.common.OnEngineInitListener
@@ -24,6 +26,7 @@ import kotlinx.coroutines.launch
 class LocationHandler(private val registrar: PluginRegistry.Registrar, private val channel: MethodChannel) : MethodChannel.MethodCallHandler {
 
     companion object {
+        private const val LOCATION_TERMINATE_EVENT = "location_terminate_event"
         private const val LOCATION_READ_EVENT = "on_location_read"
         private const val ARGUMENT_SETTINGS_KEY = "settings"
     }
@@ -42,11 +45,21 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
      */
     private val mReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
-            GlobalScope.launch(Dispatchers.Main) {
-                intent.getByteArrayExtra(BackgroundLocationService.EXTRA_DATA)?.let { byteArrayExtra ->
-                    channel.invokeMethod(LOCATION_READ_EVENT, byteArrayExtra)
+            when (intent.action) {
+
+                LOCATION_BROADCAST_ACTION -> {
+                    GlobalScope.launch(Dispatchers.Main) {
+                        intent.getByteArrayExtra(BackgroundLocationService.EXTRA_DATA)?.let { byteArrayExtra ->
+                            channel.invokeMethod(LOCATION_READ_EVENT, byteArrayExtra)
+                        }
+                    }
+                }
+
+                TERMINATED_BROADCAST_ACTION -> {
+                    channel.invokeMethod(LOCATION_TERMINATE_EVENT, "")
                 }
             }
+
         }
     }
 
@@ -106,7 +119,7 @@ class LocationHandler(private val registrar: PluginRegistry.Registrar, private v
 
     private fun startBackgroundTracking(settings: LocationObjects.AndroidLocationSettings) {
         localBroadcastManager.unregisterReceiver(mReceiver)
-        val filter = IntentFilter(BackgroundLocationService.BROADCAST_ACTION)
+        val filter = IntentFilter(LOCATION_BROADCAST_ACTION)
 
         localBroadcastManager.registerReceiver(mReceiver, filter)
         val intent = Intent(context, BackgroundLocationService::class.java).apply {
