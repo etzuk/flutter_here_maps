@@ -7,6 +7,7 @@ import 'package:flutter_here_maps_example/drawer.dart';
 import 'package:location/location.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_here_maps_example/widgets/MapCenterSlidersDialog.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class CurrentLocationTrackerPage extends StatefulWidget {
   static const String route = 'current_location_tracker';
@@ -158,6 +159,12 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   _initPlatformState() async {
+    var p = await PermissionHandler()
+        .requestPermissions([PermissionGroup.location]);
+    if (p[PermissionGroup.location] != PermissionStatus.granted) {
+      return;
+    }
+
     if (Platform.isIOS) {
       await oldLocationProvider();
     } else {
@@ -200,8 +207,7 @@ class _CurrentLocationTrackerState extends State<CurrentLocationTrackerPage> {
       bool serviceStatus = await _locationService.serviceEnabled();
       print("Service status: $serviceStatus");
       if (serviceStatus) {
-        _permission = await _locationService.requestPermission() ==
-            PermissionStatus.GRANTED;
+        _permission = await _locationService.requestPermission();
         print("Permission: $_permission");
         if (_permission) {
           _locationSubscription = _locationService
