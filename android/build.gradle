@@ -2,7 +2,7 @@ group 'com.etzuk.flutter.flutterheremaps'
 version '1.0-SNAPSHOT'
 
 buildscript {
-    ext.kotlin_version = '1.3.0'
+    ext.kotlin_version = '1.3.61'
     ext.protobufVersion = '0.8.8'
     repositories {
         google()
@@ -72,6 +72,6 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation 'com.google.protobuf:protobuf-lite:3.0.1'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3'
+    implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     // androidx not supported in HereMaps SDK.
-    implementation 'com.android.support:support-v13:28.0.2'
 }
